@@ -10,8 +10,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body{font-family:'DM Sans',sans-serif;background:#f0f2f0;color:#0e1a12;-webkit-font-smoothing:antialiased;}
 input,textarea,select,button{font-family:'DM Sans',sans-serif;}
-
-/* PAGES */
 .page{display:none;min-height:100vh;}
 .page.active{display:block;}
 
@@ -22,8 +20,8 @@ input,textarea,select,button{font-family:'DM Sans',sans-serif;}
 .logo-mark svg{width:17px;height:17px;}
 .logo-text{font-family:‘Playfair Display’,serif;font-size:1.3rem;font-weight:800;color:#fff;letter-spacing:0.02em;}
 .nav-links{display:flex;gap:6px;align-items:center;}
-.nav-link{background:transparent;color:rgba(255,255,255,0.75);border:1.5px solid rgba(255,255,255,0.25);border-radius:7px;padding:6px 11px;font-size:0.72rem;font-weight:600;cursor:pointer;}
-.nav-link.gold{background:#c9a55a;color:#0e1a12;border-color:#c9a55a;font-weight:700;}
+.nav-link{background:transparent;color:rgba(255,255,255,0.8);border:1.5px solid rgba(255,255,255,0.25);border-radius:7px;padding:6px 11px;font-size:0.72rem;font-weight:700;cursor:pointer;}
+.nav-link.gold{background:#c9a55a;color:#0e1a12;border-color:#c9a55a;}
 
 /* HERO */
 .hero{background:#0e1a12;padding:32px 16px 28px;position:relative;overflow:hidden;}
@@ -86,16 +84,16 @@ input,textarea,select,button{font-family:'DM Sans',sans-serif;}
 .rating-count{font-size:0.7rem;font-weight:600;color:#2d5c3a;}
 .book-btn{border:none;border-radius:9px;padding:9px 16px;font-size:0.8rem;font-weight:700;cursor:pointer;color:#fff;}
 
-/* INSTRUCTOR PROFILE PAGE */
+/* PROFILE PAGE */
 .profile-hero{width:100%;height:260px;position:relative;overflow:hidden;}
 .profile-hero-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
 .profile-hero-initials{font-family:‘Playfair Display’,serif;font-size:7rem;font-weight:800;color:rgba(255,255,255,0.15);}
 .profile-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,26,18,0.95) 0%,rgba(14,26,18,0.1) 60%,transparent 100%);}
-.profile-hero-back{position:absolute;top:14px;left:14px;background:rgba(0,0,0,0.4);border:1.5px solid rgba(255,255,255,0.25);border-radius:8px;color:#fff;padding:6px 12px;font-size:0.75rem;font-weight:700;cursor:pointer;}
+.profile-back-btn{position:absolute;top:14px;left:14px;background:rgba(0,0,0,0.4);border:1.5px solid rgba(255,255,255,0.25);border-radius:8px;color:#fff;padding:6px 12px;font-size:0.75rem;font-weight:700;cursor:pointer;}
 .profile-hero-content{position:absolute;bottom:16px;left:16px;right:16px;}
 .profile-hero-name{font-family:‘Playfair Display’,serif;font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:5px;}
 .profile-hero-sub{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.profile-body{padding:18px 16px 100px;background:#f0f2f0;}
+.profile-body{padding:18px 16px 120px;background:#f0f2f0;}
 .profile-stats{display:grid;grid-template-columns:repeat(4,1fr);background:#0e1a12;border-radius:12px;overflow:hidden;margin-bottom:20px;}
 .profile-stat{padding:12px 6px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
 .profile-stat:last-child{border-right:none;}
@@ -115,14 +113,13 @@ input,textarea,select,button{font-family:'DM Sans',sans-serif;}
 .profile-cta-secondary{background:#fff;border:1.5px solid #4a7a54;color:#0e1a12;border-radius:10px;padding:15px 18px;font-size:0.88rem;font-weight:700;cursor:pointer;}
 
 /* BOOKING PAGE */
-.booking-page{background:#f0f2f0;min-height:100vh;}
-.booking-header{background:#0e1a12;padding:20px 16px 22px;}
-.booking-back{background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);color:#fff;border-radius:8px;padding:6px 12px;font-size:0.75rem;font-weight:700;cursor:pointer;margin-bottom:14px;display:inline-block;}
+.booking-header{background:#0e1a12;padding:16px 16px 20px;}
+.booking-back-btn{background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);color:#fff;border-radius:8px;padding:6px 12px;font-size:0.75rem;font-weight:700;cursor:pointer;margin-bottom:14px;display:inline-block;}
 .booking-instructor-row{display:flex;align-items:center;gap:12px;}
 .booking-avatar{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:‘Playfair Display’,serif;font-size:1.1rem;font-weight:800;flex-shrink:0;}
-.booking-instructor-name{font-family:‘Playfair Display’,serif;font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:2px;}
-.booking-instructor-sub{font-size:0.72rem;font-weight:600;color:#a8c4ae;}
-.booking-body{padding:18px 16px 40px;}
+.booking-inst-name{font-family:‘Playfair Display’,serif;font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:2px;}
+.booking-inst-sub{font-size:0.72rem;font-weight:600;color:#a8c4ae;}
+.booking-body{padding:18px 16px 40px;background:#f0f2f0;}
 .week-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
 .week-label{font-family:‘Playfair Display’,serif;font-size:1rem;font-weight:700;color:#0e1a12;}
 .week-btn{background:#fff;border:1.5px solid #8aab8e;border-radius:7px;padding:6px 12px;font-size:0.78rem;font-weight:700;cursor:pointer;color:#0e1a12;}
@@ -153,9 +150,9 @@ input,textarea,select,button{font-family:'DM Sans',sans-serif;}
 .success-sub strong{color:#fff;font-weight:700;}
 .success-time{font-family:‘Playfair Display’,serif;font-size:1.1rem;font-weight:700;margin-bottom:20px;}
 .success-note{font-size:0.78rem;font-weight:500;color:#a8c4ae;line-height:1.7;margin-bottom:28px;max-width:280px;}
-.success-btn{border:none;border-radius:10px;padding:13px 32px;font-size:0.92rem;font-weight:700;cursor:pointer;color:#0e1a12;background:#c9a55a;}
+.success-btn-el{border:none;border-radius:10px;padding:13px 32px;font-size:0.92rem;font-weight:700;cursor:pointer;color:#0e1a12;background:#c9a55a;}
 
-/* PRICING PAGE */
+/* PRICING */
 .pricing-hero{background:#0e1a12;padding:36px 16px 32px;text-align:center;position:relative;}
 .pricing-hero::after{content:’’;position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#c9a55a,transparent);}
 .pricing-eyebrow{font-size:0.65rem;font-weight:700;color:#c9a55a;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;}
@@ -165,8 +162,8 @@ input,textarea,select,button{font-family:'DM Sans',sans-serif;}
 .plan-card{background:#fff;border:1.5px solid #8aab8e;border-radius:16px;padding:20px;margin-bottom:14px;position:relative;overflow:hidden;}
 .plan-card.featured{background:#0e1a12;border-color:#c9a55a;}
 .plan-card-badge{position:absolute;top:14px;right:14px;background:#c9a55a;color:#0e1a12;font-size:0.58rem;font-weight:800;letter-spacing:0.1em;padding:3px 9px;border-radius:4px;}
-.plan-card-name{font-size:0.72rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;color:#2d5c3a;}
-.plan-card.featured .plan-card-name{color:#c9a55a;}
+.plan-card-tier{font-size:0.72rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;color:#2d5c3a;}
+.plan-card.featured .plan-card-tier{color:#c9a55a;}
 .plan-card-price{font-family:‘Playfair Display’,serif;font-size:2.4rem;font-weight:800;color:#0e1a12;line-height:1;margin-bottom:4px;}
 .plan-card.featured .plan-card-price{color:#fff;}
 .plan-card-period{font-size:0.75rem;font-weight:600;color:#2d5c3a;margin-bottom:16px;}
@@ -174,10 +171,9 @@ input,textarea,select,button{font-family:'DM Sans',sans-serif;}
 .plan-card-divider{height:1.5px;background:#c8dac8;margin-bottom:16px;}
 .plan-card.featured .plan-card-divider{background:rgba(255,255,255,0.12);}
 .plan-feature{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px;}
-.plan-feature-check{font-size:0.75rem;color:#1a7a2a;flex-shrink:0;margin-top:1px;}
-.plan-card.featured .plan-feature-check{color:#c9a55a;}
+.plan-feature-check{font-size:0.75rem;flex-shrink:0;margin-top:1px;}
 .plan-feature-text{font-size:0.78rem;font-weight:500;color:#0e1a12;line-height:1.4;}
-.plan-card.featured .plan-feature-text{color:rgba(255,255,255,0.8);}
+.plan-card.featured .plan-feature-text{color:rgba(255,255,255,0.82);}
 .plan-card-btn{width:100%;border:none;border-radius:10px;padding:13px;font-size:0.92rem;font-weight:700;cursor:pointer;margin-top:16px;}
 .faq-item{background:#fff;border:1.5px solid #8aab8e;border-radius:12px;padding:16px;margin-bottom:10px;}
 .faq-q{font-size:0.85rem;font-weight:700;color:#0e1a12;margin-bottom:6px;}
@@ -239,27 +235,24 @@ input,textarea,select,button{font-family:'DM Sans',sans-serif;}
 </head>
 <body>
 
-<!-- ═══════════ HOME PAGE ═══════════ -->
+<!-- HOME -->
 
 <div class="page active" id="page-home">
   <nav class="nav">
-    <div class="logo" onclick="goTo('page-home')">
-      <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11"/><path d="M9 17l3 3 3-3"/><path d="M7 13s1.5-2 5-2 5 2 5 2"/></svg></div>
-      <span class="logo-text">Cadi</span>
-    </div>
+    <div class="logo" id="logo-home"><div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11"/><path d="M9 17l3 3 3-3"/><path d="M7 13s1.5-2 5-2 5 2 5 2"/></svg></div><span class="logo-text">Cadi</span></div>
     <div class="nav-links">
-      <button class="nav-link" onclick="goTo('page-pricing')">Pricing</button>
-      <button class="nav-link" onclick="goTo('page-dashboard')">Instructors</button>
+      <button class="nav-link" id="nav-pricing-btn">Pricing</button>
+      <button class="nav-link" id="nav-dashboard-btn">For Instructors</button>
     </div>
   </nav>
   <section class="hero">
     <div class="hero-eyebrow"><div class="hero-line"></div><span class="hero-eyebrow-text">Premier Golf Instruction</span></div>
     <h1>Find Your<br><em>Perfect</em> Instructor</h1>
-    <p class="hero-sub">Certified PGA & LPGA professionals across Utah. Tailored instruction, seamless booking.</p>
+    <p class="hero-sub">Certified PGA &amp; LPGA professionals across Utah. Tailored instruction, seamless booking.</p>
     <div class="search-wrap"><input placeholder="City, club, or zip code…"/><button class="search-btn">Search</button></div>
   </section>
   <div class="trust-bar">
-    <div class="trust-item"><span>🏆</span><span class="trust-text">PGA & LPGA Verified</span></div>
+    <div class="trust-item"><span>🏆</span><span class="trust-text">PGA &amp; LPGA Verified</span></div>
     <div class="trust-item"><span>📍</span><span class="trust-text">Utah's #1 Platform</span></div>
     <div class="trust-item"><span>⭐</span><span class="trust-text">4.9 Avg Rating</span></div>
     <div class="trust-item"><span>🔒</span><span class="trust-text">Secure Booking</span></div>
@@ -274,13 +267,13 @@ input,textarea,select,button{font-family:'DM Sans',sans-serif;}
   </div>
 </div>
 
-<!-- ═══════════ INSTRUCTOR PROFILE PAGE ═══════════ -->
+<!-- PROFILE -->
 
 <div class="page" id="page-profile">
-  <div class="profile-hero" id="prof-hero">
+  <div class="profile-hero">
     <div class="profile-hero-bg" id="prof-hero-bg"><div class="profile-hero-initials" id="prof-initials"></div></div>
     <div class="profile-hero-overlay"></div>
-    <button class="profile-hero-back" onclick="goTo('page-home')">← Back</button>
+    <button class="profile-back-btn" id="prof-back-btn">← Back</button>
     <div class="profile-hero-content">
       <div class="profile-hero-name" id="prof-name"></div>
       <div class="profile-hero-sub" id="prof-sub"></div>
@@ -296,45 +289,43 @@ input,textarea,select,button{font-family:'DM Sans',sans-serif;}
     <div class="achievements" id="prof-achievements"></div>
     <div class="profile-cta-row">
       <button class="profile-cta-primary" id="prof-book-btn">Book a Session</button>
-      <button class="profile-cta-secondary" onclick="alert('Message feature coming soon!')">Message</button>
+      <button class="profile-cta-secondary" id="prof-msg-btn">Message</button>
     </div>
   </div>
 </div>
 
-<!-- ═══════════ BOOKING PAGE ═══════════ -->
+<!-- BOOKING -->
 
 <div class="page" id="page-booking">
-  <div class="booking-page">
-    <div class="booking-header">
-      <button class="booking-back" id="booking-back-btn">← Back to Profile</button>
-      <div class="booking-instructor-row">
-        <div class="booking-avatar" id="booking-avatar"></div>
-        <div>
-          <div class="booking-instructor-name" id="booking-inst-name"></div>
-          <div class="booking-instructor-sub" id="booking-inst-sub"></div>
-        </div>
+  <div class="booking-header">
+    <button class="booking-back-btn" id="booking-back-btn">← Back to Profile</button>
+    <div class="booking-instructor-row">
+      <div class="booking-avatar" id="booking-avatar"></div>
+      <div>
+        <div class="booking-inst-name" id="booking-inst-name"></div>
+        <div class="booking-inst-sub" id="booking-inst-sub"></div>
       </div>
     </div>
-    <div class="booking-body">
-      <div class="week-nav">
-        <button class="week-btn">← Prev</button>
-        <span class="week-label">April 7 – 13, 2026</span>
-        <button class="week-btn">Next →</button>
-      </div>
-      <div class="legend" id="booking-legend"></div>
-      <div class="cal-scroll"><table class="cal-table" id="cal-table"></table></div>
-      <div class="book-footer">
-        <div id="book-sel-display"><div style="font-size:0.75rem;font-weight:600;color:#0e1a12">Select an open slot above</div></div>
-        <div style="display:flex;gap:9px;align-items:center">
-          <span class="book-price-tag" id="book-price"></span>
-          <button class="confirm-btn" id="confirm-btn" disabled onclick="confirmBooking()">Confirm →</button>
-        </div>
+  </div>
+  <div class="booking-body">
+    <div class="week-nav">
+      <button class="week-btn">← Prev</button>
+      <span class="week-label">April 7 – 13, 2026</span>
+      <button class="week-btn">Next →</button>
+    </div>
+    <div class="legend" id="booking-legend"></div>
+    <div class="cal-scroll"><table class="cal-table" id="cal-table"></table></div>
+    <div class="book-footer">
+      <div id="book-sel-display"><span style="font-size:0.75rem;font-weight:600;color:#0e1a12">Select an open slot above</span></div>
+      <div style="display:flex;gap:9px;align-items:center">
+        <span class="book-price-tag" id="book-price"></span>
+        <button class="confirm-btn" id="confirm-btn">Confirm →</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════ SUCCESS PAGE ═══════════ -->
+<!-- SUCCESS -->
 
 <div class="page" id="page-success">
   <div class="success-screen">
@@ -344,115 +335,83 @@ input,textarea,select,button{font-family:'DM Sans',sans-serif;}
     <p class="success-sub">Session with <strong id="s-name"></strong></p>
     <div class="success-time" id="s-time"></div>
     <p class="success-note">A confirmation has been sent to your email. Your instructor will reach out 24 hours before your session.</p>
-    <button class="success-btn" onclick="goTo('page-home')">Back to Cadi</button>
+    <button class="success-btn-el" id="success-home-btn">Back to Cadi</button>
   </div>
 </div>
 
-<!-- ═══════════ PRICING PAGE ═══════════ -->
+<!-- PRICING -->
 
 <div class="page" id="page-pricing">
   <nav class="nav">
-    <div class="logo" onclick="goTo('page-home')">
-      <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11"/><path d="M9 17l3 3 3-3"/><path d="M7 13s1.5-2 5-2 5 2 5 2"/></svg></div>
-      <span class="logo-text">Cadi</span>
-    </div>
-    <div class="nav-links">
-      <button class="nav-link" onclick="goTo('page-home')">← Find Instructors</button>
-    </div>
+    <div class="logo" id="logo-pricing"><div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11"/><path d="M9 17l3 3 3-3"/><path d="M7 13s1.5-2 5-2 5 2 5 2"/></svg></div><span class="logo-text">Cadi</span></div>
+    <div class="nav-links"><button class="nav-link" id="pricing-back-btn">← Back</button></div>
   </nav>
   <div class="pricing-hero">
     <div class="pricing-eyebrow">Instructor Membership</div>
-    <div class="pricing-title">Grow Your<br><em style="font-family:'Playfair Display',serif;font-style:italic;color:#d4b472">Teaching Business</em></div>
+    <div class="pricing-title">Grow Your Teaching Business</div>
     <p class="pricing-sub">Simple, transparent pricing. Get listed, get booked, get paid.</p>
   </div>
   <div class="pricing-body">
     <div class="plan-card">
-      <div class="plan-card-name">Basic</div>
+      <div class="plan-card-tier">Basic</div>
       <div class="plan-card-price">$29</div>
       <div class="plan-card-period">per month · billed monthly</div>
       <div class="plan-card-divider"></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Listed profile on Cadi</span></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Bio, photo & specialty tags</span></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Contact form for inquiries</span></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Email support</span></div>
-      <button class="plan-card-btn" style="background:#f0f2f0;color:#0e1a12;border:1.5px solid #4a7a54;font-weight:700;" onclick="alert('Sign up coming soon!')">Get Started</button>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#1a7a2a">✓</span><span class="plan-feature-text">Listed profile on Cadi</span></div>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#1a7a2a">✓</span><span class="plan-feature-text">Bio, photo &amp; specialty tags</span></div>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#1a7a2a">✓</span><span class="plan-feature-text">Contact form for inquiries</span></div>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#1a7a2a">✓</span><span class="plan-feature-text">Email support</span></div>
+      <button class="plan-card-btn" style="background:#f0f2f0;color:#0e1a12;border:1.5px solid #4a7a54;font-weight:700;">Get Started</button>
     </div>
     <div class="plan-card featured">
       <div class="plan-card-badge">MOST POPULAR</div>
-      <div class="plan-card-name">Pro</div>
+      <div class="plan-card-tier">Pro</div>
       <div class="plan-card-price">$79</div>
       <div class="plan-card-period">per month · billed monthly</div>
       <div class="plan-card-divider"></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Everything in Basic</span></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Featured placement in search results</span></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Full calendar & instant booking</span></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Student reviews & ratings</span></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Earnings & analytics dashboard</span></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Priority support</span></div>
-      <button class="plan-card-btn" style="background:#c9a55a;color:#0e1a12;font-weight:800;" onclick="alert('Sign up coming soon!')">Get Started</button>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#c9a55a">✓</span><span class="plan-feature-text">Everything in Basic</span></div>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#c9a55a">✓</span><span class="plan-feature-text">Featured placement in search</span></div>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#c9a55a">✓</span><span class="plan-feature-text">Full calendar &amp; instant booking</span></div>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#c9a55a">✓</span><span class="plan-feature-text">Student reviews &amp; ratings</span></div>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#c9a55a">✓</span><span class="plan-feature-text">Earnings &amp; analytics dashboard</span></div>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#c9a55a">✓</span><span class="plan-feature-text">Priority support</span></div>
+      <button class="plan-card-btn" style="background:#c9a55a;color:#0e1a12;font-weight:800;">Get Started</button>
     </div>
     <div class="plan-card">
-      <div class="plan-card-name">Elite</div>
+      <div class="plan-card-tier">Elite</div>
       <div class="plan-card-price">$149</div>
       <div class="plan-card-period">per month · billed monthly</div>
       <div class="plan-card-divider"></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Everything in Pro</span></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">#1 placement in local search</span></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Elite badge on profile</span></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Zero booking fees</span></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Dedicated account manager</span></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Press kit & media assets</span></div>
-      <div class="plan-feature"><span class="plan-feature-check">✓</span><span class="plan-feature-text">Custom profile URL</span></div>
-      <button class="plan-card-btn" style="background:#0e1a12;color:#fff;font-weight:700;" onclick="alert('Sign up coming soon!')">Get Started</button>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#1a7a2a">✓</span><span class="plan-feature-text">Everything in Pro</span></div>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#1a7a2a">✓</span><span class="plan-feature-text">#1 placement in local search</span></div>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#1a7a2a">✓</span><span class="plan-feature-text">Elite badge on profile</span></div>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#1a7a2a">✓</span><span class="plan-feature-text">Zero booking fees</span></div>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#1a7a2a">✓</span><span class="plan-feature-text">Dedicated account manager</span></div>
+      <div class="plan-feature"><span class="plan-feature-check" style="color:#1a7a2a">✓</span><span class="plan-feature-text">Custom profile URL</span></div>
+      <button class="plan-card-btn" style="background:#0e1a12;color:#fff;font-weight:700;">Get Started</button>
     </div>
-
-```
-<div style="margin-top:30px;margin-bottom:16px">
-  <div class="section-head"><span class="section-label">FAQ</span><div class="section-line"></div></div>
-</div>
-<div class="faq-item">
-  <div class="faq-q">Is there a booking fee on top of my plan?</div>
-  <div class="faq-a">Basic and Pro plans include a 5% booking fee per session. Elite members pay zero booking fees — keeping 100% of every session rate.</div>
-</div>
-<div class="faq-item">
-  <div class="faq-q">Can I cancel anytime?</div>
-  <div class="faq-a">Yes. All plans are month-to-month with no contracts. Cancel anytime from your dashboard.</div>
-</div>
-<div class="faq-item">
-  <div class="faq-q">How do I get paid?</div>
-  <div class="faq-a">Payments are processed securely via Stripe and deposited directly to your bank account within 2 business days of each session.</div>
-</div>
-<div class="faq-item">
-  <div class="faq-q">Do students pay to use Cadi?</div>
-  <div class="faq-a">No. Cadi is completely free for golfers to browse, book, and review instructors.</div>
-</div>
-<div class="faq-item">
-  <div class="faq-q">What if I'm just starting out?</div>
-  <div class="faq-a">Basic is a great starting point. You can upgrade to Pro or Elite at any time as your bookings grow.</div>
-</div>
-```
-
+    <div style="margin:28px 0 14px"><div class="section-head"><span class="section-label">FAQ</span><div class="section-line"></div></div></div>
+    <div class="faq-item"><div class="faq-q">Is there a booking fee on top of my plan?</div><div class="faq-a">Basic and Pro plans include a 5% booking fee per session. Elite members pay zero booking fees — keeping 100% of every session rate.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I cancel anytime?</div><div class="faq-a">Yes. All plans are month-to-month with no contracts. Cancel anytime from your dashboard.</div></div>
+    <div class="faq-item"><div class="faq-q">How do I get paid?</div><div class="faq-a">Payments are processed securely via Stripe and deposited directly to your bank account within 2 business days of each session.</div></div>
+    <div class="faq-item"><div class="faq-q">Do students pay to use Cadi?</div><div class="faq-a">No. Cadi is completely free for golfers to browse, book, and review instructors.</div></div>
+    <div class="faq-item"><div class="faq-q">What if I'm just starting out?</div><div class="faq-a">Basic is a great starting point. You can upgrade to Pro or Elite at any time as your bookings grow.</div></div>
   </div>
 </div>
 
-<!-- ═══════════ DASHBOARD PAGE ═══════════ -->
+<!-- DASHBOARD -->
 
 <div class="page" id="page-dashboard">
   <nav class="nav">
-    <div class="logo" onclick="goTo('page-home')">
-      <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11"/><path d="M9 17l3 3 3-3"/><path d="M7 13s1.5-2 5-2 5 2 5 2"/></svg></div>
-      <span class="logo-text">Cadi</span>
-    </div>
-    <div class="nav-links">
-      <button class="nav-link" onclick="goTo('page-home')">← Find Instructors</button>
-    </div>
+    <div class="logo" id="logo-dashboard"><div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11"/><path d="M9 17l3 3 3-3"/><path d="M7 13s1.5-2 5-2 5 2 5 2"/></svg></div><span class="logo-text">Cadi</span></div>
+    <div class="nav-links"><button class="nav-link" id="dashboard-back-btn">← Find Instructors</button></div>
   </nav>
   <div class="dashboard" id="dash-content"></div>
   <div class="tab-bar">
-    <div class="tab-item active" id="tab-home" onclick="showDashTab('home')"><div class="tab-icon">📊</div><div class="tab-label">Dashboard</div></div>
-    <div class="tab-item" id="tab-bookings" onclick="showDashTab('bookings')"><div class="tab-icon">📅</div><div class="tab-label">Bookings</div></div>
-    <div class="tab-item" id="tab-avail" onclick="showDashTab('avail')"><div class="tab-icon">🕐</div><div class="tab-label">Availability</div></div>
-    <div class="tab-item" id="tab-profile" onclick="showDashTab('profile')"><div class="tab-icon">👤</div><div class="tab-label">Profile</div></div>
+    <div class="tab-item active" id="tab-home"><div class="tab-icon">📊</div><div class="tab-label">Dashboard</div></div>
+    <div class="tab-item" id="tab-bookings"><div class="tab-icon">📅</div><div class="tab-label">Bookings</div></div>
+    <div class="tab-item" id="tab-avail"><div class="tab-icon">🕐</div><div class="tab-label">Availability</div></div>
+    <div class="tab-item" id="tab-profile"><div class="tab-icon">👤</div><div class="tab-label">Profile</div></div>
   </div>
 </div>
 
@@ -462,231 +421,297 @@ const TIMES=["7:00 AM","8:30 AM","10:00 AM","11:30 AM","1:00 PM","2:30 PM","4:00
 const TIERS={elite:{label:"ELITE",bg:"#c9a55a",text:"#0e1a12"},pro:{label:"PRO",bg:"rgba(255,255,255,0.2)",text:"#fff"},basic:{label:"BASIC",bg:"rgba(255,255,255,0.12)",text:"rgba(255,255,255,0.7)"}};
 
 const instructors=[
-  {
-    id:1,name:"Carson Lundell",tier:"elite",
-    location:"Thanksgiving Point Golf Club, Lehi, UT",distance:"Lehi, UT",
-    rating:5.0,reviews:42,handicap:"+6.0",
-    specialty:["Tour-Level Ball Striking","Mental Performance","Competitive Prep","Full Swing Mechanics"],
-    bio:"Carson Lundell is an active PGA Tour professional and one of Utah's most decorated competitive golfers. A former BYU All-American, Carson brings Tour-level insight to every lesson — from ball flight laws to pre-round routines. His sessions are designed for serious players who want to play their best golf under pressure. Limited availability due to his active playing schedule — book early.",
-    rate:250,experience:"8 yrs",students:180,sessions:"420+",
-    initials:"CL",color:"#1a3a6b",available:true,
-    achievements:[
-      {icon:"⛳",text:"<strong>Active PGA Tour Professional</strong> — Utah native"},
-      {icon:"🎓",text:"<strong>BYU All-American</strong> · Former Mountain West Champion"},
-      {icon:"🏆",text:"<strong>Utah State Amateur Champion</strong> — 3x"},
-      {icon:"📉",text:"Handicap index <strong>+6.0</strong> — among the best in the state"},
-    ]
-  },
-  {
-    id:2,name:"Rob Stanger",tier:"elite",
-    location:"Soldier Hollow Golf Course, Midway, UT",distance:"Midway, UT",
-    rating:4.97,reviews:138,handicap:"+2.1",
-    specialty:["LPGA Coaching","Women's Golf","Swing Mechanics","Junior Development"],
-    bio:"Rob Stanger is a nationally recognized LPGA teaching professional and the reigning Utah Coach of the Year. With over 15 years of experience developing players at every level, Rob is known for his ability to simplify complex swing concepts into clear, actionable cues. He has coached multiple LPGA Tour qualifiers and runs one of Utah's premier junior golf academies at Soldier Hollow.",
-    rate:175,experience:"15 yrs",students:340,sessions:"1,100+",
-    initials:"RS",color:"#1a5c2a",available:true,
-    achievements:[
-      {icon:"🥇",text:"<strong>Utah Coach of the Year</strong> — LPGA Teaching Division"},
-      {icon:"👩‍🏫",text:"Coached <strong>3 LPGA Tour qualifiers</strong> from Utah"},
-      {icon:"🏫",text:"Director — <strong>Soldier Hollow Junior Golf Academy</strong>"},
-      {icon:"📊",text:"Certified <strong>TrackMan Level 3</strong> & FlightScope Master Instructor"},
-    ]
-  },
-  {
-    id:3,name:"Melissa Tran",tier:"pro",
-    location:"Riverside Country Club, Provo, UT",distance:"Provo, UT",
-    rating:4.92,reviews:89,handicap:"+0.4",
-    specialty:["Beginner Programs","Kids & Junior Golf","Short Game Fundamentals","Women's Golf"],
-    bio:"Melissa Tran is Cadi's top-rated instructor for beginners and junior golfers. A former D-I collegiate player at Utah Valley University, Melissa has a gift for breaking down the game into simple, confidence-building steps. Her 6-week beginner program has introduced over 200 adults to the game, and her junior clinics at Riverside CC are consistently sold out. If you or your child is picking up a club for the first time, there's no better place to start.",
-    rate:95,experience:"7 yrs",students:280,sessions:"760+",
-    initials:"MT",color:"#0d5c52",available:true,
-    achievements:[
-      {icon:"👶",text:"Introduced <strong>200+ beginners</strong> to golf with 6-week program"},
-      {icon:"🧒",text:"Junior clinics at <strong>Riverside CC</strong> consistently sold out"},
-      {icon:"🎓",text:"Former <strong>UVU D-I Collegiate Player</strong>"},
-      {icon:"⭐",text:"<strong>4.92 rating</strong> — Cadi's top-rated beginner instructor"},
-    ]
-  },
-  {
-    id:4,name:"Derek Malone",tier:"pro",
-    location:"Oakridge Country Club, Salt Lake City, UT",distance:"Salt Lake City, UT",
-    rating:4.88,reviews:74,handicap:"1.8",
-    specialty:["Short Game","Putting","On-Course Strategy","Wedge Play"],
-    bio:"Derek Malone is Salt Lake City's go-to short game specialist. A PGA-certified instructor with a decade of experience at Oakridge CC, Derek has built a reputation for rapid handicap reduction — his students average a 3.8-stroke improvement in just 6 sessions. He uses SAM PuttLab technology alongside traditional feel-based drills to create lasting improvements from 100 yards and in.",
-    rate:120,experience:"10 yrs",students:195,sessions:"580+",
-    initials:"DM",color:"#7a2a2a",available:false,
-    achievements:[
-      {icon:"📉",text:"Average <strong>3.8 stroke reduction</strong> in 6 sessions"},
-      {icon:"🎯",text:"<strong>SAM PuttLab</strong> certified — advanced putting analysis"},
-      {icon:"🏌️",text:"PGA Certified · <strong>Short Game Specialist</strong>"},
-      {icon:"📰",text:"Featured in <strong>Utah Golf Magazine</strong> — Best of Utah 2024"},
-    ]
-  },
+  {id:1,name:"Carson Lundell",tier:"elite",location:"Thanksgiving Point GC, Lehi, UT",distance:"Lehi, UT",rating:5.0,reviews:42,handicap:"+6.0",specialty:["Tour-Level Ball Striking","Mental Performance","Competitive Prep","Full Swing Mechanics"],bio:"Carson Lundell is an active PGA Tour professional and one of Utah's most decorated competitive golfers. A former BYU All-American, Carson brings Tour-level insight to every lesson — from ball flight laws to pre-round routines. His sessions are designed for serious players who want to perform under pressure. Limited availability due to his active playing schedule — book early.",rate:250,experience:"8 yrs",students:180,sessions:"420+",initials:"CL",color:"#1a3a6b",available:true,achievements:[{icon:"⛳",text:"<strong>Active PGA Tour Professional</strong> — Utah native"},{icon:"🎓",text:"<strong>BYU All-American</strong> · Former Mountain West Champion"},{icon:"🏆",text:"<strong>Utah State Amateur Champion</strong> — 3x"},{icon:"📉",text:"Handicap index <strong>+6.0</strong> — among the best in the state"}]},
+  {id:2,name:"Rob Stanger",tier:"elite",location:"Soldier Hollow GC, Midway, UT",distance:"Midway, UT",rating:4.97,reviews:138,handicap:"+2.1",specialty:["LPGA Coaching","Women's Golf","Swing Mechanics","Junior Development"],bio:"Rob Stanger is a nationally recognized LPGA teaching professional and the reigning Utah Coach of the Year. With over 15 years developing players at every level, Rob is known for his ability to simplify complex swing concepts into clear, actionable cues. He has coached multiple LPGA Tour qualifiers and runs one of Utah's premier junior golf academies at Soldier Hollow.",rate:175,experience:"15 yrs",students:340,sessions:"1,100+",initials:"RS",color:"#1a5c2a",available:true,achievements:[{icon:"🥇",text:"<strong>Utah Coach of the Year</strong> — LPGA Teaching Division"},{icon:"👩‍🏫",text:"Coached <strong>3 LPGA Tour qualifiers</strong> from Utah"},{icon:"🏫",text:"Director — <strong>Soldier Hollow Junior Golf Academy</strong>"},{icon:"📊",text:"Certified <strong>TrackMan Level 3</strong> & FlightScope Master Instructor"}]},
+  {id:3,name:"Melissa Tran",tier:"pro",location:"Riverside CC, Provo, UT",distance:"Provo, UT",rating:4.92,reviews:89,handicap:"+0.4",specialty:["Beginner Programs","Kids & Junior Golf","Short Game Fundamentals","Women's Golf"],bio:"Melissa Tran is Cadi's top-rated instructor for beginners and junior golfers. A former D-I collegiate player at Utah Valley University, Melissa has a gift for breaking down the game into simple, confidence-building steps. Her 6-week beginner program has introduced over 200 adults to the game, and her junior clinics at Riverside CC are consistently sold out.",rate:95,experience:"7 yrs",students:280,sessions:"760+",initials:"MT",color:"#0d5c52",available:true,achievements:[{icon:"👶",text:"Introduced <strong>200+ beginners</strong> to golf with 6-week program"},{icon:"🧒",text:"Junior clinics at <strong>Riverside CC</strong> consistently sold out"},{icon:"🎓",text:"Former <strong>UVU D-I Collegiate Player</strong>"},{icon:"⭐",text:"<strong>4.92 rating</strong> — Cadi's top-rated beginner instructor"}]},
+  {id:4,name:"Derek Malone",tier:"pro",location:"Oakridge CC, Salt Lake City, UT",distance:"Salt Lake City, UT",rating:4.88,reviews:74,handicap:"1.8",specialty:["Short Game","Putting","On-Course Strategy","Wedge Play"],bio:"Derek Malone is Salt Lake City's go-to short game specialist. A PGA-certified instructor with a decade of experience at Oakridge CC, Derek has built a reputation for rapid handicap reduction — his students average a 3.8-stroke improvement in just 6 sessions. He uses SAM PuttLab technology alongside traditional feel-based drills for lasting improvements from 100 yards and in.",rate:120,experience:"10 yrs",students:195,sessions:"580+",initials:"DM",color:"#7a2a2a",available:false,achievements:[{icon:"📉",text:"Average <strong>3.8 stroke reduction</strong> in 6 sessions"},{icon:"🎯",text:"<strong>SAM PuttLab</strong> certified — advanced putting analysis"},{icon:"🏌️",text:"PGA Certified · <strong>Short Game Specialist</strong>"},{icon:"📰",text:"Featured in <strong>Utah Golf Magazine</strong> — Best of Utah 2024"}]},
 ];
 
-let curFilter="All",curInst=null,slots={},selSlot=null,dashTab="home",availDays=[true,true,false,true,true,true,false];
+let curFilter="all",curInst=null,slots={},selSlot=null,dashTab="home",availDays=[true,true,false,true,true,true,false];
 
-function goTo(pageId){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById(pageId).classList.add("active");
-  if(pageId==="page-dashboard")renderDashTab(dashTab);
+// ── PAGE NAVIGATION ──
+function goTo(id){
+  document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active");});
+  document.getElementById(id).classList.add("active");
   window.scrollTo(0,0);
 }
 
+// Wire up all navigation buttons using JS (avoids inline onclick issues)
+document.getElementById("logo-home").addEventListener("click",function(){goTo("page-home");});
+document.getElementById("logo-pricing").addEventListener("click",function(){goTo("page-home");});
+document.getElementById("logo-dashboard").addEventListener("click",function(){goTo("page-home");});
+document.getElementById("nav-pricing-btn").addEventListener("click",function(){goTo("page-pricing");});
+document.getElementById("nav-dashboard-btn").addEventListener("click",function(){goTo("page-dashboard");renderDashTab("home");});
+document.getElementById("pricing-back-btn").addEventListener("click",function(){goTo("page-home");});
+document.getElementById("dashboard-back-btn").addEventListener("click",function(){goTo("page-home");});
+document.getElementById("prof-back-btn").addEventListener("click",function(){goTo("page-home");});
+document.getElementById("prof-msg-btn").addEventListener("click",function(){alert("Message feature coming soon!");});
+document.getElementById("success-home-btn").addEventListener("click",function(){goTo("page-home");});
+document.getElementById("confirm-btn").addEventListener("click",function(){confirmBooking();});
+
+// Tab bar
+document.getElementById("tab-home").addEventListener("click",function(){showDashTab("home");});
+document.getElementById("tab-bookings").addEventListener("click",function(){showDashTab("bookings");});
+document.getElementById("tab-avail").addEventListener("click",function(){showDashTab("avail");});
+document.getElementById("tab-profile").addEventListener("click",function(){showDashTab("profile");});
+
+// ── FILTERS & CARDS ──
 function renderFilters(){
-  const fs=["All","Available Now","Elite","Pro","Beginners"];
-  document.getElementById("filters").innerHTML=fs.map(f=>`<button class="filter-btn${f===curFilter?" active":""}" onclick="setFilter('${f}')">${f}</button>`).join("");
+  var filters=[{id:"all",label:"All"},{id:"available",label:"Available Now"},{id:"elite",label:"Elite"},{id:"pro",label:"Pro"},{id:"beginners",label:"Beginners"}];
+  var html="";
+  for(var i=0;i<filters.length;i++){
+    var f=filters[i];
+    html+='<button class="filter-btn'+(f.id===curFilter?" active":"")+'" data-filter="'+f.id+'">'+f.label+'</button>';
+  }
+  document.getElementById("filters").innerHTML=html;
+  var btns=document.querySelectorAll(".filter-btn");
+  for(var j=0;j<btns.length;j++){
+    btns[j].addEventListener("click",function(){setFilter(this.getAttribute("data-filter"));});
+  }
 }
+
 function setFilter(f){curFilter=f;renderFilters();renderCards();}
 
 function renderCards(){
-  const filtered=instructors.filter(i=>{
-    if(curFilter==="Available Now")return i.available;
-    if(curFilter==="Elite")return i.tier==="elite";
-    if(curFilter==="Pro")return i.tier==="pro";
-    if(curFilter==="Beginners")return i.id===3;
+  var filtered=instructors.filter(function(i){
+    if(curFilter==="available")return i.available;
+    if(curFilter==="elite")return i.tier==="elite";
+    if(curFilter==="pro")return i.tier==="pro";
+    if(curFilter==="beginners")return i.id===3;
     return true;
   });
-  document.getElementById("result-count").textContent=`${filtered.length} instructor${filtered.length!==1?"s":""} available`;
-  document.getElementById("cards").innerHTML=filtered.map(i=>{
-    const t=TIERS[i.tier];
-    return `<div class="card" onclick="openProfile(${i.id})">
-      <div class="card-photo">
-        <div class="card-photo-bg" style="background:linear-gradient(140deg,${i.color} 0%,${i.color}cc 100%)"><div class="card-initials">${i.initials}</div></div>
-        <div class="card-overlay"></div>
-        <div class="card-photo-info">
-          <div class="card-name">${i.name}</div>
-          <div class="card-meta-row">
-            <span class="tier-badge" style="background:${t.bg};color:${t.text}">${t.label}</span>
-            <span class="card-location">${i.distance}</span>
-            <div class="avail-pill"><div class="avail-dot" style="background:${i.available?"#4ade80":"rgba(255,255,255,0.35)"}"></div><span class="avail-text">${i.available?"Open":"Full"}</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-stats-grid">
-          <div class="card-stat"><div class="stat-label">HCP</div><div class="stat-val">${i.handicap}</div></div>
-          <div class="card-stat"><div class="stat-label">Exp</div><div class="stat-val">${i.experience}</div></div>
-          <div class="card-stat"><div class="stat-label">Students</div><div class="stat-val">${i.students}+</div></div>
-          <div class="card-stat"><div class="stat-label">Sessions</div><div class="stat-val">${i.sessions}</div></div>
-        </div>
-        <div class="chips">${i.specialty.slice(0,3).map(s=>`<span class="chip">${s}</span>`).join("")}${i.specialty.length>3?`<span class="chip">+${i.specialty.length-3}</span>`:""}</div>
-        <div class="card-footer">
-          <div>
-            <div class="rating-row"><span class="stars">${"★".repeat(Math.round(i.rating))}</span><span class="rating-num"> ${i.rating}</span><span class="rating-count"> (${i.reviews})</span></div>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px">
-            <div><span class="card-rate" style="color:${i.color}">$${i.rate}</span><span class="card-rate-sub"> /session</span></div>
-            <button class="book-btn" style="background:${i.color}" onclick="event.stopPropagation();openBookingPage(${i.id})">Book</button>
-          </div>
-        </div>
-      </div>
-    </div>`;
-  }).join("");
+  document.getElementById("result-count").textContent=filtered.length+" instructor"+(filtered.length!==1?"s":"")+" available";
+  var html="";
+  for(var idx=0;idx<filtered.length;idx++){
+    var i=filtered[idx];
+    var t=TIERS[i.tier];
+    var starStr="";
+    for(var s=0;s<Math.round(i.rating);s++) starStr+="★";
+    var chipHtml="";
+    for(var c=0;c<Math.min(3,i.specialty.length);c++) chipHtml+='<span class="chip">'+i.specialty[c]+'</span>';
+    if(i.specialty.length>3) chipHtml+='<span class="chip">+'+(i.specialty.length-3)+'</span>';
+    html+='<div class="card" data-id="'+i.id+'">'
+      +'<div class="card-photo">'
+      +'<div class="card-photo-bg" style="background:linear-gradient(140deg,'+i.color+' 0%,'+i.color+'cc 100%)"><div class="card-initials">'+i.initials+'</div></div>'
+      +'<div class="card-overlay"></div>'
+      +'<div class="card-photo-info">'
+      +'<div class="card-name">'+i.name+'</div>'
+      +'<div class="card-meta-row">'
+      +'<span class="tier-badge" style="background:'+t.bg+';color:'+t.text+'">'+t.label+'</span>'
+      +'<span class="card-location">'+i.distance+'</span>'
+      +'<div class="avail-pill"><div class="avail-dot" style="background:'+(i.available?"#4ade80":"rgba(255,255,255,0.35)")+'"></div><span class="avail-text">'+(i.available?"Open":"Full")+'</span></div>'
+      +'</div></div></div>'
+      +'<div class="card-body">'
+      +'<div class="card-stats-grid">'
+      +'<div class="card-stat"><div class="stat-label">HCP</div><div class="stat-val">'+i.handicap+'</div></div>'
+      +'<div class="card-stat"><div class="stat-label">Exp</div><div class="stat-val">'+i.experience+'</div></div>'
+      +'<div class="card-stat"><div class="stat-label">Students</div><div class="stat-val">'+i.students+'+</div></div>'
+      +'<div class="card-stat"><div class="stat-label">Sessions</div><div class="stat-val">'+i.sessions+'</div></div>'
+      +'</div>'
+      +'<div class="chips">'+chipHtml+'</div>'
+      +'<div class="card-footer">'
+      +'<div><div class="rating-row"><span class="stars">'+starStr+'</span><span class="rating-num"> '+i.rating+'</span><span class="rating-count"> ('+i.reviews+')</span></div></div>'
+      +'<div style="display:flex;align-items:center;gap:10px">'
+      +'<div><span class="card-rate" style="color:'+i.color+'">$'+i.rate+'</span><span class="card-rate-sub"> /session</span></div>'
+      +'<button class="book-btn" data-book-id="'+i.id+'" style="background:'+i.color+'">Book</button>'
+      +'</div></div></div></div>';
+  }
+  document.getElementById("cards").innerHTML=html;
+  // Wire card clicks
+  var cards=document.querySelectorAll(".card");
+  for(var k=0;k<cards.length;k++){
+    (function(card){
+      card.addEventListener("click",function(){openProfile(parseInt(card.getAttribute("data-id")));});
+      var bookBtn=card.querySelector(".book-btn");
+      if(bookBtn){
+        bookBtn.addEventListener("click",function(e){
+          e.stopPropagation();
+          openBookingPage(parseInt(bookBtn.getAttribute("data-book-id")));
+        });
+      }
+    })(cards[k]);
+  }
 }
 
+// ── PROFILE ──
 function openProfile(id){
-  const i=instructors.find(x=>x.id===id); curInst=i;
-  const t=TIERS[i.tier];
-  document.getElementById("prof-hero-bg").style.background=`linear-gradient(140deg,${i.color} 0%,${i.color}99 100%)`;
+  var i=instructors.filter(function(x){return x.id===id;})[0];
+  curInst=i;
+  var t=TIERS[i.tier];
+  document.getElementById("prof-hero-bg").style.background="linear-gradient(140deg,"+i.color+" 0%,"+i.color+"99 100%)";
   document.getElementById("prof-initials").textContent=i.initials;
   document.getElementById("prof-name").textContent=i.name;
-  document.getElementById("prof-sub").innerHTML=`<span class="tier-badge" style="background:${t.bg};color:${t.text}">${t.label}</span><span style="font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.85);margin-left:5px">${i.location}</span>`;
-  document.getElementById("prof-stats").innerHTML=[["Handicap",i.handicap],["Experience",i.experience],["Students",i.students+"+"],["Sessions",i.sessions]].map(([l,v])=>`<div class="profile-stat"><div class="profile-stat-label">${l}</div><div class="profile-stat-val">${v}</div></div>`).join("");
+  document.getElementById("prof-sub").innerHTML='<span class="tier-badge" style="background:'+t.bg+';color:'+t.text+'">'+t.label+'</span><span style="font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.85);margin-left:5px">'+i.location+'</span>';
+  var statsData=[["Handicap",i.handicap],["Experience",i.experience],["Students",i.students+"+"],["Sessions",i.sessions]];
+  var statsHtml="";
+  for(var s=0;s<statsData.length;s++) statsHtml+='<div class="profile-stat"><div class="profile-stat-label">'+statsData[s][0]+'</div><div class="profile-stat-val">'+statsData[s][1]+'</div></div>';
+  document.getElementById("prof-stats").innerHTML=statsHtml;
   document.getElementById("prof-bio").textContent=i.bio;
-  document.getElementById("prof-chips").innerHTML=i.specialty.map(s=>`<span class="chip">${s}</span>`).join("");
-  document.getElementById("prof-achievements").innerHTML=i.achievements.map(a=>`<div class="achievement"><div class="achievement-icon">${a.icon}</div><div class="achievement-text">${a.text}</div></div>`).join("");
-  const btn=document.getElementById("prof-book-btn");
-  btn.style.background=i.color;
-  btn.textContent=`Book a Session — $${i.rate}`;
-  btn.onclick=()=>openBookingPage(i.id);
+  var chipHtml="";
+  for(var c=0;c<i.specialty.length;c++) chipHtml+='<span class="chip">'+i.specialty[c]+'</span>';
+  document.getElementById("prof-chips").innerHTML=chipHtml;
+  var achHtml="";
+  for(var a=0;a<i.achievements.length;a++) achHtml+='<div class="achievement"><div class="achievement-icon">'+i.achievements[a].icon+'</div><div class="achievement-text">'+i.achievements[a].text+'</div></div>';
+  document.getElementById("prof-achievements").innerHTML=achHtml;
+  var bookBtn=document.getElementById("prof-book-btn");
+  bookBtn.style.background=i.color;
+  bookBtn.textContent="Book a Session — $"+i.rate;
+  bookBtn.onclick=function(){openBookingPage(i.id);};
   goTo("page-profile");
 }
 
-function genSlots(){slots={};DAYS.forEach(d=>{slots[d]={};TIMES.forEach(t=>{const r=Math.random();slots[d][t]=r>0.45?"open":r>0.15?"taken":"off";});});}
+// ── BOOKING ──
+function genSlots(){
+  slots={};
+  for(var d=0;d<DAYS.length;d++){
+    slots[DAYS[d]]={};
+    for(var t=0;t<TIMES.length;t++){
+      var r=Math.random();
+      slots[DAYS[d]][TIMES[t]]=r>0.45?"open":r>0.15?"taken":"off";
+    }
+  }
+}
 
 function openBookingPage(id){
-  const i=instructors.find(x=>x.id===id); curInst=i; selSlot=null; genSlots();
-  document.getElementById("booking-avatar").style.cssText=`width:50px;height:50px;border-radius:50%;background:${i.color}22;border:2px solid ${i.color}60;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:${i.color};flex-shrink:0`;
+  var i=instructors.filter(function(x){return x.id===id;})[0];
+  curInst=i; selSlot=null; genSlots();
+  document.getElementById("booking-avatar").style.cssText="width:50px;height:50px;border-radius:50%;background:"+i.color+"22;border:2px solid "+i.color+"60;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:"+i.color+";flex-shrink:0";
   document.getElementById("booking-avatar").textContent=i.initials;
   document.getElementById("booking-inst-name").textContent=i.name;
-  document.getElementById("booking-inst-sub").textContent=`${i.location} · $${i.rate}/session`;
-  document.getElementById("book-price").textContent=`$${i.rate}`;
+  document.getElementById("booking-inst-sub").textContent=i.location+" · $"+i.rate+"/session";
+  document.getElementById("book-price").textContent="$"+i.rate;
   document.getElementById("book-price").style.color=i.color;
-  document.getElementById("confirm-btn").style.background=i.color;
-  document.getElementById("confirm-btn").disabled=true;
-  document.getElementById("book-sel-display").innerHTML=`<div style="font-size:0.75rem;font-weight:600;color:#0e1a12">Select an open slot above</div>`;
-  document.getElementById("booking-back-btn").onclick=()=>openProfile(i.id);
-  document.getElementById("booking-legend").innerHTML=`
-    <div class="legend-item"><div class="legend-box" style="background:${i.color}22;border:1.5px solid ${i.color}"></div><span class="legend-label">Open</span></div>
-    <div class="legend-item"><div class="legend-box" style="background:#e0e8e0;border:1.5px solid #8aab8e"></div><span class="legend-label">Taken</span></div>
-    <div class="legend-item"><div class="legend-box" style="background:${i.color};border:1.5px solid ${i.color}"></div><span class="legend-label">Selected</span></div>`;
-  let html=`<thead><tr><th style="width:58px;text-align:left;padding-bottom:7px"><span style="font-size:0.65rem;font-weight:800;color:#0e1a12">TIME</span></th>`;
-  DAYS.forEach(d=>{html+=`<th class="cal-day-head">${d}</th>`;});
-  html+=`</tr></thead><tbody>`;
-  TIMES.forEach(t=>{
-    html+=`<tr><td class="cal-time-cell">${t}</td>`;
-    DAYS.forEach(d=>{
-      const s=slots[d][t],isOpen=s==="open";
-      html+=`<td><div class="slot${isOpen?" open":""}" style="background:${isOpen?i.color+"22":"#f0f2f0"};border-color:${isOpen?i.color:"#8aab8e"}" onclick="selSlotFn(this,'${d}','${t}')">${isOpen?`<div class="slot-dot" style="background:${i.color}"></div>`:""}</div></td>`;
-    });
-    html+=`</tr>`;
-  });
-  html+=`</tbody>`;
+  var confirmBtn=document.getElementById("confirm-btn");
+  confirmBtn.style.background=i.color;
+  confirmBtn.disabled=true;
+  document.getElementById("book-sel-display").innerHTML='<span style="font-size:0.75rem;font-weight:600;color:#0e1a12">Select an open slot above</span>';
+  document.getElementById("booking-back-btn").onclick=function(){openProfile(i.id);};
+  document.getElementById("booking-legend").innerHTML='<div class="legend-item"><div class="legend-box" style="background:'+i.color+'22;border:1.5px solid '+i.color+'"></div><span class="legend-label">Open</span></div><div class="legend-item"><div class="legend-box" style="background:#e0e8e0;border:1.5px solid #8aab8e"></div><span class="legend-label">Taken</span></div><div class="legend-item"><div class="legend-box" style="background:'+i.color+';border:1.5px solid '+i.color+'"></div><span class="legend-label">Selected</span></div>';
+  var html="<thead><tr><th style='width:58px;text-align:left;padding-bottom:7px'><span style='font-size:0.65rem;font-weight:800;color:#0e1a12'>TIME</span></th>";
+  for(var d=0;d<DAYS.length;d++) html+="<th class='cal-day-head'>"+DAYS[d]+"</th>";
+  html+="</tr></thead><tbody>";
+  for(var t=0;t<TIMES.length;t++){
+    html+="<tr><td class='cal-time-cell'>"+TIMES[t]+"</td>";
+    for(var d=0;d<DAYS.length;d++){
+      var st=slots[DAYS[d]][TIMES[t]];
+      var isOpen=st==="open";
+      var bg=isOpen?i.color+"22":"#f0f2f0";
+      var bc=isOpen?i.color:"#8aab8e";
+      var dot=isOpen?"<div class='slot-dot' style='background:"+i.color+"'></div>":"";
+      html+="<td><div class='slot"+(isOpen?" open":"")+"' style='background:"+bg+";border-color:"+bc+"' data-day='"+DAYS[d]+"' data-time='"+TIMES[t]+"'>"+dot+"</div></td>";
+    }
+    html+="</tr>";
+  }
+  html+="</tbody>";
   document.getElementById("cal-table").innerHTML=html;
+  // Wire slot clicks
+  var openSlots=document.querySelectorAll(".slot.open");
+  for(var s=0;s<openSlots.length;s++){
+    (function(slot){
+      slot.addEventListener("click",function(){selSlotFn(slot,slot.getAttribute("data-day"),slot.getAttribute("data-time"));});
+    })(openSlots[s]);
+  }
   goTo("page-booking");
 }
 
 function selSlotFn(el,day,time){
-  if(!el.classList.contains("open"))return;
-  const i=curInst;
-  document.querySelectorAll(".slot.open").forEach(s=>{s.style.background=i.color+"22";s.style.borderColor=i.color;const d=s.querySelector(".slot-dot");if(d)d.style.background=i.color;});
-  el.style.background=i.color;el.style.borderColor=i.color;
-  const dot=el.querySelector(".slot-dot");if(dot)dot.style.background="#fff";
-  selSlot={day,time};
-  document.getElementById("book-sel-display").innerHTML=`<div class="book-sel-label">Selected</div><div class="book-sel-val" style="color:${i.color}">${day} · ${time}</div>`;
+  var i=curInst;
+  var allOpen=document.querySelectorAll(".slot.open");
+  for(var s=0;s<allOpen.length;s++){
+    allOpen[s].style.background=i.color+"22";
+    allOpen[s].style.borderColor=i.color;
+    var dot=allOpen[s].querySelector(".slot-dot");
+    if(dot) dot.style.background=i.color;
+  }
+  el.style.background=i.color;
+  el.style.borderColor=i.color;
+  var selDot=el.querySelector(".slot-dot");
+  if(selDot) selDot.style.background="#fff";
+  selSlot={day:day,time:time};
+  document.getElementById("book-sel-display").innerHTML='<div class="book-sel-label">Selected</div><div class="book-sel-val" style="color:'+i.color+'">'+day+' · '+time+'</div>';
   document.getElementById("confirm-btn").disabled=false;
 }
 
 function confirmBooking(){
   if(!selSlot)return;
-  const i=curInst;
+  var i=curInst;
   document.getElementById("s-name").textContent=i.name;
-  document.getElementById("s-time").textContent=`${selSlot.day} · ${selSlot.time}`;
+  document.getElementById("s-time").textContent=selSlot.day+" · "+selSlot.time;
   document.getElementById("s-time").style.color=i.color;
   document.getElementById("s-icon").style.background=i.color+"22";
   goTo("page-success");
 }
 
-/* DASHBOARD */
+// ── DASHBOARD ──
 function showDashTab(tab){
   dashTab=tab;
-  document.querySelectorAll(".tab-item").forEach(t=>t.classList.remove("active"));
+  var tabs=document.querySelectorAll(".tab-item");
+  for(var t=0;t<tabs.length;t++) tabs[t].classList.remove("active");
   document.getElementById("tab-"+tab).classList.add("active");
   renderDashTab(tab);
 }
+
 function renderDashTab(tab){
-  const el=document.getElementById("dash-content");
-  if(tab==="home")el.innerHTML=dashHome();
-  else if(tab==="bookings")el.innerHTML=dashBookings();
-  else if(tab==="avail")el.innerHTML=dashAvail();
-  else if(tab==="profile")el.innerHTML=dashProfile();
+  var el=document.getElementById("dash-content");
+  if(tab==="home") el.innerHTML=dashHome();
+  else if(tab==="bookings") el.innerHTML=dashBookings();
+  else if(tab==="avail") el.innerHTML=dashAvail();
+  else if(tab==="profile") el.innerHTML=dashProfile();
 }
-const BOOKINGS=[
+
+var BOOKINGS=[
   {day:"MON",num:"7",student:"Tyler Barnes",detail:"10:00 AM · Full Swing",price:"$175",color:"#1a5c2a"},
   {day:"TUE",num:"8",student:"Sarah Mitchell",detail:"8:30 AM · Junior Lesson",price:"$175",color:"#1a5c2a"},
   {day:"WED",num:"9",student:"Greg Holloway",detail:"1:00 PM · Swing Mechanics",price:"$175",color:"#1a5c2a"},
   {day:"FRI",num:"11",student:"Diana Park",detail:"2:30 PM · Short Game",price:"$175",color:"#1a5c2a"},
   {day:"SAT",num:"12",student:"Rob Jennings",detail:"9:00 AM · Course Strategy",price:"$175",color:"#1a5c2a"},
 ];
-function bookItem(b){return `<div class="booking-item"><div class="booking-date-badge" style="background:${b.color}18;border:1.5px solid ${b.color}50"><span class="booking-date-day" style="color:${b.color}">${b.day}</span><span class="booking-date-num" style="color:${b.color}">${b.num}</span></div><div style="flex:1"><div class="booking-student">${b.student}</div><div class="booking-detail">${b.detail}</div></div><div class="booking-price-badge" style="color:${b.color}">${b.price}</div></div>`;}
-function dashHome(){return `<div class="dash-welcome"><div class="dash-eyebrow">Instructor Portal</div><div class="dash-name">Welcome back, Rob</div><div class="dash-sub">Soldier Hollow GC · Utah Coach of the Year</div><div class="dash-tier"><span>⭐</span><span class="dash-tier-text">Elite Plan — $149/mo</span></div></div><div class="metrics-grid"><div class="metric-card"><div class="metric-label">This Month</div><div class="metric-val">$3,850</div><div class="metric-up">↑ 22% vs last month</div></div><div class="metric-card"><div class="metric-label">Bookings</div><div class="metric-val">22</div><div class="metric-up">↑ 6 new this week</div></div><div class="metric-card"><div class="metric-label">Profile Views</div><div class="metric-val">412</div><div class="metric-up">↑ 41% this week</div></div><div class="metric-card"><div class="metric-label">Rating</div><div class="metric-val">4.97</div><div class="metric-neutral">138 reviews</div></div></div><div class="dash-section-title">Next Up</div>${BOOKINGS.slice(0,3).map(bookItem).join("")}`;}
-function dashBookings(){return `<div class="dash-section-title">Upcoming Bookings</div>${BOOKINGS.map(bookItem).join("")}<div class="dash-section-title" style="margin-top:20px">Earnings</div><div class="earnings-card"><div class="earnings-row"><span class="earnings-label">April Goal</span><span class="earnings-val">$5,000</span></div><div class="earnings-bar"><div class="earnings-fill" style="width:77%"></div></div><div class="earnings-sub">$3,850 earned · 77% to goal</div></div><div class="earnings-card"><div class="earnings-row"><span class="earnings-label">Total Earned (All Time)</span><span class="earnings-val">$48,200</span></div><div class="earnings-sub">Since joining Cadi · Jan 2025</div></div>`;}
-function dashAvail(){const labels=["M","T","W","T","F","S","S"];return `<div class="dash-section-title">Weekly Availability</div><p style="font-size:0.78rem;font-weight:600;color:#2d5c3a;margin-bottom:12px">Tap a day to toggle on or off</p><div class="avail-grid">${labels.map((d,i)=>`<div class="avail-day${availDays[i]?" on":""}" onclick="toggleDay(${i})"><span class="avail-day-label">${d}</span><div class="avail-dot"></div></div>`).join("")}</div><div class="dash-section-title">Session Times</div>${TIMES.map((t,i)=>`<div style="display:flex;justify-content:space-between;align-items:center;background:#fff;border:1.5px solid #8aab8e;border-radius:10px;padding:12px 14px;margin-bottom:8px"><span style="font-size:0.85rem;font-weight:700;color:#0e1a12">${t}</span><div style="width:42px;height:24px;background:${i%3!==2?"#1a5c2a":"#8aab8e"};border-radius:12px;position:relative;cursor:pointer"><div style="position:absolute;top:3px;${i%3!==2?"right":"left"}:3px;width:18px;height:18px;background:#fff;border-radius:50%"></div></div></div>`).join("")}`;}
-function dashProfile(){return `<div class="dash-section-title">Your Profile</div><div style="display:flex;align-items:center;gap:14px;background:#fff;border:1.5px solid #8aab8e;border-radius:13px;padding:14px;margin-bottom:18px"><div style="width:58px;height:58px;border-radius:50%;background:#1a5c2a20;border:2px solid #1a5c2a50;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#1a5c2a;flex-shrink:0">RS</div><div><div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:#0e1a12">Rob Stanger</div><div style="font-size:0.75rem;font-weight:600;color:#2d5c3a;margin-top:2px">Midway, UT · LPGA Coach of the Year</div><div style="display:flex;align-items:center;gap:4px;margin-top:4px"><span style="color:#c9a55a;font-size:0.72rem">★★★★★</span><span style="font-size:0.75rem;font-weight:700;color:#0e1a12">4.97</span><span style="font-size:0.7rem;font-weight:600;color:#2d5c3a">(138 reviews)</span></div></div></div><div class="field-label">Display Name</div><input class="field-input" value="Rob Stanger"/><div class="field-label">Title / Certification</div><input class="field-input" value="LPGA Teaching Professional · Utah Coach of the Year"/><div class="field-label">Location</div><input class="field-input" value="Soldier Hollow Golf Course, Midway, UT"/><div class="field-label">Handicap Index</div><input class="field-input" value="+2.1"/><div class="field-label">Session Rate ($)</div><input class="field-input" value="175"/><div class="field-label">Bio</div><textarea class="field-textarea">Rob Stanger is a nationally recognized LPGA teaching professional and the reigning Utah Coach of the Year.</textarea><div class="field-label">Specialties</div><input class="field-input" value="LPGA Coaching, Women's Golf, Swing Mechanics, Junior Development"/><button class="save-btn" onclick="alert('Profile saved!')">Save Changes</button>`;}
 
-function toggleDay(i){availDays[i]=!availDays[i];renderDashTab(“avail”);}
+function bookItem(b){
+  return '<div class="booking-item"><div class="booking-date-badge" style="background:'+b.color+'18;border:1.5px solid '+b.color+'50"><span class="booking-date-day" style="color:'+b.color+'">'+b.day+'</span><span class="booking-date-num" style="color:'+b.color+'">'+b.num+'</span></div><div style="flex:1"><div class="booking-student">'+b.student+'</div><div class="booking-detail">'+b.detail+'</div></div><div class="booking-price-badge" style="color:'+b.color+'">'+b.price+'</div></div>';
+}
 
+function dashHome(){
+  var items="";
+  for(var i=0;i<3;i++) items+=bookItem(BOOKINGS[i]);
+  return '<div class="dash-welcome"><div class="dash-eyebrow">Instructor Portal</div><div class="dash-name">Welcome back, Rob</div><div class="dash-sub">Soldier Hollow GC · Utah Coach of the Year</div><div class="dash-tier"><span>⭐</span><span class="dash-tier-text">Elite Plan — $149/mo</span></div></div><div class="metrics-grid"><div class="metric-card"><div class="metric-label">This Month</div><div class="metric-val">$3,850</div><div class="metric-up">↑ 22% vs last month</div></div><div class="metric-card"><div class="metric-label">Bookings</div><div class="metric-val">22</div><div class="metric-up">↑ 6 new this week</div></div><div class="metric-card"><div class="metric-label">Profile Views</div><div class="metric-val">412</div><div class="metric-up">↑ 41% this week</div></div><div class="metric-card"><div class="metric-label">Rating</div><div class="metric-val">4.97</div><div class="metric-neutral">138 reviews</div></div></div><div class="upgrade-banner"><div class="upgrade-eyebrow">Upgrade Available</div><div class="upgrade-title">Go Elite. Own Your Market.</div><div class="upgrade-sub">Get the #1 spot in local search, zero booking fees, and a dedicated account manager.</div><button class="upgrade-btn">Upgrade to Elite — $149/mo</button></div><div class="dash-section-title">Next Up</div>'+items;
+}
+
+function dashBookings(){
+  var items="";
+  for(var i=0;i<BOOKINGS.length;i++) items+=bookItem(BOOKINGS[i]);
+  return '<div class="dash-section-title">Upcoming Bookings</div>'+items+'<div class="dash-section-title" style="margin-top:20px">Earnings</div><div class="earnings-card"><div class="earnings-row"><span class="earnings-label">April Goal</span><span class="earnings-val">$5,000</span></div><div class="earnings-bar"><div class="earnings-fill" style="width:77%"></div></div><div class="earnings-sub">$3,850 earned · 77% to goal</div></div><div class="earnings-card"><div class="earnings-row"><span class="earnings-label">Total Earned (All Time)</span><span class="earnings-val">$48,200</span></div><div class="earnings-sub">Since joining Cadi · Jan 2025</div></div>';
+}
+
+function dashAvail(){
+  var labels=["M","T","W","T","F","S","S"];
+  var dayHtml="";
+  for(var i=0;i<labels.length;i++){
+    dayHtml+='<div class="avail-day'+(availDays[i]?" on":"")+'" data-day="'+i+'"><span class="avail-day-label">'+labels[i]+'</span><div class="avail-dot"></div></div>';
+  }
+  var timeHtml="";
+  for(var t=0;t<TIMES.length;t++){
+    var on=t%3!==2;
+    timeHtml+='<div style="display:flex;justify-content:space-between;align-items:center;background:#fff;border:1.5px solid #8aab8e;border-radius:10px;padding:12px 14px;margin-bottom:8px"><span style="font-size:0.85rem;font-weight:700;color:#0e1a12">'+TIMES[t]+'</span><div style="width:42px;height:24px;background:'+(on?"#1a5c2a":"#8aab8e")+';border-radius:12px;position:relative"><div style="position:absolute;top:3px;'+(on?"right":"left")+':3px;width:18px;height:18px;background:#fff;border-radius:50%"></div></div></div>';
+  }
+  var html='<div class="dash-section-title">Weekly Availability</div><p style="font-size:0.78rem;font-weight:600;color:#2d5c3a;margin-bottom:12px">Tap a day to toggle on or off</p><div class="avail-grid">'+dayHtml+'</div><div class="dash-section-title">Session Times</div>'+timeHtml;
+  setTimeout(function(){
+    var dayBtns=document.querySelectorAll(".avail-day[data-day]");
+    for(var i=0;i<dayBtns.length;i++){
+      (function(btn,idx){
+        btn.addEventListener("click",function(){availDays[idx]=!availDays[idx];renderDashTab("avail");});
+      })(dayBtns[i],parseInt(dayBtns[i].getAttribute("data-day")));
+    }
+  },0);
+  return html;
+}
+
+function dashProfile(){
+  return '<div class="dash-section-title">Your Profile</div><div style="display:flex;align-items:center;gap:14px;background:#fff;border:1.5px solid #8aab8e;border-radius:13px;padding:14px;margin-bottom:18px"><div style="width:58px;height:58px;border-radius:50%;background:#1a5c2a20;border:2px solid #1a5c2a50;display:flex;align-items:center;justify-content:center;font-family:\'Playfair Display\',serif;font-size:1.3rem;font-weight:800;color:#1a5c2a;flex-shrink:0">RS</div><div><div style="font-family:\'Playfair Display\',serif;font-size:1.1rem;font-weight:800;color:#0e1a12">Rob Stanger</div><div style="font-size:0.75rem;font-weight:600;color:#2d5c3a;margin-top:2px">Midway, UT · Utah Coach of the Year</div><div style="display:flex;align-items:center;gap:4px;margin-top:4px"><span style="color:#c9a55a;font-size:0.72rem">★★★★★</span><span style="font-size:0.75rem;font-weight:700;color:#0e1a12">4.97</span><span style="font-size:0.7rem;font-weight:600;color:#2d5c3a">(138 reviews)</span></div></div></div><div class="field-label">Display Name</div><input class="field-input" value="Rob Stanger"/><div class="field-label">Title / Certification</div><input class="field-input" value="LPGA Teaching Professional · Utah Coach of the Year"/><div class="field-label">Location</div><input class="field-input" value="Soldier Hollow Golf Course, Midway, UT"/><div class="field-label">Handicap Index</div><input class="field-input" value="+2.1"/><div class="field-label">Session Rate ($)</div><input class="field-input" value="175"/><div class="field-label">Bio</div><textarea class="field-textarea">Rob Stanger is a nationally recognized LPGA teaching professional and the reigning Utah Coach of the Year.</textarea><div class="field-label">Specialties</div><input class="field-input" value="LPGA Coaching, Women\'s Golf, Swing Mechanics, Junior Development"/><button class="save-btn" onclick="alert(\'Profile saved!\')">Save Changes</button>';
+
+}
+
+// ── INIT ──
 renderFilters();
 renderCards();
 renderDashTab(“home”);
