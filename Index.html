@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Cadi — Find Your Instructor</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'DM Sans', sans-serif; background: #f0f2f0; color: #0e1a12; -webkit-font-smoothing: antialiased; }
+input, textarea, select, button { font-family: 'DM Sans', sans-serif; }
+
+/* ── SCREENS ── */
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: block; }
+
+/* ── NAV ── */
+.nav {
+background: #0e1a12;
+padding: 0 16px;
+height: 56px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+position: sticky;
+top: 0;
+z-index: 50;
+}
+.logo { display: flex; align-items: center; gap: 9px; cursor: pointer; }
+.logo-mark {
+width: 30px; height: 30px;
+background: #c9a55a;
+border-radius: 7px;
+display: flex; align-items: center; justify-content: center;
+}
+.logo-mark svg { width: 17px; height: 17px; }
+.logo-text {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.3rem; font-weight: 800;
+color: #ffffff; letter-spacing: 0.02em;
+}
+.btn-gold {
+background: #c9a55a; color: #0e1a12;
+border: none; border-radius: 7px;
+padding: 8px 15px; font-size: 0.82rem; font-weight: 700;
+cursor: pointer;
+}
+.btn-outline {
+background: transparent; color: #ffffff;
+border: 1.5px solid rgba(255,255,255,0.4);
+border-radius: 7px; padding: 7px 12px;
+font-size: 0.78rem; font-weight: 600; cursor: pointer;
+}
+
+/* ── HERO ── */
+.hero {
+background: #0e1a12;
+padding: 32px 16px 28px;
+position: relative; overflow: hidden;
+}
+.hero::after {
+content: ‘’;
+position: absolute; bottom: 0; left: 0; right: 0;
+height: 1px;
+background: linear-gradient(90deg, transparent, #c9a55a, transparent);
+}
+.hero-eyebrow {
+display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+}
+.hero-eyebrow-line { width: 22px; height: 1.5px; background: #c9a55a; }
+.hero-eyebrow-text {
+font-size: 0.65rem; font-weight: 700;
+color: #c9a55a; letter-spacing: 0.2em; text-transform: uppercase;
+}
+.hero h1 {
+font-family: ‘Playfair Display’, serif;
+font-size: 2.1rem; font-weight: 800;
+color: #ffffff; line-height: 1.15; margin-bottom: 10px;
+}
+.hero h1 em { font-style: italic; color: #d4b472; }
+.hero-sub {
+color: #a8c4ae;
+font-size: 0.9rem; font-weight: 500;
+line-height: 1.6; margin-bottom: 22px;
+}
+.search-wrap {
+display: flex; gap: 8px;
+background: rgba(255,255,255,0.1);
+border: 1.5px solid rgba(255,255,255,0.2);
+border-radius: 10px;
+padding: 5px 5px 5px 13px;
+align-items: center;
+}
+.search-wrap input {
+flex: 1; background: none; border: none; outline: none;
+color: #ffffff; font-size: 0.88rem; font-weight: 400;
+}
+.search-wrap input::placeholder { color: rgba(255,255,255,0.45); }
+.search-btn {
+background: #c9a55a; color: #0e1a12;
+border: none; border-radius: 7px;
+padding: 10px 16px; font-size: 0.82rem; font-weight: 700;
+cursor: pointer;
+}
+
+/* ── TRUST BAR ── */
+.trust-bar {
+background: #1e3326;
+padding: 11px 16px;
+display: flex; gap: 18px;
+overflow-x: auto; scrollbar-width: none;
+}
+.trust-bar::-webkit-scrollbar { display: none; }
+.trust-item { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.trust-text { font-size: 0.72rem; font-weight: 600; color: #a8c4ae; white-space: nowrap; }
+
+/* ── RESULTS ── */
+.results { padding: 20px 14px 100px; }
+.results-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.2rem; font-weight: 700; color: #0e1a12;
+margin-bottom: 2px;
+}
+.results-sub { font-size: 0.75rem; font-weight: 600; color: #2d5c3a; margin-bottom: 14px; }
+
+.filters {
+display: flex; gap: 6px; margin-bottom: 16px;
+overflow-x: auto; scrollbar-width: none; padding-bottom: 2px;
+}
+.filters::-webkit-scrollbar { display: none; }
+.filter-btn {
+background: #ffffff; color: #0e1a12;
+border: 1.5px solid #8aab8e;
+border-radius: 20px; padding: 6px 14px;
+font-size: 0.72rem; font-weight: 700;
+cursor: pointer; white-space: nowrap; flex-shrink: 0;
+}
+.filter-btn.active {
+background: #0e1a12; color: #ffffff; border-color: #0e1a12;
+}
+
+/* ── CARD ── */
+.card {
+background: #ffffff;
+border: 1.5px solid #8aab8e;
+border-radius: 16px; margin-bottom: 14px;
+cursor: pointer; overflow: hidden;
+box-shadow: 0 2px 8px rgba(14,26,18,0.1);
+transition: transform 0.15s, box-shadow 0.15s;
+}
+.card:active { transform: scale(0.99); box-shadow: 0 4px 16px rgba(14,26,18,0.15); }
+
+.card-photo { width: 100%; height: 175px; position: relative; overflow: hidden; }
+.card-photo-bg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.card-photo-initials {
+font-family: ‘Playfair Display’, serif;
+font-size: 4.5rem; font-weight: 800; color: rgba(255,255,255,0.25);
+}
+.card-overlay {
+position: absolute; inset: 0;
+background: linear-gradient(to top, rgba(14,26,18,0.92) 0%, transparent 55%);
+}
+.card-photo-info { position: absolute; bottom: 12px; left: 14px; right: 14px; }
+.card-name {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.15rem; font-weight: 800;
+color: #ffffff; margin-bottom: 5px;
+}
+.card-meta-row { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+.tier-badge {
+font-size: 0.58rem; font-weight: 800;
+letter-spacing: 0.1em; padding: 3px 8px; border-radius: 4px;
+}
+.card-location { font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.8); }
+.avail-pill { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.avail-dot { width: 7px; height: 7px; border-radius: 50%; }
+.avail-text { font-size: 0.68rem; font-weight: 700; color: rgba(255,255,255,0.9); }
+
+.card-body { padding: 14px; }
+
+/* STATS GRID — dark background for contrast */
+.card-stats-grid {
+display: grid; grid-template-columns: repeat(4,1fr);
+background: #0e1a12;
+border-radius: 10px; overflow: hidden; margin-bottom: 12px;
+}
+.card-stat { padding: 10px 6px; text-align: center; border-right: 1px solid rgba(255,255,255,0.08); }
+.card-stat:last-child { border-right: none; }
+.stat-label {
+font-size: 0.6rem; font-weight: 700;
+color: #a8c4ae; letter-spacing: 0.08em;
+text-transform: uppercase; margin-bottom: 3px;
+}
+.stat-val {
+font-family: ‘Playfair Display’, serif;
+font-size: 1rem; font-weight: 700; color: #ffffff;
+}
+
+.chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+.chip {
+font-size: 0.7rem; font-weight: 600;
+padding: 4px 10px; border-radius: 4px;
+border: 1.5px solid #4a7a54; color: #1e4a28;
+background: #ddeedd;
+}
+
+.card-footer {
+display: flex; justify-content: space-between; align-items: center;
+padding-top: 12px; border-top: 1.5px solid #c8dac8;
+}
+.card-rate {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.2rem; font-weight: 800; color: #0e1a12;
+}
+.card-rate-sub { font-family: ‘DM Sans’, sans-serif; font-size: 0.7rem; font-weight: 600; color: #2d5c3a; }
+.stars { color: #c9a55a; font-size: 0.75rem; }
+.rating-row { display: flex; align-items: center; gap: 4px; }
+.rating-num { font-size: 0.78rem; font-weight: 700; color: #0e1a12; }
+.rating-count { font-size: 0.7rem; font-weight: 600; color: #2d5c3a; }
+.book-btn {
+border: none; border-radius: 9px;
+padding: 9px 16px; font-size: 0.8rem; font-weight: 700;
+cursor: pointer; color: #ffffff;
+}
+
+/* ── OVERLAY ── */
+.overlay {
+position: fixed; inset: 0;
+background: rgba(14,26,18,0.65);
+z-index: 100; overflow-y: auto; display: none;
+-webkit-overflow-scrolling: touch;
+}
+.overlay.open { display: block; }
+.modal { background: #f0f2f0; width: 100%; min-height: 100vh; }
+
+.modal-hero { width: 100%; height: 230px; position: relative; overflow: hidden; }
+.modal-hero-bg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.modal-hero-initials {
+font-family: ‘Playfair Display’, serif;
+font-size: 5rem; font-weight: 800; color: rgba(255,255,255,0.2);
+}
+.modal-hero-overlay {
+position: absolute; inset: 0;
+background: linear-gradient(to top, rgba(14,26,18,0.95) 0%, rgba(14,26,18,0.1) 60%, transparent 100%);
+}
+.modal-close {
+position: absolute; top: 14px; right: 14px;
+width: 34px; height: 34px;
+background: rgba(0,0,0,0.5); border: 1.5px solid rgba(255,255,255,0.3);
+border-radius: 50%; color: #ffffff; font-size: 0.85rem;
+cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.modal-hero-content { position: absolute; bottom: 16px; left: 16px; right: 16px; }
+.modal-hero-name {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.6rem; font-weight: 800; color: #ffffff; margin-bottom: 5px;
+}
+.modal-hero-sub { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.modal-body { padding: 18px 16px 100px; }
+
+/* MODAL STATS — dark bg for contrast */
+.modal-stats {
+display: grid; grid-template-columns: repeat(4,1fr);
+background: #0e1a12;
+border-radius: 12px; overflow: hidden; margin-bottom: 20px;
+}
+.modal-stat { padding: 12px 6px; text-align: center; border-right: 1px solid rgba(255,255,255,0.08); }
+.modal-stat:last-child { border-right: none; }
+.modal-stat-label {
+font-size: 0.6rem; font-weight: 700;
+color: #a8c4ae; letter-spacing: 0.08em;
+text-transform: uppercase; margin-bottom: 3px;
+}
+.modal-stat-val {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.05rem; font-weight: 700; color: #ffffff;
+}
+
+.section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; margin-top: 20px; }
+.section-label {
+font-size: 0.65rem; font-weight: 800;
+color: #0e1a12; letter-spacing: 0.14em;
+text-transform: uppercase; white-space: nowrap;
+}
+.section-line { flex: 1; height: 1.5px; background: #8aab8e; }
+
+.bio {
+font-size: 0.88rem; font-weight: 500;
+color: #0e1a12; line-height: 1.75;
+}
+
+.achievements { display: flex; flex-direction: column; gap: 8px; }
+.achievement {
+display: flex; align-items: center; gap: 12px;
+background: #ffffff; border: 1.5px solid #8aab8e;
+border-radius: 10px; padding: 11px 13px;
+}
+.achievement-icon { font-size: 1.1rem; flex-shrink: 0; }
+.achievement-text { font-size: 0.8rem; font-weight: 500; color: #0e1a12; line-height: 1.4; }
+.achievement-text strong { font-weight: 800; }
+
+/* PLANS */
+.plans-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.plan {
+border: 1.5px solid #8aab8e;
+border-radius: 11px; padding: 13px 10px;
+background: #ffffff; position: relative;
+}
+.plan.highlight { background: #0e1a12; border-color: #0e1a12; }
+.plan-name { font-size: 0.75rem; font-weight: 800; margin-bottom: 3px; color: #0e1a12; }
+.plan.highlight .plan-name { color: #c9a55a; }
+.plan-price {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.2rem; font-weight: 800;
+color: #0e1a12; line-height: 1; margin-bottom: 8px;
+}
+.plan.highlight .plan-price { color: #ffffff; }
+.plan-mo { font-family: ‘DM Sans’, sans-serif; font-size: 0.65rem; font-weight: 600; color: #2d5c3a; }
+.plan.highlight .plan-mo { color: rgba(255,255,255,0.55); }
+.plan-divider { height: 1.5px; background: #c8dac8; margin-bottom: 8px; }
+.plan.highlight .plan-divider { background: rgba(255,255,255,0.12); }
+.plan-feature { display: flex; gap: 5px; margin-bottom: 4px; }
+.plan-check { font-size: 0.7rem; flex-shrink: 0; }
+.plan-feat-text { font-size: 0.68rem; font-weight: 600; color: #0e1a12; }
+.plan.highlight .plan-feat-text { color: rgba(255,255,255,0.8); }
+.active-tag {
+position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+font-size: 0.5rem; font-weight: 800; letter-spacing: 0.1em;
+padding: 2px 7px; border-radius: 3px; color: #ffffff; white-space: nowrap;
+}
+
+.cta-row { display: flex; gap: 9px; margin-top: 20px; }
+.cta-primary {
+flex: 1; border: none; border-radius: 10px;
+padding: 14px; font-size: 0.92rem; font-weight: 700;
+cursor: pointer; color: #ffffff;
+}
+.cta-secondary {
+background: #ffffff; border: 1.5px solid #4a7a54;
+color: #0e1a12; border-radius: 10px;
+padding: 14px 16px; font-size: 0.85rem; font-weight: 700; cursor: pointer;
+}
+
+/* ── BOOKING ── */
+.booking-modal-bg { background: #f0f2f0; min-height: 100vh; }
+.booking-week { font-size: 0.75rem; font-weight: 700; color: #0e1a12; margin-bottom: 14px; }
+.legend { display: flex; gap: 14px; margin-bottom: 14px; }
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.legend-label { font-size: 0.7rem; font-weight: 700; color: #0e1a12; }
+.legend-box { width: 10px; height: 10px; border-radius: 2px; }
+.cal-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -16px; padding: 0 16px; }
+.cal-table { border-collapse: separate; border-spacing: 3px; min-width: 360px; }
+.cal-time-cell {
+font-size: 0.65rem; font-weight: 700;
+color: #0e1a12; white-space: nowrap; padding-right: 6px; vertical-align: middle;
+}
+.cal-day-head {
+text-align: center; padding-bottom: 7px;
+font-size: 0.7rem; font-weight: 800; color: #0e1a12;
+}
+.slot {
+width: 37px; height: 28px; border-radius: 6px;
+border: 1.5px solid #8aab8e; background: #ffffff;
+cursor: default; display: flex; align-items: center; justify-content: center;
+}
+.slot.open { cursor: pointer; }
+.slot-dot { width: 6px; height: 6px; border-radius: 50%; }
+.book-footer {
+margin-top: 16px; padding-top: 14px;
+border-top: 2px solid #8aab8e;
+display: flex; justify-content: space-between; align-items: center;
+}
+.book-sel-label { font-size: 0.65rem; font-weight: 800; color: #0e1a12; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px; }
+.book-sel-val { font-family: ‘Playfair Display’, serif; font-size: 1rem; font-weight: 700; }
+.book-price-tag { font-family: ‘Playfair Display’, serif; font-size: 1.3rem; font-weight: 800; color: #0e1a12; }
+.confirm-btn {
+border: none; border-radius: 9px;
+padding: 11px 18px; font-size: 0.85rem; font-weight: 700;
+cursor: pointer; color: #ffffff;
+}
+.confirm-btn:disabled { background: #8aab8e !important; color: #ffffff; cursor: not-allowed; opacity: 0.6; }
+
+/* ── SUCCESS ── */
+.success-screen {
+min-height: 100vh; display: flex; flex-direction: column;
+align-items: center; justify-content: center;
+padding: 40px 24px; text-align: center; background: #0e1a12;
+}
+.success-icon {
+width: 72px; height: 72px; border-radius: 50%;
+display: flex; align-items: center; justify-content: center;
+font-size: 1.9rem; margin: 0 auto 18px;
+background: #1e3326; border: 2px solid #c9a55a;
+}
+.success-eyebrow { font-size: 0.65rem; font-weight: 700; color: #c9a55a; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px; }
+.success-title { font-family: ‘Playfair Display’, serif; font-size: 2rem; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
+.success-sub { font-size: 0.88rem; font-weight: 500; color: #a8c4ae; margin-bottom: 4px; }
+.success-sub strong { color: #ffffff; font-weight: 700; }
+.success-time { font-family: ‘Playfair Display’, serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
+.success-note { font-size: 0.78rem; font-weight: 500; color: #a8c4ae; line-height: 1.7; margin-bottom: 28px; max-width: 280px; }
+.success-btn { border: none; border-radius: 10px; padding: 13px 32px; font-size: 0.92rem; font-weight: 700; cursor: pointer; color: #0e1a12; background: #c9a55a; }
+
+/* ── DASHBOARD ── */
+.dashboard { padding: 18px 14px 100px; }
+
+.dash-welcome {
+background: #0e1a12; border-radius: 14px;
+padding: 18px; margin-bottom: 16px; position: relative; overflow: hidden;
+}
+.dash-eyebrow { font-size: 0.62rem; font-weight: 700; color: #c9a55a; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 5px; }
+.dash-name { font-family: ‘Playfair Display’, serif; font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-bottom: 3px; }
+.dash-sub { font-size: 0.78rem; font-weight: 600; color: #a8c4ae; }
+.dash-tier {
+display: inline-flex; align-items: center; gap: 5px;
+background: rgba(201,165,90,0.18); border: 1.5px solid rgba(201,165,90,0.4);
+border-radius: 6px; padding: 5px 10px; margin-top: 12px;
+}
+.dash-tier-text { font-size: 0.7rem; font-weight: 700; color: #d4b472; }
+
+.metrics-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-bottom: 16px; }
+.metric-card {
+background: #ffffff; border: 1.5px solid #8aab8e;
+border-radius: 12px; padding: 14px;
+}
+.metric-label { font-size: 0.65rem; font-weight: 800; color: #1e4a28; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+.metric-val { font-family: ‘Playfair Display’, serif; font-size: 1.6rem; font-weight: 800; color: #0e1a12; line-height: 1; margin-bottom: 4px; }
+.metric-up { font-size: 0.68rem; font-weight: 700; color: #1a7a2a; }
+.metric-neutral { font-size: 0.68rem; font-weight: 700; color: #2d5c3a; }
+
+.dash-section-title { font-family: ‘Playfair Display’, serif; font-size: 1.05rem; font-weight: 700; color: #0e1a12; margin-bottom: 10px; }
+
+.booking-item {
+background: #ffffff; border: 1.5px solid #8aab8e;
+border-radius: 11px; padding: 13px; margin-bottom: 8px;
+display: flex; align-items: center; gap: 12px;
+}
+.booking-date-badge {
+width: 46px; height: 46px; border-radius: 9px;
+display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.booking-date-day { font-size: 0.58rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.booking-date-num { font-family: ‘Playfair Display’, serif; font-size: 1.25rem; font-weight: 800; line-height: 1; }
+.booking-student { font-size: 0.9rem; font-weight: 700; color: #0e1a12; margin-bottom: 2px; }
+.booking-detail { font-size: 0.73rem; font-weight: 600; color: #2d5c3a; }
+.booking-price { font-family: ‘Playfair Display’, serif; font-size: 1.05rem; font-weight: 800; }
+
+.upgrade-banner {
+background: #0e1a12; border-radius: 12px;
+padding: 16px; margin-bottom: 16px;
+}
+.upgrade-eyebrow { font-size: 0.6rem; font-weight: 700; color: #c9a55a; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 5px; }
+.upgrade-title { font-family: ‘Playfair Display’, serif; font-size: 1.05rem; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
+.upgrade-sub { font-size: 0.75rem; font-weight: 500; color: #a8c4ae; margin-bottom: 12px; line-height: 1.55; }
+.upgrade-btn { background: #c9a55a; color: #0e1a12; border: none; border-radius: 7px; padding: 9px 16px; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
+
+/* AVAILABILITY */
+.avail-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 5px; margin-bottom: 16px; }
+.avail-day {
+background: #ffffff; border: 1.5px solid #8aab8e;
+border-radius: 8px; padding: 9px 4px; text-align: center; cursor: pointer;
+}
+.avail-day.on { background: #1a5c2a; border-color: #1a5c2a; }
+.avail-day-label { font-size: 0.6rem; font-weight: 800; color: #0e1a12; display: block; margin-bottom: 4px; letter-spacing: 0.04em; }
+.avail-day.on .avail-day-label { color: rgba(255,255,255,0.9); }
+.avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #8aab8e; margin: 0 auto; }
+.avail-day.on .avail-dot { background: #c9a55a; }
+
+/* PROFILE EDITOR */
+.field-label { font-size: 0.68rem; font-weight: 800; color: #0e1a12; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 5px; }
+.field-input {
+width: 100%; background: #ffffff; border: 1.5px solid #4a7a54;
+border-radius: 8px; padding: 11px 12px;
+font-size: 0.88rem; font-weight: 500; color: #0e1a12; outline: none;
+margin-bottom: 14px;
+}
+.field-input:focus { border-color: #1a5c2a; }
+.field-textarea {
+width: 100%; background: #ffffff; border: 1.5px solid #4a7a54;
+border-radius: 8px; padding: 11px 12px;
+font-size: 0.88rem; font-weight: 500; color: #0e1a12; outline: none;
+resize: none; height: 90px; line-height: 1.6; margin-bottom: 14px;
+}
+.save-btn {
+width: 100%; background: #1a5c2a; color: #ffffff;
+border: none; border-radius: 10px;
+padding: 14px; font-size: 0.92rem; font-weight: 700; cursor: pointer;
+}
+
+.earnings-card {
+background: #ffffff; border: 1.5px solid #8aab8e;
+border-radius: 12px; padding: 15px; margin-bottom: 12px;
+}
+.earnings-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.earnings-label { font-size: 0.72rem; font-weight: 700; color: #0e1a12; }
+.earnings-val { font-family: ‘Playfair Display’, serif; font-size: 1.05rem; font-weight: 800; color: #0e1a12; }
+.earnings-bar { height: 6px; background: #c8dac8; border-radius: 3px; overflow: hidden; }
+.earnings-fill { height: 100%; border-radius: 3px; background: #1a5c2a; }
+.earnings-sub { font-size: 0.7rem; font-weight: 600; color: #2d5c3a; margin-top: 7px; }
+
+/* TAB BAR */
+.tab-bar {
+position: fixed; bottom: 0; left: 0; right: 0;
+background: #0e1a12; border-top: 1px solid rgba(255,255,255,0.1);
+display: flex; z-index: 50;
+padding-bottom: env(safe-area-inset-bottom);
+}
+.tab-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 0; cursor: pointer; gap: 3px; }
+.tab-icon { font-size: 1.1rem; }
+.tab-label { font-size: 0.62rem; font-weight: 700; color: #a8c4ae; letter-spacing: 0.03em; }
+.tab-item.active .tab-label { color: #c9a55a; }
+
+.footer-note { padding: 20px 14px; text-align: center; font-size: 0.7rem; font-weight: 600; color: #2d5c3a; line-height: 1.8; border-top: 1.5px solid #8aab8e; }
+</style>
+
+</head>
+<body>
+
+<!-- ═══ STUDENT SCREEN ═══ -->
+
+<div class="screen active" id="screen-student">
+  <nav class="nav">
+    <div class="logo" onclick="showScreen('screen-student')">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="7" r="3"/><path d="M12 10v11"/><path d="M9 17l3 3 3-3"/><path d="M7 13s1.5-2 5-2 5 2 5 2"/>
+        </svg>
+      </div>
+      <span class="logo-text">Cadi</span>
+    </div>
+    <button class="btn-outline" onclick="showScreen('screen-dashboard')">Instructor Login</button>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div><span class="hero-eyebrow-text">Premier Golf Instruction</span></div>
+    <h1>Find Your<br><em>Perfect</em> Instructor</h1>
+    <p class="hero-sub">Certified PGA & LPGA professionals near you. Tailored instruction, seamless booking.</p>
+    <div class="search-wrap">
+      <input placeholder="City, club, or zip code…"/>
+      <button class="search-btn">Search</button>
+    </div>
+  </section>
+
+  <div class="trust-bar">
+    <div class="trust-item"><span>🏆</span><span class="trust-text">PGA & LPGA Verified</span></div>
+    <div class="trust-item"><span>📍</span><span class="trust-text">10,000+ Instructors</span></div>
+    <div class="trust-item"><span>⭐</span><span class="trust-text">4.9 Avg Rating</span></div>
+    <div class="trust-item"><span>🔒</span><span class="trust-text">Secure Booking</span></div>
+    <div class="trust-item"><span>↩️</span><span class="trust-text">Free Cancellation</span></div>
+  </div>
+
+  <div class="results">
+    <div class="results-title">Augusta, Georgia</div>
+    <div class="results-sub" id="result-count">3 instructors available</div>
+    <div class="filters" id="filters"></div>
+    <div id="cards"></div>
+    <div class="footer-note"><strong>Cadi</strong> — All instructors PGA / LPGA certified · Instant booking · 24hr cancellation</div>
+  </div>
+</div>
+
+<!-- ═══ DASHBOARD SCREEN ═══ -->
+
+<div class="screen" id="screen-dashboard">
+  <nav class="nav">
+    <div class="logo" onclick="showScreen('screen-student')">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="7" r="3"/><path d="M12 10v11"/><path d="M9 17l3 3 3-3"/><path d="M7 13s1.5-2 5-2 5 2 5 2"/>
+        </svg>
+      </div>
+      <span class="logo-text">Cadi</span>
+    </div>
+    <button class="btn-outline" onclick="showScreen('screen-student')">← Find Instructors</button>
+  </nav>
+  <div class="dashboard" id="dash-content"></div>
+  <div class="tab-bar">
+    <div class="tab-item active" id="tab-home" onclick="showDashTab('home')"><div class="tab-icon">📊</div><div class="tab-label">Dashboard</div></div>
+    <div class="tab-item" id="tab-bookings" onclick="showDashTab('bookings')"><div class="tab-icon">📅</div><div class="tab-label">Bookings</div></div>
+    <div class="tab-item" id="tab-avail" onclick="showDashTab('avail')"><div class="tab-icon">🕐</div><div class="tab-label">Availability</div></div>
+    <div class="tab-item" id="tab-profile" onclick="showDashTab('profile')"><div class="tab-icon">👤</div><div class="tab-label">Profile</div></div>
+  </div>
+</div>
+
+<!-- PROFILE OVERLAY -->
+
+<div class="overlay" id="profile-overlay">
+  <div class="modal">
+    <div class="modal-hero" id="p-hero">
+      <div class="modal-hero-bg" id="p-hero-bg"><div class="modal-hero-initials" id="p-initials"></div></div>
+      <div class="modal-hero-overlay"></div>
+      <button class="modal-close" onclick="closeOv('profile-overlay')">✕</button>
+      <div class="modal-hero-content">
+        <div class="modal-hero-name" id="p-name"></div>
+        <div class="modal-hero-sub" id="p-sub"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-stats" id="p-stats"></div>
+      <div class="section-head"><span class="section-label">About</span><div class="section-line"></div></div>
+      <p class="bio" id="p-bio"></p>
+      <div class="section-head"><span class="section-label">Specialties</span><div class="section-line"></div></div>
+      <div class="chips" id="p-chips"></div>
+      <div class="section-head"><span class="section-label">Achievements</span><div class="section-line"></div></div>
+      <div class="achievements" id="p-achievements"></div>
+      <div class="section-head"><span class="section-label">Membership Plans</span><div class="section-line"></div></div>
+      <div class="plans-grid" id="p-plans"></div>
+      <div class="cta-row">
+        <button class="cta-primary" id="p-book-btn">Book a Session</button>
+        <button class="cta-secondary" onclick="closeOv('profile-overlay')">Message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING OVERLAY -->
+
+<div class="overlay" id="booking-overlay">
+  <div class="modal booking-modal-bg">
+    <div class="modal-hero" style="height:90px" id="b-hero">
+      <div class="modal-hero-bg" id="b-hero-bg" style="height:90px"><div style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:800;color:rgba(255,255,255,0.2)" id="b-initials-bg"></div></div>
+      <div class="modal-hero-overlay"></div>
+      <button class="modal-close" onclick="closeOv('booking-overlay')">✕</button>
+      <div class="modal-hero-content">
+        <div style="font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:2px">Book a Session</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:#fff" id="b-name"></div>
+      </div>
+    </div>
+    <div class="modal-body" style="padding-bottom:30px">
+      <div class="booking-week">Week of April 7 – 13, 2026</div>
+      <div class="legend" id="b-legend"></div>
+      <div class="cal-scroll">
+        <table class="cal-table" id="cal-table"></table>
+      </div>
+      <div class="book-footer">
+        <div id="b-sel-display"><div style="font-size:0.75rem;font-weight:600;color:#0e1a12">Select an open slot above</div></div>
+        <div style="display:flex;gap:9px;align-items:center">
+          <span class="book-price-tag" id="b-price"></span>
+          <button class="confirm-btn" id="confirm-btn" disabled onclick="confirmBooking()">Confirm →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS OVERLAY -->
+
+<div class="overlay" id="success-overlay">
+  <div class="success-screen">
+    <div class="success-icon" id="s-icon">⛳</div>
+    <div class="success-eyebrow">Booking Confirmed</div>
+    <div class="success-title">You're on the tee.</div>
+    <p class="success-sub">Session with <strong id="s-name"></strong></p>
+    <div class="success-time" id="s-time"></div>
+    <p class="success-note">A confirmation has been sent to your email. Your instructor will reach out 24 hours before your session.</p>
+    <button class="success-btn" onclick="closeAll()">Back to Cadi</button>
+  </div>
+</div>
+
+<script>
+const DAYS=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const TIMES=["7:00 AM","8:30 AM","10:00 AM","11:30 AM","1:00 PM","2:30 PM","4:00 PM"];
+const TIERS={elite:{label:"ELITE",bg:"#c9a55a",text:"#0e1a12"},pro:{label:"PRO",bg:"rgba(255,255,255,0.2)",text:"#fff"},basic:{label:"BASIC",bg:"rgba(255,255,255,0.12)",text:"rgba(255,255,255,0.7)"}};
+const PLANS=[
+  {name:"Basic",price:29,features:["Profile listing","Bio & photo","Contact form","Email support"]},
+  {name:"Pro",price:79,features:["Featured placement","Calendar & booking","Student reviews","Analytics"]},
+  {name:"Elite",price:149,features:["#1 local search","Elite badge","Zero booking fee","Account manager","Press kit"],highlight:true},
+];
+const instructors=[
+  {id:1,name:"James Whitmore",tier:"elite",location:"Augusta National GC",distance:"0.8 mi",rating:4.97,reviews:214,handicap:"+2.1",specialty:["Short Game","Course Management","Mental Performance","Wedge Play"],bio:"A former PGA Tour caddie with 20 years on tour, James brings an insider's perspective to every lesson. His data-driven approach — blending Trackman analytics with Hogan-era fundamentals — has helped three amateurs reach the top 50 national rankings.",rate:195,experience:"20 yrs",students:400,sessions:"1,200+",initials:"JW",color:"#1a5c2a",available:true,achievements:[{icon:"🏆",text:"<strong>Golf Digest</strong> Top 50 Instructor — 2023, 2024"},{icon:"📉",text:"Average <strong>5.1 stroke reduction</strong> per student"},{icon:"🎓",text:"PGA Master Professional · Class A Member"},{icon:"⛳",text:"Resident pro at <strong>Augusta National GC</strong>"}]},
+  {id:2,name:"Claire Sutton",tier:"pro",location:"Savannah, GA",distance:"2.3 mi",rating:4.89,reviews:118,handicap:"+0.8",specialty:["Driving Distance","Swing Mechanics","Junior Development","Women's Golf"],bio:"LPGA Teaching Professional and former Division I All-American. Claire combines cutting-edge biomechanics with intuitive, feel-based instruction. Her junior program has produced 12 state champions.",rate:135,experience:"12 yrs",students:220,sessions:"680+",initials:"CS",color:"#0d5c52",available:true,achievements:[{icon:"🥇",text:"<strong>LPGA Top Teacher</strong> Southeast Region 2024"},{icon:"🎯",text:"12 Junior State Champions produced"},{icon:"📊",text:"Certified <strong>TrackMan</strong> Level 3 Instructor"},{icon:"🎓",text:"PGA & LPGA Certified Teaching Professional"}]},
+  {id:3,name:"Marcus DeVane",tier:"pro",location:"The Augusta Club",distance:"3.1 mi",rating:4.82,reviews:76,handicap:"3.4",specialty:["Putting","Wedge Play","On-Course Lessons","Short Game"],bio:"PGA-certified short game specialist with a cult following among competitive amateurs. Marcus's proprietary short game system averages a 4.2 stroke reduction in just 8 sessions. His method is featured in Golf Monthly.",rate:110,experience:"9 yrs",students:160,sessions:"490+",initials:"MD",color:"#1a3a6b",available:false,achievements:[{icon:"📰",text:"Featured in <strong>Golf Monthly</strong> — Short Game Special"},{icon:"📉",text:"Avg <strong>4.2 stroke reduction</strong> in 8 sessions"},{icon:"🎓",text:"PGA Certified · Short Game Specialist"},{icon:"⭐",text:"Top-rated instructor in the Augusta area"}]},
+];
+
+let curFilter="All",curInst=null,slots={},selSlot=null,dashTab="home",availDays=[true,true,false,true,true,true,false];
+
+function showScreen(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");if(id==="screen-dashboard")renderDashTab(dashTab);window.scrollTo(0,0);}
+
+function renderFilters(){
+  const fs=["All","Available Now","Elite","Pro"];
+  document.getElementById("filters").innerHTML=fs.map(f=>`<button class="filter-btn${f===curFilter?" active":""}" onclick="setFilter('${f}')">${f}</button>`).join("");
+}
+function setFilter(f){curFilter=f;renderFilters();renderCards();}
+
+function renderCards(){
+  const filtered=instructors.filter(i=>{
+    if(curFilter==="Available Now")return i.available;
+    if(curFilter==="Elite")return i.tier==="elite";
+    if(curFilter==="Pro")return i.tier==="pro";
+    return true;
+  });
+  document.getElementById("result-count").textContent=`${filtered.length} instructor${filtered.length!==1?"s":""} available`;
+  document.getElementById("cards").innerHTML=filtered.map(i=>{
+    const t=TIERS[i.tier];
+    return `<div class="card" onclick="openProfile(${i.id})">
+      <div class="card-photo">
+        <div class="card-photo-bg" style="background:linear-gradient(140deg,${i.color} 0%,${i.color}cc 100%)"><div class="card-photo-initials">${i.initials}</div></div>
+        <div class="card-overlay"></div>
+        <div class="card-photo-info">
+          <div class="card-name">${i.name}</div>
+          <div class="card-meta-row">
+            <span class="tier-badge" style="background:${t.bg};color:${t.text}">${t.label}</span>
+            <span class="card-location">${i.location}</span>
+            <div class="avail-pill"><div class="avail-dot" style="background:${i.available?"#4ade80":"rgba(255,255,255,0.35)"}"></div><span class="avail-text">${i.available?"Open":"Full"}</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-stats-grid">
+          <div class="card-stat"><div class="stat-label">HCP</div><div class="stat-val">${i.handicap}</div></div>
+          <div class="card-stat"><div class="stat-label">Exp</div><div class="stat-val">${i.experience}</div></div>
+          <div class="card-stat"><div class="stat-label">Students</div><div class="stat-val">${i.students}+</div></div>
+          <div class="card-stat"><div class="stat-label">Sessions</div><div class="stat-val">${i.sessions}</div></div>
+        </div>
+        <div class="chips">${i.specialty.slice(0,3).map(s=>`<span class="chip">${s}</span>`).join("")}${i.specialty.length>3?`<span class="chip">+${i.specialty.length-3}</span>`:""}</div>
+        <div class="card-footer">
+          <div>
+            <div class="rating-row"><span class="stars">${"★".repeat(Math.round(i.rating))}</span><span class="rating-num">${i.rating}</span><span class="rating-count">(${i.reviews})</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div><span class="card-rate" style="color:${i.color}">$${i.rate}</span><span class="card-rate-sub"> /session</span></div>
+            <button class="book-btn" style="background:${i.color}" onclick="event.stopPropagation();openBooking(${i.id})">Book</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function openProfile(id){
+  const i=instructors.find(x=>x.id===id); curInst=i;
+  const t=TIERS[i.tier];
+  document.getElementById("p-hero-bg").style.background=`linear-gradient(140deg,${i.color} 0%,${i.color}99 100%)`;
+  document.getElementById("p-initials").textContent=i.initials;
+  document.getElementById("p-name").textContent=i.name;
+  document.getElementById("p-sub").innerHTML=`<span class="tier-badge" style="background:${t.bg};color:${t.text}">${t.label}</span><span style="font-size:0.7rem;font-weight:600;color:rgba(255,255,255,0.85);margin-left:4px">${i.location} · ${i.distance}</span>`;
+  document.getElementById("p-stats").innerHTML=[["Handicap",i.handicap],["Experience",i.experience],["Students",i.students+"+"],["Sessions",i.sessions]].map(([l,v])=>`<div class="modal-stat"><div class="modal-stat-label">${l}</div><div class="modal-stat-val">${v}</div></div>`).join("");
+  document.getElementById("p-bio").textContent=i.bio;
+  document.getElementById("p-chips").innerHTML=i.specialty.map(s=>`<span class="chip">${s}</span>`).join("");
+  document.getElementById("p-achievements").innerHTML=i.achievements.map(a=>`<div class="achievement"><div class="achievement-icon">${a.icon}</div><div class="achievement-text">${a.text}</div></div>`).join("");
+  document.getElementById("p-plans").innerHTML=PLANS.map(p=>{
+    const isActive=p.name.toLowerCase()===i.tier;
+    return `<div class="plan${p.highlight?" highlight":""}">
+      ${isActive?`<div class="active-tag" style="background:${i.color}">CURRENT</div>`:""}
+      <div class="plan-name">${p.name}</div>
+      <div class="plan-price" style="${!p.highlight?`color:${i.color}`:""}">$${p.price}<span class="plan-mo">/mo</span></div>
+      <div class="plan-divider"></div>
+      ${p.features.map(f=>`<div class="plan-feature"><span class="plan-check" style="color:${p.highlight?"#c9a55a":"#1a7a2a"}">✓</span><span class="plan-feat-text">${f}</span></div>`).join("")}
+    </div>`;
+  }).join("");
+  const btn=document.getElementById("p-book-btn");
+  btn.style.background=i.color; btn.textContent=`Book a Session — $${i.rate}`;
+  btn.onclick=()=>{closeOv("profile-overlay");openBooking(i.id);};
+  document.getElementById("profile-overlay").classList.add("open");
+  document.getElementById("profile-overlay").scrollTop=0;
+}
+
+function genSlots(){slots={};DAYS.forEach(d=>{slots[d]={};TIMES.forEach(t=>{const r=Math.random();slots[d][t]=r>0.45?"open":r>0.15?"taken":"off";});});}
+
+function openBooking(id){
+  const i=instructors.find(x=>x.id===id); curInst=i; selSlot=null; genSlots();
+  document.getElementById("b-hero-bg").style.background=`linear-gradient(140deg,${i.color} 0%,${i.color}99 100%)`;
+  document.getElementById("b-initials-bg").textContent=i.initials;
+  document.getElementById("b-name").textContent=i.name;
+  document.getElementById("b-price").textContent=`$${i.rate}`;
+  document.getElementById("b-price").style.color=i.color;
+  document.getElementById("confirm-btn").style.background=i.color;
+  document.getElementById("confirm-btn").disabled=true;
+  document.getElementById("b-sel-display").innerHTML=`<div style="font-size:0.75rem;font-weight:600;color:#0e1a12">Select an open slot above</div>`;
+  document.getElementById("b-legend").innerHTML=`
+    <div class="legend-item"><div class="legend-box" style="background:${i.color}22;border:1.5px solid ${i.color}"></div><span class="legend-label">Open</span></div>
+    <div class="legend-item"><div class="legend-box" style="background:#e0e8e0;border:1.5px solid #8aab8e"></div><span class="legend-label">Taken</span></div>
+    <div class="legend-item"><div class="legend-box" style="background:${i.color};border:1.5px solid ${i.color}"></div><span class="legend-label">Selected</span></div>`;
+  let html=`<thead><tr><th style="width:58px;text-align:left;padding-bottom:7px"><span style="font-size:0.65rem;font-weight:800;color:#0e1a12">TIME</span></th>`;
+  DAYS.forEach(d=>{html+=`<th class="cal-day-head">${d}</th>`;});
+  html+=`</tr></thead><tbody>`;
+  TIMES.forEach(t=>{
+    html+=`<tr><td class="cal-time-cell">${t}</td>`;
+    DAYS.forEach(d=>{
+      const s=slots[d][t],isOpen=s==="open";
+      html+=`<td><div class="slot${isOpen?" open":""}" style="background:${isOpen?i.color+"22":"#f0f2f0"};border-color:${isOpen?i.color:"#8aab8e"}" onclick="selSlotFn(this,'${d}','${t}')">${isOpen?`<div class="slot-dot" style="background:${i.color}"></div>`:""}</div></td>`;
+    });
+    html+=`</tr>`;
+  });
+  html+=`</tbody>`;
+  document.getElementById("cal-table").innerHTML=html;
+  document.getElementById("booking-overlay").classList.add("open");
+  document.getElementById("booking-overlay").scrollTop=0;
+}
+
+function selSlotFn(el,day,time){
+  if(!el.classList.contains("open"))return;
+  const i=curInst;
+  document.querySelectorAll(".slot.open").forEach(s=>{s.style.background=i.color+"22";s.style.borderColor=i.color;const d=s.querySelector(".slot-dot");if(d)d.style.background=i.color;});
+  el.style.background=i.color;el.style.borderColor=i.color;
+  const dot=el.querySelector(".slot-dot");if(dot)dot.style.background="#fff";
+  selSlot={day,time};
+  document.getElementById("b-sel-display").innerHTML=`<div class="book-sel-label">Selected</div><div class="book-sel-val" style="color:${i.color}">${day} · ${time}</div>`;
+  document.getElementById("confirm-btn").disabled=false;
+}
+
+function confirmBooking(){
+  if(!selSlot)return;
+  const i=curInst;
+  closeOv("booking-overlay");
+  document.getElementById("s-name").textContent=i.name;
+  document.getElementById("s-time").textContent=`${selSlot.day} · ${selSlot.time}`;
+  document.getElementById("s-time").style.color=i.color;
+  document.getElementById("success-overlay").classList.add("open");
+}
+
+function closeOv(id){document.getElementById(id).classList.remove("open");}
+function closeAll(){document.querySelectorAll(".overlay").forEach(o=>o.classList.remove("open"));}
+
+/* DASHBOARD */
+function showDashTab(tab){
+  dashTab=tab;
+  document.querySelectorAll(".tab-item").forEach(t=>t.classList.remove("active"));
+  document.getElementById("tab-"+tab).classList.add("active");
+  renderDashTab(tab);
+}
+function renderDashTab(tab){
+  const el=document.getElementById("dash-content");
+  if(tab==="home")el.innerHTML=dashHome();
+  else if(tab==="bookings")el.innerHTML=dashBookings();
+  else if(tab==="avail")el.innerHTML=dashAvail();
+  else if(tab==="profile")el.innerHTML=dashProfile();
+}
+function bookingItem(b){
+  return `<div class="booking-item">
+    <div class="booking-date-badge" style="background:${b.color}18;border:1.5px solid ${b.color}50">
+      <span class="booking-date-day" style="color:${b.color}">${b.day}</span>
+      <span class="booking-date-num" style="color:${b.color}">${b.num}</span>
+    </div>
+    <div style="flex:1">
+      <div class="booking-student">${b.student}</div>
+      <div class="booking-detail">${b.detail}</div>
+    </div>
+    <div class="booking-price" style="color:${b.color}">${b.price}</div>
+  </div>`;
+}
+const BOOKINGS=[
+  {day:"MON",num:"7",student:"Tyler Barnes",detail:"10:00 AM · Swing Mechanics",price:"$135",color:"#0d5c52"},
+  {day:"TUE",num:"8",student:"Sarah Mitchell",detail:"8:30 AM · Junior Lesson",price:"$135",color:"#0d5c52"},
+  {day:"WED",num:"9",student:"Greg Holloway",detail:"1:00 PM · Driving Distance",price:"$135",color:"#0d5c52"},
+  {day:"FRI",num:"11",student:"Diana Park",detail:"2:30 PM · Course Mgmt",price:"$135",color:"#0d5c52"},
+  {day:"SAT",num:"12",student:"Rob Jennings",detail:"9:00 AM · Full Swing",price:"$135",color:"#0d5c52"},
+];
+function dashHome(){
+  return `
+  <div class="dash-welcome">
+    <div class="dash-eyebrow">Instructor Portal</div>
+    <div class="dash-name">Welcome back, Claire</div>
+    <div class="dash-sub">Savannah, GA · LPGA Professional</div>
+    <div class="dash-tier"><span>⭐</span><span class="dash-tier-text">Pro Plan — $79/mo</span></div>
+  </div>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-label">This Month</div><div class="metric-val">$2,160</div><div class="metric-up">↑ 18% vs last month</div></div>
+    <div class="metric-card"><div class="metric-label">Bookings</div><div class="metric-val">16</div><div class="metric-up">↑ 4 new this week</div></div>
+    <div class="metric-card"><div class="metric-label">Profile Views</div><div class="metric-val">284</div><div class="metric-up">↑ 32% this week</div></div>
+    <div class="metric-card"><div class="metric-label">Rating</div><div class="metric-val">4.89</div><div class="metric-neutral">118 reviews</div></div>
+  </div>
+  <div class="upgrade-banner">
+    <div class="upgrade-eyebrow">Upgrade Available</div>
+    <div class="upgrade-title">Go Elite. Own Your Market.</div>
+    <div class="upgrade-sub">Get the #1 spot in local search, zero booking fees, and a dedicated account manager.</div>
+    <button class="upgrade-btn">Upgrade to Elite — $149/mo</button>
+  </div>
+  <div class="dash-section-title">Next Up</div>
+  ${BOOKINGS.slice(0,3).map(bookingItem).join("")}`;
+}
+function dashBookings(){
+  return `
+  <div class="dash-section-title">Upcoming Bookings</div>
+  ${BOOKINGS.map(bookingItem).join("")}
+  <div class="dash-section-title" style="margin-top:20px">Earnings</div>
+  <div class="earnings-card">
+    <div class="earnings-row"><span class="earnings-label">April Goal</span><span class="earnings-val">$3,500</span></div>
+    <div class="earnings-bar"><div class="earnings-fill" style="width:62%"></div></div>
+    <div class="earnings-sub">$2,160 earned · 62% to goal</div>
+  </div>
+  <div class="earnings-card">
+    <div class="earnings-row"><span class="earnings-label">Total Earned (All Time)</span><span class="earnings-val">$24,840</span></div>
+    <div class="earnings-sub">Since joining Cadi · Jan 2025</div>
+  </div>`;
+}
+function dashAvail(){
+  const labels=["M","T","W","T","F","S","S"];
+  return `
+  <div class="dash-section-title">Weekly Availability</div>
+  <p style="font-size:0.78rem;font-weight:600;color:#2d5c3a;margin-bottom:12px">Tap a day to toggle on or off</p>
+  <div class="avail-grid">
+    ${labels.map((d,i)=>`<div class="avail-day${availDays[i]?" on":""}" onclick="toggleDay(${i})"><span class="avail-day-label">${d}</span><div class="avail-dot"></div></div>`).join("")}
+  </div>
+  <div class="dash-section-title">Session Times</div>
+  ${TIMES.map((t,i)=>`
+  <div style="display:flex;justify-content:space-between;align-items:center;background:#fff;border:1.5px solid #8aab8e;border-radius:10px;padding:12px 14px;margin-bottom:8px">
+    <span style="font-size:0.85rem;font-weight:700;color:#0e1a12">${t}</span>
+    <div style="width:42px;height:24px;background:${i%3!==2?"#1a5c2a":"#8aab8e"};border-radius:12px;position:relative;cursor:pointer">
+      <div style="position:absolute;top:3px;${i%3!==2?"right":"left"}:3px;width:18px;height:18px;background:#fff;border-radius:50%"></div>
+    </div>
+  </div>`).join("")}`;
+}
+function dashProfile(){
+  return `
+  <div class="dash-section-title">Your Profile</div>
+  <div style="display:flex;align-items:center;gap:14px;background:#fff;border:1.5px solid #8aab8e;border-radius:13px;padding:14px;margin-bottom:18px">
+    <div style="width:58px;height:58px;border-radius:50%;background:#0d5c5220;border:2px solid #0d5c5250;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#0d5c52;flex-shrink:0">CS</div>
+    <div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:#0e1a12">Claire Sutton</div>
+      <div style="font-size:0.75rem;font-weight:600;color:#2d5c3a;margin-top:2px">Savannah, GA · LPGA Pro</div>
+      <div style="display:flex;align-items:center;gap:4px;margin-top:4px">
+        <span style="color:#c9a55a;font-size:0.72rem">★★★★★</span>
+        <span style="font-size:0.75rem;font-weight:700;color:#0e1a12">4.89</span>
+        <span style="font-size:0.7rem;font-weight:600;color:#2d5c3a">(118 reviews)</span>
+      </div>
+    </div>
+  </div>
+  <div class="field-label">Display Name</div>
+  <input class="field-input" value="Claire Sutton"/>
+  <div class="field-label">Title / Certification</div>
+  <input class="field-input" value="LPGA Teaching Professional"/>
+  <div class="field-label">Location</div>
+  <input class="field-input" value="Savannah, GA"/>
+  <div class="field-label">Handicap Index</div>
+  <input class="field-input" value="+0.8"/>
+  <div class="field-label">Session Rate ($)</div>
+  <input class="field-input" value="135"/>
+  <div class="field-label">Bio</div>
+  <textarea class="field-textarea">LPGA Teaching Professional and former Division I All-American. Combines cutting-edge biomechanics with intuitive, feel-based instruction.</textarea>
+
+  <div class="field-label">Specialties (comma separated)</div>
+  <input class="field-input" value="Driving Distance, Swing Mechanics, Junior Development, Women's Golf"/>
+  <button class="save-btn" onclick="alert('Profile saved!')">Save Changes</button>`;
+}
+function toggleDay(i){availDays[i]=!availDays[i];renderDashTab("avail");}
+
+renderFilters();
+renderCards();
+renderDashTab(“home”);
+</script>
+
+</body>
+</html>
