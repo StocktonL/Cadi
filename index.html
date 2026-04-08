@@ -3,717 +3,586 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<title>Cadi — Find Your Instructor</title>
+<title>Carson Lundell — Golf Instruction · Cadi</title>
+<meta name="description" content="Book a golf lesson with Carson Lundell — Korn Ferry Tour Pro, BYU Honorable Mention All-American. Fox Hollow GC, Orem UT."/>
+<meta name="theme-color" content="#0e1a12"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Cadi"/>
+<link rel="manifest" href="/manifest.json"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body{font-family:'DM Sans',sans-serif;background:#f0f2f0;color:#0e1a12;-webkit-font-smoothing:antialiased;}
-button,input,textarea{font-family:'DM Sans',sans-serif;}
-.page{display:none;min-height:100vh;}
-.page.active{display:block;}
-.nav{background:#0e1a12;padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;}
-.logo{display:flex;align-items:center;gap:9px;cursor:pointer;text-decoration:none;}
-.logo-mark{width:30px;height:30px;background:#c9a55a;border-radius:7px;display:flex;align-items:center;justify-content:center;}
-.logo-text{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#fff;}
-.nav-links{display:flex;gap:6px;}
-.nav-btn{background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);border-radius:7px;padding:7px 12px;font-size:0.75rem;font-weight:700;cursor:pointer;}
-.hero{background:#0e1a12;padding:32px 16px 28px;position:relative;}
-.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#c9a55a,transparent);}
-.eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
-.eyebrow-line{width:22px;height:1.5px;background:#c9a55a;}
-.eyebrow-text{font-size:0.65rem;font-weight:700;color:#c9a55a;letter-spacing:0.2em;text-transform:uppercase;}
-.hero h1{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#fff;line-height:1.15;margin-bottom:10px;}
-.hero h1 em{font-style:italic;color:#d4b472;}
-.hero-sub{color:#a8c4ae;font-size:0.88rem;font-weight:500;line-height:1.6;margin-bottom:20px;}
-.search-wrap{display:flex;gap:8px;background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);border-radius:10px;padding:5px 5px 5px 13px;align-items:center;}
-.search-wrap input{flex:1;background:none;border:none;outline:none;color:#fff;font-size:0.88rem;}
-.search-wrap input::placeholder{color:rgba(255,255,255,0.4);}
-.search-btn{background:#c9a55a;color:#0e1a12;border:none;border-radius:7px;padding:10px 16px;font-size:0.82rem;font-weight:700;cursor:pointer;}
-.trust-bar{background:#1e3326;padding:11px 16px;display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;}
-.trust-bar::-webkit-scrollbar{display:none;}
-.trust-item{display:flex;align-items:center;gap:6px;flex-shrink:0;font-size:0.72rem;font-weight:600;color:#a8c4ae;white-space:nowrap;}
-.results{padding:20px 14px 40px;}
-.results-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:2px;}
-.results-sub{font-size:0.75rem;font-weight:600;color:#2d5c3a;margin-bottom:16px;}
-.card{background:#fff;border:1.5px solid #8aab8e;border-radius:16px;margin-bottom:14px;overflow:hidden;box-shadow:0 2px 8px rgba(14,26,18,0.1);cursor:pointer;}
-.card-photo{width:100%;height:175px;position:relative;overflow:hidden;}
-.card-photo-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
-.card-initials{font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:800;color:rgba(255,255,255,0.22);}
-.card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,26,18,0.92) 0%,transparent 55%);}
-.card-info{position:absolute;bottom:12px;left:14px;right:14px;}
-.card-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:5px;}
-.card-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
-.tier{font-size:0.58rem;font-weight:800;letter-spacing:0.1em;padding:3px 8px;border-radius:4px;}
-.loc{font-size:0.7rem;font-weight:600;color:rgba(255,255,255,0.8);}
-.avail{display:flex;align-items:center;gap:4px;margin-left:auto;}
-.avail-dot{width:7px;height:7px;border-radius:50%;}
-.avail-txt{font-size:0.68rem;font-weight:700;color:rgba(255,255,255,0.9);}
-.card-body{padding:14px;}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);background:#0e1a12;border-radius:10px;overflow:hidden;margin-bottom:12px;}
-.stat{padding:10px 6px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
+:root{
+  --green:#0e1a12;--green-mid:#1a5c2a;--green-pale:#e8f5ec;
+  --gold:#c9a55a;--gold-pale:#fdf8ee;
+  --white:#ffffff;--off:#f0f2f0;--border:#c8dac8;--gray:#475569;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--green);-webkit-font-smoothing:antialiased;min-height:100vh;}
+button,input,textarea,select{font-family:'DM Sans',sans-serif;}
+
+.hero{background:var(--green);padding-bottom:28px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(201,165,90,0.07) 0%,transparent 70%);}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.brand-mark{width:28px;height:28px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;}
+.brand-text{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:#ffffff;}
+.share-btn{background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);color:#ffffff;border-radius:7px;padding:7px 13px;font-size:0.72rem;font-weight:700;cursor:pointer;}
+
+.hero-body{padding:0 20px;}
+.avatar-row{display:flex;align-items:flex-end;gap:14px;margin-bottom:14px;}
+.avatar{width:82px;height:82px;border-radius:50%;background:linear-gradient(140deg,#1a3a6b,#0d2044);border:3px solid rgba(201,165,90,0.45);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#ffffff;flex-shrink:0;}
+.name-block{flex:1;padding-bottom:2px;}
+.eyebrow{font-size:0.6rem;font-weight:700;color:var(--gold);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:4px;}
+.hero-name{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#ffffff;line-height:1.1;margin-bottom:4px;}
+.hero-title{font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.65);line-height:1.5;}
+
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.badge{display:flex;align-items:center;gap:5px;border-radius:5px;padding:4px 10px;font-size:0.62rem;font-weight:800;letter-spacing:0.06em;}
+.badge-gold{background:rgba(201,165,90,0.2);border:1px solid rgba(201,165,90,0.4);color:var(--gold);}
+.badge-green{background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.25);color:#4ade80;}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;margin-bottom:18px;}
+.stat{padding:10px 6px;text-align:center;border-right:1px solid rgba(255,255,255,0.07);}
 .stat:last-child{border-right:none;}
-.stat-l{font-size:0.6rem;font-weight:700;color:#a8c4ae;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;}
-.stat-v{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#fff;}
-.chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;}
-.chip{font-size:0.7rem;font-weight:600;padding:4px 10px;border-radius:4px;border:1.5px solid #4a7a54;color:#1e4a28;background:#ddeedd;}
-.card-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1.5px solid #c8dac8;}
-.rate{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;}
-.rate-sub{font-size:0.7rem;font-weight:600;color:#2d5c3a;}
-.stars{color:#c9a55a;font-size:0.75rem;}
-.rating{display:flex;align-items:center;gap:4px;}
-.rnum{font-size:0.78rem;font-weight:700;}
-.rcount{font-size:0.7rem;font-weight:600;color:#2d5c3a;}
-.book-btn{border:none;border-radius:9px;padding:9px 16px;font-size:0.8rem;font-weight:700;cursor:pointer;color:#fff;}
-.footer-note{padding:20px 14px;text-align:center;font-size:0.7rem;font-weight:600;color:#2d5c3a;border-top:1.5px solid #8aab8e;}
+.stat-l{font-size:0.55rem;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;}
+.stat-v{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#ffffff;}
 
-/* PROFILE */
-.p-hero{width:100%;height:260px;position:relative;overflow:hidden;}
-.p-hero-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
-.p-hero-initials{font-family:'Playfair Display',serif;font-size:7rem;font-weight:800;color:rgba(255,255,255,0.15);}
-.p-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,26,18,0.95) 0%,rgba(14,26,18,0.1) 60%,transparent 100%);}
-.p-back{position:absolute;top:14px;left:14px;background:rgba(0,0,0,0.4);border:1.5px solid rgba(255,255,255,0.25);border-radius:8px;color:#fff;padding:7px 13px;font-size:0.75rem;font-weight:700;cursor:pointer;}
-.p-content{position:absolute;bottom:16px;left:16px;right:16px;}
-.p-name{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:5px;}
-.p-sub{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.p-body{padding:18px 16px 40px;background:#f0f2f0;}
-.p-stats{display:grid;grid-template-columns:repeat(4,1fr);background:#0e1a12;border-radius:12px;overflow:hidden;margin-bottom:20px;}
-.p-stat{padding:12px 6px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
-.p-stat:last-child{border-right:none;}
-.p-stat-l{font-size:0.6rem;font-weight:700;color:#a8c4ae;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;}
-.p-stat-v{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#fff;}
-.sec{display:flex;align-items:center;gap:10px;margin-bottom:10px;margin-top:20px;}
-.sec-lbl{font-size:0.65rem;font-weight:800;color:#0e1a12;letter-spacing:0.14em;text-transform:uppercase;white-space:nowrap;}
-.sec-line{flex:1;height:1.5px;background:#8aab8e;}
-.bio{font-size:0.88rem;font-weight:500;color:#0e1a12;line-height:1.75;}
-.ach-list{display:flex;flex-direction:column;gap:8px;}
-.ach{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid #8aab8e;border-radius:10px;padding:11px 13px;}
-.ach-icon{font-size:1.1rem;flex-shrink:0;}
-.ach-text{font-size:0.8rem;font-weight:500;color:#0e1a12;line-height:1.4;}
-.p-cta{display:flex;gap:9px;margin-top:22px;}
-.cta-primary{flex:1;border:none;border-radius:10px;padding:15px;font-size:0.95rem;font-weight:700;cursor:pointer;color:#fff;}
-.cta-secondary{background:#fff;border:1.5px solid #4a7a54;color:#0e1a12;border-radius:10px;padding:15px 18px;font-size:0.88rem;font-weight:700;cursor:pointer;}
+.cta-row{display:flex;gap:9px;}
+.btn-primary{flex:1;background:var(--gold);color:var(--green);border:none;border-radius:10px;padding:14px;font-size:0.92rem;font-weight:800;cursor:pointer;}
+.btn-secondary{background:rgba(255,255,255,0.1);color:#ffffff;border:1.5px solid rgba(255,255,255,0.2);border-radius:10px;padding:14px 16px;font-size:0.82rem;font-weight:700;cursor:pointer;}
 
-/* BOOKING */
-.b-header{padding:16px 16px 20px;}
-.b-back{background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);color:#fff;border-radius:8px;padding:7px 13px;font-size:0.75rem;font-weight:700;cursor:pointer;margin-bottom:14px;display:inline-block;}
-.b-inst-row{display:flex;align-items:center;gap:12px;}
-.b-avatar{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;flex-shrink:0;}
-.b-inst-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:2px;}
-.b-inst-sub{font-size:0.72rem;font-weight:600;color:#a8c4ae;}
-.b-body{padding:18px 16px 40px;background:#f0f2f0;}
-.week-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
-.week-lbl{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#0e1a12;}
-.week-btn{background:#fff;border:1.5px solid #8aab8e;border-radius:7px;padding:6px 12px;font-size:0.78rem;font-weight:700;cursor:pointer;color:#0e1a12;}
-.legend{display:flex;gap:14px;margin-bottom:14px;}
-.leg-item{display:flex;align-items:center;gap:5px;font-size:0.7rem;font-weight:700;color:#0e1a12;}
-.leg-box{width:10px;height:10px;border-radius:2px;}
-.cal-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -16px;padding:0 16px;}
-.cal{border-collapse:separate;border-spacing:3px;min-width:360px;}
-.cal-th{font-size:0.65rem;font-weight:800;color:#0e1a12;white-space:nowrap;padding-right:6px;vertical-align:middle;}
-.cal-dh{text-align:center;padding-bottom:7px;font-size:0.7rem;font-weight:800;color:#0e1a12;}
-.slot{width:37px;height:28px;border-radius:6px;border:1.5px solid #8aab8e;background:#fff;cursor:default;display:flex;align-items:center;justify-content:center;transition:all 0.1s;}
-.slot.open{cursor:pointer;}
-.slot-dot{width:6px;height:6px;border-radius:50%;}
-.b-footer{margin-top:16px;padding-top:14px;border-top:2px solid #8aab8e;display:flex;justify-content:space-between;align-items:center;}
-.b-sel-lbl{font-size:0.65rem;font-weight:800;color:#0e1a12;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;}
-.b-sel-val{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;}
-.b-price{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#0e1a12;}
-.confirm{border:none;border-radius:9px;padding:11px 18px;font-size:0.85rem;font-weight:700;cursor:pointer;color:#fff;}
-.confirm:disabled{background:#8aab8e!important;cursor:not-allowed;opacity:0.6;}
+.body{padding:20px 20px 120px;}
+.sec{display:flex;align-items:center;gap:10px;margin-bottom:10px;margin-top:22px;}
+.sec-lbl{font-size:0.62rem;font-weight:800;color:var(--green);letter-spacing:0.14em;text-transform:uppercase;white-space:nowrap;}
+.sec-line{flex:1;height:1.5px;background:var(--border);}
 
-/* SUCCESS */
-.success{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;background:#0e1a12;}
-.s-icon{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.9rem;margin:0 auto 18px;border:2px solid #c9a55a;}
-.s-eyebrow{font-size:0.65rem;font-weight:700;color:#c9a55a;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;}
-.s-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#fff;margin-bottom:8px;}
-.s-sub{font-size:0.88rem;font-weight:500;color:#a8c4ae;margin-bottom:4px;}
-.s-time{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:20px;}
-.s-note{font-size:0.78rem;font-weight:500;color:#a8c4ae;line-height:1.7;margin-bottom:28px;max-width:280px;}
-.s-btn{border:none;border-radius:10px;padding:13px 32px;font-size:0.92rem;font-weight:700;cursor:pointer;color:#0e1a12;background:#c9a55a;}
+.bio{font-size:0.88rem;font-weight:500;color:#334155;line-height:1.8;}
 
-/* PRICING */
-.pr-hero{background:#0e1a12;padding:36px 16px 32px;text-align:center;}
-.pr-eyebrow{font-size:0.65rem;font-weight:700;color:#c9a55a;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;}
-.pr-title{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.2;}
-.pr-sub{font-size:0.88rem;font-weight:500;color:#a8c4ae;line-height:1.65;}
-.pr-body{padding:24px 16px 80px;}
-.plan{background:#fff;border:1.5px solid #8aab8e;border-radius:16px;padding:20px;margin-bottom:14px;position:relative;}
-.plan.featured{background:#0e1a12;border-color:#c9a55a;}
-.plan-badge{position:absolute;top:14px;right:14px;background:#c9a55a;color:#0e1a12;font-size:0.58rem;font-weight:800;letter-spacing:0.1em;padding:3px 9px;border-radius:4px;}
-.plan-name{font-size:0.72rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;color:#2d5c3a;}
-.plan.featured .plan-name{color:#c9a55a;}
-.plan-price{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:800;color:#0e1a12;line-height:1;margin-bottom:4px;}
-.plan.featured .plan-price{color:#fff;}
-.plan-period{font-size:0.75rem;font-weight:600;color:#2d5c3a;margin-bottom:16px;}
-.plan.featured .plan-period{color:#a8c4ae;}
-.plan-div{height:1.5px;background:#c8dac8;margin-bottom:16px;}
-.plan.featured .plan-div{background:rgba(255,255,255,0.12);}
-.pf{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px;}
-.pf-check{font-size:0.75rem;flex-shrink:0;margin-top:1px;}
-.pf-text{font-size:0.78rem;font-weight:500;color:#0e1a12;line-height:1.4;}
-.plan.featured .pf-text{color:rgba(255,255,255,0.82);}
-.plan-btn{width:100%;border:none;border-radius:10px;padding:13px;font-size:0.92rem;font-weight:700;cursor:pointer;margin-top:16px;}
-.faq{background:#fff;border:1.5px solid #8aab8e;border-radius:12px;padding:16px;margin-bottom:10px;}
-.faq-q{font-size:0.85rem;font-weight:700;color:#0e1a12;margin-bottom:6px;}
-.faq-a{font-size:0.78rem;font-weight:500;color:#2d5c3a;line-height:1.65;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{font-size:0.72rem;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid #4a7a54;color:#1e4a28;background:var(--green-pale);}
+
+.achs{display:flex;flex-direction:column;gap:8px;}
+.ach{display:flex;align-items:flex-start;gap:12px;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;}
+.ach-icon{font-size:1rem;flex-shrink:0;margin-top:1px;}
+.ach-text{font-size:0.82rem;font-weight:600;color:#1e293b;line-height:1.5;}
+
+.price-card{background:var(--green);border-radius:14px;padding:20px;margin-bottom:12px;position:relative;overflow:hidden;}
+.price-card::before{content:'';position:absolute;top:-20px;right:-20px;width:90px;height:90px;border-radius:50%;background:rgba(201,165,90,0.08);}
+.price-eyebrow{font-size:0.6rem;font-weight:700;color:var(--gold);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:6px;}
+.price-amount{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:800;color:#ffffff;line-height:1;margin-bottom:4px;}
+.price-per{font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:14px;}
+.price-features{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
+.pf{display:flex;align-items:center;gap:8px;font-size:0.8rem;font-weight:500;color:rgba(255,255,255,0.8);}
+.pf-check{color:var(--gold);font-size:0.72rem;flex-shrink:0;}
+.price-cta{width:100%;background:var(--gold);color:var(--green);border:none;border-radius:10px;padding:14px;font-size:0.92rem;font-weight:800;cursor:pointer;}
+
+.pkg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.pkg{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
+.pkg.featured{background:var(--green-pale);border-color:var(--green-mid);}
+.pkg-sessions{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;color:var(--green-mid);}
+.pkg-lbl{font-size:0.6rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;}
+.pkg-price{font-size:0.95rem;font-weight:800;color:var(--green);margin-bottom:2px;}
+.pkg-save{font-size:0.65rem;font-weight:700;color:var(--green-mid);background:var(--green-pale);border-radius:4px;padding:2px 7px;display:inline-block;margin-bottom:6px;}
+.pkg-per{font-size:0.68rem;font-weight:600;color:var(--gray);}
+.pkg-btn{width:100%;background:var(--green);color:#ffffff;border:none;border-radius:7px;padding:9px;font-size:0.78rem;font-weight:700;cursor:pointer;margin-top:8px;}
+.pkg.featured .pkg-btn{background:var(--green-mid);}
+
+.sticky{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1.5px solid var(--border);padding:12px 20px;padding-bottom:calc(12px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;z-index:50;}
+.sticky-rate{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:var(--green);}
+.sticky-sub{font-size:0.65rem;font-weight:600;color:var(--gray);}
+.sticky-btn{background:var(--green-mid);color:#ffffff;border:none;border-radius:10px;padding:13px 24px;font-size:0.9rem;font-weight:800;cursor:pointer;}
+
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:100;display:none;align-items:flex-end;}
+.overlay.open{display:flex;}
+.sheet{background:var(--white);border-radius:20px 20px 0 0;width:100%;max-height:90vh;overflow-y:auto;padding:20px 20px 44px;}
+.sheet-handle{width:36px;height:4px;background:#cbd5e1;border-radius:2px;margin:0 auto 18px;}
+.sheet-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:var(--green);margin-bottom:4px;}
+.sheet-sub{font-size:0.75rem;font-weight:600;color:var(--gray);margin-bottom:18px;}
+.sheet-close{float:right;background:none;border:none;color:var(--gray);font-size:1.1rem;cursor:pointer;margin-top:-2px;}
+.flbl{font-size:0.65rem;font-weight:800;color:var(--green);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px;}
+.finput{width:100%;background:var(--off);border:1.5px solid var(--border);border-radius:9px;padding:12px 13px;font-size:0.9rem;font-weight:500;color:var(--green);outline:none;margin-bottom:12px;}
+.finput:focus{border-color:var(--green-mid);}
+.fselect{width:100%;background:var(--off);border:1.5px solid var(--border);border-radius:9px;padding:12px 13px;font-size:0.9rem;font-weight:500;color:var(--green);outline:none;margin-bottom:12px;appearance:none;-webkit-appearance:none;}
+
+.session-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.sopt{background:var(--off);border:1.5px solid var(--border);border-radius:9px;padding:11px;text-align:center;cursor:pointer;transition:all 0.15s;}
+.sopt.active{background:var(--green-pale);border-color:var(--green-mid);}
+.sopt-name{font-size:0.78rem;font-weight:700;color:var(--green);}
+.sopt.active .sopt-name{color:var(--green-mid);}
+.sopt-price{font-size:0.68rem;font-weight:600;color:var(--gray);margin-top:2px;}
+
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px;}
+.tslot{background:var(--off);border:1.5px solid var(--border);border-radius:7px;padding:9px 4px;text-align:center;cursor:pointer;font-size:0.72rem;font-weight:700;color:var(--green);transition:all 0.15s;}
+.tslot.selected{background:var(--green-pale);border-color:var(--green-mid);color:var(--green-mid);}
+.tslot.taken{opacity:0.35;cursor:not-allowed;text-decoration:line-through;}
+
+.ref-box{background:var(--gold-pale);border:2px solid rgba(201,165,90,0.4);border-radius:11px;padding:14px;margin-bottom:14px;}
+.ref-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.ref-title{font-size:0.82rem;font-weight:800;color:var(--green);}
+.ref-hint{font-size:0.65rem;font-weight:600;color:var(--gray);}
+.ref-row{display:flex;gap:8px;}
+.ref-input{flex:1;background:var(--white);border:1.5px solid var(--border);border-radius:8px;padding:11px 12px;font-size:0.95rem;font-weight:800;color:var(--green);letter-spacing:0.12em;text-transform:uppercase;outline:none;}
+.ref-input:focus{border-color:var(--green-mid);}
+.ref-apply{background:var(--green);color:#ffffff;border:none;border-radius:8px;padding:0 16px;font-size:0.8rem;font-weight:800;cursor:pointer;flex-shrink:0;}
+.ref-msg{font-size:0.72rem;font-weight:700;margin-top:8px;padding:8px 10px;border-radius:7px;display:none;}
+
+.price-summary{background:var(--green);border-radius:10px;padding:13px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;}
+.ps-label{font-size:0.62rem;font-weight:700;color:rgba(255,255,255,0.45);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;}
+.ps-original{font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.35);text-decoration:line-through;display:none;}
+.ps-final{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#ffffff;}
+.ps-save{background:rgba(201,165,90,0.2);border:1px solid rgba(201,165,90,0.35);border-radius:7px;padding:8px 12px;text-align:center;display:none;}
+.ps-save-lbl{font-size:0.6rem;font-weight:700;color:var(--gold);letter-spacing:0.08em;}
+.ps-save-amt{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:var(--gold);}
+.confirm-btn{width:100%;background:var(--green-mid);color:#ffffff;border:none;border-radius:10px;padding:14px;font-size:0.92rem;font-weight:800;cursor:pointer;}
+.confirm-btn:disabled{background:#8aab8e;cursor:not-allowed;opacity:0.6;}
+.no-payment-note{font-size:0.65rem;font-weight:500;color:var(--gray);text-align:center;margin-top:10px;line-height:1.6;}
+
+.success-screen{position:fixed;inset:0;background:var(--green);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;}
+.success-screen.open{display:flex;}
+.s-icon{width:70px;height:70px;border-radius:50%;background:rgba(201,165,90,0.15);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:18px;}
+.s-eyebrow{font-size:0.62rem;font-weight:700;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;}
+.s-title{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:800;color:#ffffff;margin-bottom:10px;}
+.s-detail{font-size:0.85rem;font-weight:500;color:rgba(255,255,255,0.65);line-height:1.75;margin-bottom:24px;}
+.s-code-card{background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,165,90,0.3);border-radius:14px;padding:18px;width:100%;max-width:300px;margin-bottom:20px;}
+.s-code-lbl{font-size:0.6rem;font-weight:700;color:var(--gold);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:6px;}
+.s-code-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#ffffff;letter-spacing:0.12em;margin-bottom:6px;}
+.s-code-desc{font-size:0.7rem;font-weight:500;color:rgba(255,255,255,0.55);margin-bottom:14px;line-height:1.6;}
+.s-share{width:100%;background:var(--gold);color:var(--green);border:none;border-radius:8px;padding:11px;font-size:0.85rem;font-weight:800;cursor:pointer;margin-bottom:8px;}
+.s-copy{width:100%;background:rgba(255,255,255,0.08);color:#ffffff;border:1.5px solid rgba(255,255,255,0.15);border-radius:8px;padding:10px;font-size:0.8rem;font-weight:700;cursor:pointer;}
+.s-back{margin-top:16px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:0.82rem;font-weight:600;cursor:pointer;text-decoration:underline;}
 </style>
 </head>
 <body>
 
-<!-- ═══ HOME ═══ -->
-<div class="page active" id="pg-home">
-  <nav class="nav">
-    <div class="logo" onclick="show('pg-home')">
-      <div class="logo-mark"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/></svg></div>
-      <span class="logo-text">Cadi</span>
-    </div>
-    <div class="nav-links">
-      <button class="nav-btn" onclick="show('pg-pricing')">Pricing</button>
-      <button class="nav-btn" onclick="show('pg-dashboard')">Instructors</button>
-    </div>
-  </nav>
-  <div class="hero">
-    <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Premier Golf Instruction</span></div>
-    <h1>Find Your<br><em>Perfect</em> Instructor</h1>
-    <p class="hero-sub">Certified PGA &amp; LPGA professionals across Utah. Tailored instruction, seamless booking.</p>
-    <div class="search-wrap"><input placeholder="City, club, or zip code…"/><button class="search-btn">Search</button></div>
+<div class="hero">
+  <div class="topbar">
+    <a class="brand" href="/index.html">
+      <div class="brand-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/></svg></div>
+      <span class="brand-text">Cadi</span>
+    </a>
+    <button class="share-btn" onclick="shareProfile()">⬆ Share</button>
   </div>
-  <div class="trust-bar">
-    <div class="trust-item">🏆 PGA &amp; LPGA Verified</div>
-    <div class="trust-item">📍 Utah's #1 Platform</div>
-    <div class="trust-item">⭐ 4.9 Avg Rating</div>
-    <div class="trust-item">🔒 Secure Booking</div>
-    <div class="trust-item">↩️ Free Cancellation</div>
-  </div>
-  <div class="results">
-    <div class="results-title">Utah Instructors</div>
-    <div class="results-sub">4 instructors available</div>
-
-    <!-- CARD 1 - Carson Lundell -->
-    <div class="card" onclick="show('pg-p1')">
-      <div class="card-photo">
-        <div class="card-photo-bg" style="background:linear-gradient(140deg,#1a3a6b,#0d2044)"><div class="card-initials">CL</div></div>
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Carson Lundell</div>
-          <div class="card-meta">
-            <span class="tier" style="background:#c9a55a;color:#0e1a12">ELITE</span>
-            <span class="loc">Lehi, UT</span>
-            <div class="avail"><div class="avail-dot" style="background:#4ade80"></div><span class="avail-txt">Open</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="stats">
-          <div class="stat"><div class="stat-l">HCP</div><div class="stat-v">+6.0</div></div>
-          <div class="stat"><div class="stat-l">Exp</div><div class="stat-v">8 yrs</div></div>
-          <div class="stat"><div class="stat-l">Students</div><div class="stat-v">180+</div></div>
-          <div class="stat"><div class="stat-l">Sessions</div><div class="stat-v">420+</div></div>
-        </div>
-        <div class="chips">
-          <span class="chip">Tour Ball Striking</span>
-          <span class="chip">Mental Performance</span>
-          <span class="chip">Competitive Prep</span>
-        </div>
-        <div class="card-footer">
-          <div class="rating"><span class="stars">★★★★★</span><span class="rnum"> 5.0</span><span class="rcount"> (42)</span></div>
-          <div style="display:flex;align-items:center;gap:10px">
-            <div><span class="rate" style="color:#1a3a6b">$250</span><span class="rate-sub"> /session</span></div>
-            <button class="book-btn" style="background:#1a3a6b" onclick="event.stopPropagation();bookInst(1)">Book</button>
-          </div>
-        </div>
+  <div class="hero-body">
+    <div class="avatar-row">
+      <div class="avatar">CL</div>
+      <div class="name-block">
+        <div class="eyebrow">Korn Ferry Tour · Alpine, Utah</div>
+        <div class="hero-name">Carson Lundell</div>
+        <div class="hero-title">Professional Golfer · BYU Alumni<br>Fox Hollow GC / BYU Training Facility · Orem, UT</div>
       </div>
     </div>
-
-    <!-- CARD 2 - Rob Stanger -->
-    <div class="card" onclick="show('pg-p2')">
-      <div class="card-photo">
-        <div class="card-photo-bg" style="background:linear-gradient(140deg,#1a5c2a,#0d3a18)"><div class="card-initials">RS</div></div>
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Rob Stanger</div>
-          <div class="card-meta">
-            <span class="tier" style="background:#c9a55a;color:#0e1a12">ELITE</span>
-            <span class="loc">Midway, UT</span>
-            <div class="avail"><div class="avail-dot" style="background:#4ade80"></div><span class="avail-txt">Open</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="stats">
-          <div class="stat"><div class="stat-l">HCP</div><div class="stat-v">+2.1</div></div>
-          <div class="stat"><div class="stat-l">Exp</div><div class="stat-v">15 yrs</div></div>
-          <div class="stat"><div class="stat-l">Students</div><div class="stat-v">340+</div></div>
-          <div class="stat"><div class="stat-l">Sessions</div><div class="stat-v">1,100+</div></div>
-        </div>
-        <div class="chips">
-          <span class="chip">LPGA Coaching</span>
-          <span class="chip">Women's Golf</span>
-          <span class="chip">Junior Development</span>
-        </div>
-        <div class="card-footer">
-          <div class="rating"><span class="stars">★★★★★</span><span class="rnum"> 4.97</span><span class="rcount"> (138)</span></div>
-          <div style="display:flex;align-items:center;gap:10px">
-            <div><span class="rate" style="color:#1a5c2a">$175</span><span class="rate-sub"> /session</span></div>
-            <button class="book-btn" style="background:#1a5c2a" onclick="event.stopPropagation();bookInst(2)">Book</button>
-          </div>
-        </div>
-      </div>
+    <div class="hero-badges">
+      <div class="badge badge-gold">⛳ KORN FERRY TOUR PRO</div>
+      <div class="badge badge-green">✓ VERIFIED</div>
     </div>
-
-    <!-- CARD 3 - Melissa Tran -->
-    <div class="card" onclick="show('pg-p3')">
-      <div class="card-photo">
-        <div class="card-photo-bg" style="background:linear-gradient(140deg,#0d5c52,#083d36)"><div class="card-initials">MT</div></div>
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Melissa Tran</div>
-          <div class="card-meta">
-            <span class="tier" style="background:rgba(255,255,255,0.2);color:#fff">PRO</span>
-            <span class="loc">Provo, UT</span>
-            <div class="avail"><div class="avail-dot" style="background:#4ade80"></div><span class="avail-txt">Open</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="stats">
-          <div class="stat"><div class="stat-l">HCP</div><div class="stat-v">+0.4</div></div>
-          <div class="stat"><div class="stat-l">Exp</div><div class="stat-v">7 yrs</div></div>
-          <div class="stat"><div class="stat-l">Students</div><div class="stat-v">280+</div></div>
-          <div class="stat"><div class="stat-l">Sessions</div><div class="stat-v">760+</div></div>
-        </div>
-        <div class="chips">
-          <span class="chip">Beginner Programs</span>
-          <span class="chip">Kids &amp; Juniors</span>
-          <span class="chip">Women's Golf</span>
-        </div>
-        <div class="card-footer">
-          <div class="rating"><span class="stars">★★★★★</span><span class="rnum"> 4.92</span><span class="rcount"> (89)</span></div>
-          <div style="display:flex;align-items:center;gap:10px">
-            <div><span class="rate" style="color:#0d5c52">$95</span><span class="rate-sub"> /session</span></div>
-            <button class="book-btn" style="background:#0d5c52" onclick="event.stopPropagation();bookInst(3)">Book</button>
-          </div>
-        </div>
-      </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-l">HCP</div><div class="stat-v">+6.0</div></div>
+      <div class="stat"><div class="stat-l">School</div><div class="stat-v">BYU</div></div>
+      <div class="stat"><div class="stat-l">Rate</div><div class="stat-v">$250</div></div>
+      <div class="stat"><div class="stat-l">City</div><div class="stat-v">Orem</div></div>
     </div>
-
-    <!-- CARD 4 - Derek Malone -->
-    <div class="card" onclick="show('pg-p4')">
-      <div class="card-photo">
-        <div class="card-photo-bg" style="background:linear-gradient(140deg,#7a2a2a,#4d1a1a)"><div class="card-initials">DM</div></div>
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Derek Malone</div>
-          <div class="card-meta">
-            <span class="tier" style="background:rgba(255,255,255,0.2);color:#fff">PRO</span>
-            <span class="loc">Salt Lake City, UT</span>
-            <div class="avail"><div class="avail-dot" style="background:rgba(255,255,255,0.35)"></div><span class="avail-txt">Full</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="stats">
-          <div class="stat"><div class="stat-l">HCP</div><div class="stat-v">1.8</div></div>
-          <div class="stat"><div class="stat-l">Exp</div><div class="stat-v">10 yrs</div></div>
-          <div class="stat"><div class="stat-l">Students</div><div class="stat-v">195+</div></div>
-          <div class="stat"><div class="stat-l">Sessions</div><div class="stat-v">580+</div></div>
-        </div>
-        <div class="chips">
-          <span class="chip">Short Game</span>
-          <span class="chip">Putting</span>
-          <span class="chip">Wedge Play</span>
-        </div>
-        <div class="card-footer">
-          <div class="rating"><span class="stars">★★★★★</span><span class="rnum"> 4.88</span><span class="rcount"> (74)</span></div>
-          <div style="display:flex;align-items:center;gap:10px">
-            <div><span class="rate" style="color:#7a2a2a">$120</span><span class="rate-sub"> /session</span></div>
-            <button class="book-btn" style="background:#7a2a2a" onclick="event.stopPropagation();bookInst(4)">Book</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-note"><strong>Cadi</strong> — PGA / LPGA certified · Instant booking · 24hr cancellation</div>
-  </div>
-</div>
-
-<!-- ═══ PROFILE 1 - Carson ═══ -->
-<div class="page" id="pg-p1">
-  <div class="p-hero">
-    <div class="p-hero-bg" style="background:linear-gradient(140deg,#1a3a6b,#0d2044)"><div class="p-hero-initials">CL</div></div>
-    <div class="p-hero-overlay"></div>
-    <button class="p-back" onclick="show('pg-home')">← Back</button>
-    <div class="p-content">
-      <div class="p-name">Carson Lundell</div>
-      <div class="p-sub"><span class="tier" style="background:#c9a55a;color:#0e1a12">ELITE</span><span style="font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.85);margin-left:5px">Thanksgiving Point GC, Lehi, UT</span></div>
-    </div>
-  </div>
-  <div class="p-body">
-    <div class="p-stats">
-      <div class="p-stat"><div class="p-stat-l">Handicap</div><div class="p-stat-v">+6.0</div></div>
-      <div class="p-stat"><div class="p-stat-l">Experience</div><div class="p-stat-v">8 yrs</div></div>
-      <div class="p-stat"><div class="p-stat-l">Students</div><div class="p-stat-v">180+</div></div>
-      <div class="p-stat"><div class="p-stat-l">Sessions</div><div class="p-stat-v">420+</div></div>
-    </div>
-    <div class="sec"><span class="sec-lbl">About</span><div class="sec-line"></div></div>
-    <p class="bio">Carson Lundell is an active PGA Tour professional and one of Utah's most decorated competitive golfers. A former BYU All-American, Carson brings Tour-level insight to every lesson — from ball flight laws to pre-round routines. His sessions are designed for serious players who want to perform under pressure. Limited availability due to his active playing schedule — book early.</p>
-    <div class="sec"><span class="sec-lbl">Specialties</span><div class="sec-line"></div></div>
-    <div class="chips"><span class="chip">Tour-Level Ball Striking</span><span class="chip">Mental Performance</span><span class="chip">Competitive Prep</span><span class="chip">Full Swing Mechanics</span></div>
-    <div class="sec"><span class="sec-lbl">Achievements</span><div class="sec-line"></div></div>
-    <div class="ach-list">
-      <div class="ach"><div class="ach-icon">⛳</div><div class="ach-text"><strong>Active PGA Tour Professional</strong> — Utah native</div></div>
-      <div class="ach"><div class="ach-icon">🎓</div><div class="ach-text"><strong>BYU All-American</strong> · Former Mountain West Champion</div></div>
-      <div class="ach"><div class="ach-icon">🏆</div><div class="ach-text"><strong>Utah State Amateur Champion</strong> — 3x</div></div>
-      <div class="ach"><div class="ach-icon">📉</div><div class="ach-text">Handicap index <strong>+6.0</strong> — among the best in the state</div></div>
-    </div>
-    <div class="p-cta">
-      <button class="cta-primary" style="background:#1a3a6b" onclick="bookInst(1)">Book a Session — $250</button>
-      <button class="cta-secondary" onclick="alert('Message feature coming soon!')">Message</button>
+    <div class="cta-row">
+      <button class="btn-primary" onclick="openBooking()">Book a Lesson</button>
+      <button class="btn-secondary" onclick="shareProfile()">⬆ Share</button>
     </div>
   </div>
 </div>
 
-<!-- ═══ PROFILE 2 - Rob ═══ -->
-<div class="page" id="pg-p2">
-  <div class="p-hero">
-    <div class="p-hero-bg" style="background:linear-gradient(140deg,#1a5c2a,#0d3a18)"><div class="p-hero-initials">RS</div></div>
-    <div class="p-hero-overlay"></div>
-    <button class="p-back" onclick="show('pg-home')">← Back</button>
-    <div class="p-content">
-      <div class="p-name">Rob Stanger</div>
-      <div class="p-sub"><span class="tier" style="background:#c9a55a;color:#0e1a12">ELITE</span><span style="font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.85);margin-left:5px">Soldier Hollow GC, Midway, UT</span></div>
+<div class="body">
+  <div class="sec"><span class="sec-lbl">About</span><div class="sec-line"></div></div>
+  <p class="bio">Carson Lundell is a professional golfer from Alpine, Utah competing on the Korn Ferry Tour. A former BYU standout, Carson was one of the most decorated collegiate golfers in program history — finishing his career with a 70.76 scoring average, 7 top-10 finishes his senior season, and individual medalist honors at the NCAA West Regional. He brings the same competitive precision to his lessons that took him from Lone Peak High School to the professional tour.</p>
+
+  <div class="sec"><span class="sec-lbl">Specialties</span><div class="sec-line"></div></div>
+  <div class="chips">
+    <span class="chip">Full Swing</span>
+    <span class="chip">Ball Striking</span>
+    <span class="chip">Course Management</span>
+    <span class="chip">Competitive Prep</span>
+    <span class="chip">Mental Game</span>
+    <span class="chip">Scoring</span>
+  </div>
+
+  <div class="sec"><span class="sec-lbl">Career Highlights</span><div class="sec-line"></div></div>
+  <div class="achs">
+    <div class="ach"><div class="ach-icon">⛳</div><div class="ach-text">Korn Ferry Tour Professional — actively competing</div></div>
+    <div class="ach"><div class="ach-icon">🏆</div><div class="ach-text">NCAA West Regional Medalist — 11-under 205, BYU to NCAA Championship</div></div>
+    <div class="ach"><div class="ach-icon">🎓</div><div class="ach-text">BYU Honorable Mention All-American (2021) · WCC First-Team · 3x All-WCC</div></div>
+    <div class="ach"><div class="ach-icon">🥊</div><div class="ach-text">Round of 32 — 2022 US Amateur Championship</div></div>
+    <div class="ach"><div class="ach-icon">🎯</div><div class="ach-text">2021 US Open qualifier champion at Alpine Country Club</div></div>
+    <div class="ach"><div class="ach-icon">📊</div><div class="ach-text">Senior season: 70.76 avg · 2 wins · 7 top-10 finishes in 14 events</div></div>
+    <div class="ach"><div class="ach-icon">🏫</div><div class="ach-text">Lone Peak HS — 2x National Champion · 3x 5A State Champion · 2015 UJGA Player of the Year</div></div>
+  </div>
+
+  <div class="sec"><span class="sec-lbl">Pricing</span><div class="sec-line"></div></div>
+  <div class="price-card">
+    <div class="price-eyebrow">Single Session</div>
+    <div class="price-amount">$250</div>
+    <div class="price-per">per 60-minute lesson · Fox Hollow GC</div>
+    <div class="price-features">
+      <div class="pf"><span class="pf-check">✓</span>One-on-one with Carson</div>
+      <div class="pf"><span class="pf-check">✓</span>Tailored to your game</div>
+      <div class="pf"><span class="pf-check">✓</span>Free cancellation 24hrs before</div>
+    </div>
+    <button class="price-cta" onclick="openBooking()">Book Now — $250</button>
+  </div>
+
+  <div class="sec"><span class="sec-lbl">Lesson Packages</span><div class="sec-line"></div></div>
+  <div class="pkg-grid">
+    <div class="pkg">
+      <div class="pkg-lbl">Sessions</div>
+      <div class="pkg-sessions">3</div>
+      <div class="pkg-price">$690</div>
+      <div class="pkg-save">Save $60 · 8% off</div>
+      <div class="pkg-per">$230 per session</div>
+      <button class="pkg-btn" onclick="openBookingWithPkg('3-Pack · $690',690)">Book Pack</button>
+    </div>
+    <div class="pkg featured">
+      <div class="pkg-lbl">Most Popular</div>
+      <div class="pkg-sessions">6</div>
+      <div class="pkg-price">$1,350</div>
+      <div class="pkg-save">Save $150 · 10% off</div>
+      <div class="pkg-per">$225 per session</div>
+      <button class="pkg-btn" onclick="openBookingWithPkg('6-Pack · $1,350',1350)">Book Pack</button>
+    </div>
+    <div class="pkg">
+      <div class="pkg-lbl">Sessions</div>
+      <div class="pkg-sessions">10</div>
+      <div class="pkg-price">$2,125</div>
+      <div class="pkg-save">Save $375 · 15% off</div>
+      <div class="pkg-per">$212.50 per session</div>
+      <button class="pkg-btn" onclick="openBookingWithPkg('10-Pack · $2,125',2125)">Book Pack</button>
+    </div>
+    <div class="pkg">
+      <div class="pkg-lbl">Free Intro</div>
+      <div class="pkg-sessions">1</div>
+      <div class="pkg-price">Free</div>
+      <div class="pkg-save">Code: CARSON</div>
+      <div class="pkg-per">30-minute intro</div>
+      <button class="pkg-btn" onclick="openBookingFree()">Claim Free</button>
     </div>
   </div>
-  <div class="p-body">
-    <div class="p-stats">
-      <div class="p-stat"><div class="p-stat-l">Handicap</div><div class="p-stat-v">+2.1</div></div>
-      <div class="p-stat"><div class="p-stat-l">Experience</div><div class="p-stat-v">15 yrs</div></div>
-      <div class="p-stat"><div class="p-stat-l">Students</div><div class="p-stat-v">340+</div></div>
-      <div class="p-stat"><div class="p-stat-l">Sessions</div><div class="p-stat-v">1,100+</div></div>
-    </div>
-    <div class="sec"><span class="sec-lbl">About</span><div class="sec-line"></div></div>
-    <p class="bio">Rob Stanger is a nationally recognized LPGA teaching professional and the reigning Utah Coach of the Year. With over 15 years developing players at every level, Rob is known for his ability to simplify complex swing concepts into clear, actionable cues. He has coached multiple LPGA Tour qualifiers and runs one of Utah's premier junior golf academies at Soldier Hollow.</p>
-    <div class="sec"><span class="sec-lbl">Specialties</span><div class="sec-line"></div></div>
-    <div class="chips"><span class="chip">LPGA Coaching</span><span class="chip">Women's Golf</span><span class="chip">Swing Mechanics</span><span class="chip">Junior Development</span></div>
-    <div class="sec"><span class="sec-lbl">Achievements</span><div class="sec-line"></div></div>
-    <div class="ach-list">
-      <div class="ach"><div class="ach-icon">🥇</div><div class="ach-text"><strong>Utah Coach of the Year</strong> — LPGA Teaching Division</div></div>
-      <div class="ach"><div class="ach-icon">👩‍🏫</div><div class="ach-text">Coached <strong>3 LPGA Tour qualifiers</strong> from Utah</div></div>
-      <div class="ach"><div class="ach-icon">🏫</div><div class="ach-text">Director — <strong>Soldier Hollow Junior Golf Academy</strong></div></div>
-      <div class="ach"><div class="ach-icon">📊</div><div class="ach-text">Certified <strong>TrackMan Level 3</strong> &amp; FlightScope Master Instructor</div></div>
-    </div>
-    <div class="p-cta">
-      <button class="cta-primary" style="background:#1a5c2a" onclick="bookInst(2)">Book a Session — $175</button>
-      <button class="cta-secondary" onclick="alert('Message feature coming soon!')">Message</button>
+
+  <div style="margin-top:28px;padding-top:20px;border-top:1.5px solid var(--border);text-align:center;">
+    <div style="font-size:0.65rem;font-weight:600;color:var(--gray);margin-bottom:6px;">Powered by</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;">
+      <div style="width:18px;height:18px;background:var(--gold);border-radius:4px;display:flex;align-items:center;justify-content:center;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/></svg></div>
+      <span style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:800;color:var(--green);">Cadi</span>
     </div>
   </div>
 </div>
 
-<!-- ═══ PROFILE 3 - Melissa ═══ -->
-<div class="page" id="pg-p3">
-  <div class="p-hero">
-    <div class="p-hero-bg" style="background:linear-gradient(140deg,#0d5c52,#083d36)"><div class="p-hero-initials">MT</div></div>
-    <div class="p-hero-overlay"></div>
-    <button class="p-back" onclick="show('pg-home')">← Back</button>
-    <div class="p-content">
-      <div class="p-name">Melissa Tran</div>
-      <div class="p-sub"><span class="tier" style="background:rgba(255,255,255,0.2);color:#fff">PRO</span><span style="font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.85);margin-left:5px">Riverside CC, Provo, UT</span></div>
-    </div>
-  </div>
-  <div class="p-body">
-    <div class="p-stats">
-      <div class="p-stat"><div class="p-stat-l">Handicap</div><div class="p-stat-v">+0.4</div></div>
-      <div class="p-stat"><div class="p-stat-l">Experience</div><div class="p-stat-v">7 yrs</div></div>
-      <div class="p-stat"><div class="p-stat-l">Students</div><div class="p-stat-v">280+</div></div>
-      <div class="p-stat"><div class="p-stat-l">Sessions</div><div class="p-stat-v">760+</div></div>
-    </div>
-    <div class="sec"><span class="sec-lbl">About</span><div class="sec-line"></div></div>
-    <p class="bio">Melissa Tran is Cadi's top-rated instructor for beginners and junior golfers. A former D-I collegiate player at Utah Valley University, Melissa has a gift for breaking the game into simple, confidence-building steps. Her 6-week beginner program has introduced over 200 adults to the game, and her junior clinics at Riverside CC are consistently sold out.</p>
-    <div class="sec"><span class="sec-lbl">Specialties</span><div class="sec-line"></div></div>
-    <div class="chips"><span class="chip">Beginner Programs</span><span class="chip">Kids &amp; Junior Golf</span><span class="chip">Short Game Fundamentals</span><span class="chip">Women's Golf</span></div>
-    <div class="sec"><span class="sec-lbl">Achievements</span><div class="sec-line"></div></div>
-    <div class="ach-list">
-      <div class="ach"><div class="ach-icon">👶</div><div class="ach-text">Introduced <strong>200+ beginners</strong> to golf with 6-week program</div></div>
-      <div class="ach"><div class="ach-icon">🧒</div><div class="ach-text">Junior clinics at <strong>Riverside CC</strong> consistently sold out</div></div>
-      <div class="ach"><div class="ach-icon">🎓</div><div class="ach-text">Former <strong>UVU D-I Collegiate Player</strong></div></div>
-      <div class="ach"><div class="ach-icon">⭐</div><div class="ach-text"><strong>4.92 rating</strong> — Cadi's top-rated beginner instructor</div></div>
-    </div>
-    <div class="p-cta">
-      <button class="cta-primary" style="background:#0d5c52" onclick="bookInst(3)">Book a Session — $95</button>
-      <button class="cta-secondary" onclick="alert('Message feature coming soon!')">Message</button>
-    </div>
-  </div>
+<!-- STICKY -->
+<div class="sticky">
+  <div><div class="sticky-rate">$250</div><div class="sticky-sub">per session · Fox Hollow GC</div></div>
+  <button class="sticky-btn" onclick="openBooking()">Book Now →</button>
 </div>
 
-<!-- ═══ PROFILE 4 - Derek ═══ -->
-<div class="page" id="pg-p4">
-  <div class="p-hero">
-    <div class="p-hero-bg" style="background:linear-gradient(140deg,#7a2a2a,#4d1a1a)"><div class="p-hero-initials">DM</div></div>
-    <div class="p-hero-overlay"></div>
-    <button class="p-back" onclick="show('pg-home')">← Back</button>
-    <div class="p-content">
-      <div class="p-name">Derek Malone</div>
-      <div class="p-sub"><span class="tier" style="background:rgba(255,255,255,0.2);color:#fff">PRO</span><span style="font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.85);margin-left:5px">Oakridge CC, Salt Lake City, UT</span></div>
-    </div>
-  </div>
-  <div class="p-body">
-    <div class="p-stats">
-      <div class="p-stat"><div class="p-stat-l">Handicap</div><div class="p-stat-v">1.8</div></div>
-      <div class="p-stat"><div class="p-stat-l">Experience</div><div class="p-stat-v">10 yrs</div></div>
-      <div class="p-stat"><div class="p-stat-l">Students</div><div class="p-stat-v">195+</div></div>
-      <div class="p-stat"><div class="p-stat-l">Sessions</div><div class="p-stat-v">580+</div></div>
-    </div>
-    <div class="sec"><span class="sec-lbl">About</span><div class="sec-line"></div></div>
-    <p class="bio">Derek Malone is Salt Lake City's go-to short game specialist. A PGA-certified instructor with a decade of experience at Oakridge CC, Derek has built a reputation for rapid handicap reduction — his students average a 3.8-stroke improvement in just 6 sessions. He uses SAM PuttLab technology alongside traditional feel-based drills for lasting improvements from 100 yards and in.</p>
-    <div class="sec"><span class="sec-lbl">Specialties</span><div class="sec-line"></div></div>
-    <div class="chips"><span class="chip">Short Game</span><span class="chip">Putting</span><span class="chip">On-Course Strategy</span><span class="chip">Wedge Play</span></div>
-    <div class="sec"><span class="sec-lbl">Achievements</span><div class="sec-line"></div></div>
-    <div class="ach-list">
-      <div class="ach"><div class="ach-icon">📉</div><div class="ach-text">Average <strong>3.8 stroke reduction</strong> in 6 sessions</div></div>
-      <div class="ach"><div class="ach-icon">🎯</div><div class="ach-text"><strong>SAM PuttLab</strong> certified — advanced putting analysis</div></div>
-      <div class="ach"><div class="ach-icon">🏌️</div><div class="ach-text">PGA Certified · <strong>Short Game Specialist</strong></div></div>
-      <div class="ach"><div class="ach-icon">📰</div><div class="ach-text">Featured in <strong>Utah Golf Magazine</strong> — Best of Utah 2024</div></div>
-    </div>
-    <div class="p-cta">
-      <button class="cta-primary" style="background:#7a2a2a" onclick="bookInst(4)">Book a Session — $120</button>
-      <button class="cta-secondary" onclick="alert('Message feature coming soon!')">Message</button>
-    </div>
-  </div>
-</div>
+<!-- BOOKING SHEET -->
+<div class="overlay" id="booking-overlay" onclick="closeBookingOuter(event)">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" onclick="closeSheet()">✕</button>
+    <div class="sheet-title">Request a Lesson</div>
+    <div class="sheet-sub">with Carson Lundell · Fox Hollow GC</div>
 
-<!-- ═══ BOOKING ═══ -->
-<div class="page" id="pg-booking">
-  <div id="b-header-wrap"></div>
-  <div class="b-body">
-    <div class="week-nav">
-      <button class="week-btn">← Prev</button>
-      <span class="week-lbl">April 7 – 13, 2026</span>
-      <button class="week-btn">Next →</button>
+    <div class="flbl">Your Name</div>
+    <input class="finput" id="f-name" placeholder="First and last name" type="text" oninput="checkReady()"/>
+
+    <div class="flbl">Email</div>
+    <input class="finput" id="f-email" placeholder="your@email.com" type="email" oninput="checkReady()"/>
+
+    <div class="flbl">Phone <span style="font-size:0.62rem;text-transform:none;letter-spacing:0;font-weight:500;color:var(--gray);">optional</span></div>
+    <input class="finput" id="f-phone" placeholder="(801) 555-0000" type="tel"/>
+
+    <div class="flbl">Session Type</div>
+    <div class="session-grid" id="session-grid">
+      <div class="sopt active" onclick="selectSession(this,'Single Lesson · $250',250)"><div class="sopt-name">Single Lesson</div><div class="sopt-price">60 min · $250</div></div>
+      <div class="sopt" onclick="selectSession(this,'Free Intro · CARSON',0)"><div class="sopt-name">Free Intro</div><div class="sopt-price">30 min · Code: CARSON</div></div>
+      <div class="sopt" onclick="selectSession(this,'3-Pack · $690',690)"><div class="sopt-name">3-Pack</div><div class="sopt-price">$690 · Save $60</div></div>
+      <div class="sopt" onclick="selectSession(this,'6-Pack · $1,350',1350)"><div class="sopt-name">6-Pack</div><div class="sopt-price">$1,350 · Save $150</div></div>
     </div>
-    <div class="legend" id="b-legend"></div>
-    <div class="cal-wrap"><table class="cal" id="cal"></table></div>
-    <div class="b-footer">
-      <div id="b-sel"><span style="font-size:0.75rem;font-weight:600;color:#0e1a12">Select an open slot above</span></div>
-      <div style="display:flex;gap:9px;align-items:center">
-        <span class="b-price" id="b-price"></span>
-        <button class="confirm" id="confirm-btn" disabled>Confirm →</button>
+
+    <div class="flbl">Preferred Time — Select All That Work</div>
+    <div class="time-grid" id="time-grid"></div>
+
+    <div class="flbl">Skill Level</div>
+    <select class="fselect" id="f-skill">
+      <option value="">Select your level…</option>
+      <option>Complete Beginner</option>
+      <option>Casual (100+ score)</option>
+      <option>Intermediate (85–100)</option>
+      <option>Advanced (70–85)</option>
+      <option>Competitive (under 70)</option>
+    </select>
+
+    <div class="flbl">What do you want to work on? <span style="font-size:0.62rem;text-transform:none;letter-spacing:0;font-weight:500;color:var(--gray);">optional</span></div>
+    <input class="finput" id="f-notes" placeholder="e.g. driving accuracy, putting, full swing…" type="text"/>
+
+    <div class="ref-box">
+      <div class="ref-header">
+        <span style="font-size:1.1rem;">🎁</span>
+        <div><div class="ref-title">Promo or referral code?</div><div class="ref-hint">Enter CARSON for a free intro lesson</div></div>
       </div>
+      <div class="ref-row">
+        <input class="ref-input" id="ref-input" placeholder="ENTER CODE" type="text" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')"/>
+        <button class="ref-apply" id="ref-apply-btn" onclick="applyCode()">Apply</button>
+      </div>
+      <div class="ref-msg" id="ref-msg"></div>
     </div>
+
+    <div class="price-summary">
+      <div>
+        <div class="ps-label">Total</div>
+        <div class="ps-original" id="ps-original"></div>
+        <div class="ps-final" id="ps-final">$250</div>
+      </div>
+      <div class="ps-save" id="ps-save"><div class="ps-save-lbl">YOU SAVE</div><div class="ps-save-amt" id="ps-save-amt"></div></div>
+    </div>
+
+    <button class="confirm-btn" id="confirm-btn" disabled onclick="submitBooking()">Send Request →</button>
+    <p class="no-payment-note">No payment required today. Carson will confirm within 24 hours.</p>
   </div>
 </div>
 
-<!-- ═══ SUCCESS ═══ -->
-<div class="page" id="pg-success">
-  <div class="success">
-    <div class="s-icon" id="s-icon">⛳</div>
-    <div class="s-eyebrow">Booking Confirmed</div>
-    <div class="s-title">You're on the tee.</div>
-    <p class="s-sub">Session with <strong id="s-name"></strong></p>
-    <div class="s-time" id="s-time"></div>
-    <p class="s-note">A confirmation has been sent to your email. Your instructor will reach out 24 hours before your session.</p>
-    <button class="s-btn" onclick="show('pg-home')">Back to Cadi</button>
+<!-- SUCCESS -->
+<div class="success-screen" id="success-screen">
+  <div class="s-icon">⛳</div>
+  <div class="s-eyebrow">Request Sent</div>
+  <div class="s-title" id="s-title">You're on the tee.</div>
+  <div class="s-detail" id="s-detail"></div>
+  <div class="s-code-card">
+    <div class="s-code-lbl">Your Referral Code</div>
+    <div class="s-code-val" id="s-code"></div>
+    <div class="s-code-desc">Share with friends — they get $20 off their first lesson. You earn $15 credit when they book.</div>
+    <button class="s-share" onclick="shareMyCode()">⬆ Share My Code</button>
+    <button class="s-copy" onclick="copyMyCode()">📋 Copy Code &amp; Link</button>
   </div>
-</div>
-
-<!-- ═══ PRICING ═══ -->
-<div class="page" id="pg-pricing">
-  <nav class="nav">
-    <div class="logo" onclick="show('pg-home')">
-      <div class="logo-mark"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/></svg></div>
-      <span class="logo-text">Cadi</span>
-    </div>
-    <div class="nav-links"><button class="nav-btn" onclick="show('pg-home')">← Back</button></div>
-  </nav>
-  <div class="pr-hero">
-    <div class="pr-eyebrow">Instructor Membership</div>
-    <div class="pr-title">Grow Your Teaching Business</div>
-    <p class="pr-sub">Simple, transparent pricing. Get listed, get booked, get paid.</p>
-  </div>
-  <div class="pr-body">
-    <div class="plan">
-      <div class="plan-name">Basic</div>
-      <div class="plan-price">$29</div>
-      <div class="plan-period">per month · billed monthly</div>
-      <div class="plan-div"></div>
-      <div class="pf"><span class="pf-check" style="color:#1a7a2a">✓</span><span class="pf-text">Listed profile on Cadi</span></div>
-      <div class="pf"><span class="pf-check" style="color:#1a7a2a">✓</span><span class="pf-text">Bio, photo &amp; specialty tags</span></div>
-      <div class="pf"><span class="pf-check" style="color:#1a7a2a">✓</span><span class="pf-text">Contact form for inquiries</span></div>
-      <div class="pf"><span class="pf-check" style="color:#1a7a2a">✓</span><span class="pf-text">Email support</span></div>
-      <button class="plan-btn" style="background:#f0f2f0;color:#0e1a12;border:1.5px solid #4a7a54;font-weight:700;">Get Started</button>
-    </div>
-    <div class="plan featured">
-      <div class="plan-badge">MOST POPULAR</div>
-      <div class="plan-name">Pro</div>
-      <div class="plan-price">$79</div>
-      <div class="plan-period">per month · billed monthly</div>
-      <div class="plan-div"></div>
-      <div class="pf"><span class="pf-check" style="color:#c9a55a">✓</span><span class="pf-text">Everything in Basic</span></div>
-      <div class="pf"><span class="pf-check" style="color:#c9a55a">✓</span><span class="pf-text">Featured placement in search</span></div>
-      <div class="pf"><span class="pf-check" style="color:#c9a55a">✓</span><span class="pf-text">Full calendar &amp; instant booking</span></div>
-      <div class="pf"><span class="pf-check" style="color:#c9a55a">✓</span><span class="pf-text">Student reviews &amp; ratings</span></div>
-      <div class="pf"><span class="pf-check" style="color:#c9a55a">✓</span><span class="pf-text">Earnings &amp; analytics dashboard</span></div>
-      <div class="pf"><span class="pf-check" style="color:#c9a55a">✓</span><span class="pf-text">Priority support</span></div>
-      <button class="plan-btn" style="background:#c9a55a;color:#0e1a12;font-weight:800;">Get Started</button>
-    </div>
-    <div class="plan">
-      <div class="plan-name">Elite</div>
-      <div class="plan-price">$149</div>
-      <div class="plan-period">per month · billed monthly</div>
-      <div class="plan-div"></div>
-      <div class="pf"><span class="pf-check" style="color:#1a7a2a">✓</span><span class="pf-text">Everything in Pro</span></div>
-      <div class="pf"><span class="pf-check" style="color:#1a7a2a">✓</span><span class="pf-text">#1 placement in local search</span></div>
-      <div class="pf"><span class="pf-check" style="color:#1a7a2a">✓</span><span class="pf-text">Elite badge on profile</span></div>
-      <div class="pf"><span class="pf-check" style="color:#1a7a2a">✓</span><span class="pf-text">Zero booking fees</span></div>
-      <div class="pf"><span class="pf-check" style="color:#1a7a2a">✓</span><span class="pf-text">Dedicated account manager</span></div>
-      <div class="pf"><span class="pf-check" style="color:#1a7a2a">✓</span><span class="pf-text">Custom profile URL</span></div>
-      <button class="plan-btn" style="background:#0e1a12;color:#fff;font-weight:700;">Get Started</button>
-    </div>
-    <div style="margin:28px 0 14px"><div class="sec"><span class="sec-lbl">FAQ</span><div class="sec-line"></div></div></div>
-    <div class="faq"><div class="faq-q">Is there a booking fee on top of my plan?</div><div class="faq-a">Basic and Pro plans include a 5% booking fee per session. Elite members pay zero booking fees — keeping 100% of every session rate.</div></div>
-    <div class="faq"><div class="faq-q">Can I cancel anytime?</div><div class="faq-a">Yes. All plans are month-to-month with no contracts. Cancel anytime from your dashboard.</div></div>
-    <div class="faq"><div class="faq-q">How do I get paid?</div><div class="faq-a">Payments are processed via Stripe and deposited to your bank within 2 business days of each session.</div></div>
-    <div class="faq"><div class="faq-q">Do students pay to use Cadi?</div><div class="faq-a">No. Cadi is completely free for golfers to browse, book, and review instructors.</div></div>
-  </div>
-</div>
-
-<!-- ═══ DASHBOARD ═══ -->
-<div class="page" id="pg-dashboard">
-  <nav class="nav">
-    <div class="logo" onclick="show('pg-home')">
-      <div class="logo-mark"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/></svg></div>
-      <span class="logo-text">Cadi</span>
-    </div>
-    <div class="nav-links"><button class="nav-btn" onclick="show('pg-home')">← Find Instructors</button></div>
-  </nav>
-  <div style="padding:18px 14px 100px">
-    <div style="background:#0e1a12;border-radius:14px;padding:18px;margin-bottom:16px">
-      <div style="font-size:0.62rem;font-weight:700;color:#c9a55a;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:5px">Instructor Portal</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:800;color:#fff;margin-bottom:3px">Welcome back, Rob</div>
-      <div style="font-size:0.78rem;font-weight:600;color:#a8c4ae">Soldier Hollow GC · Utah Coach of the Year</div>
-      <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(201,165,90,0.18);border:1.5px solid rgba(201,165,90,0.4);border-radius:6px;padding:5px 10px;margin-top:12px"><span>⭐</span><span style="font-size:0.7rem;font-weight:700;color:#d4b472">Elite Plan — $149/mo</span></div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px">
-      <div style="background:#fff;border:1.5px solid #8aab8e;border-radius:12px;padding:14px"><div style="font-size:0.65rem;font-weight:800;color:#1e4a28;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px">This Month</div><div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#0e1a12;line-height:1;margin-bottom:4px">$3,850</div><div style="font-size:0.68rem;font-weight:700;color:#1a7a2a">↑ 22% vs last month</div></div>
-      <div style="background:#fff;border:1.5px solid #8aab8e;border-radius:12px;padding:14px"><div style="font-size:0.65rem;font-weight:800;color:#1e4a28;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px">Bookings</div><div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#0e1a12;line-height:1;margin-bottom:4px">22</div><div style="font-size:0.68rem;font-weight:700;color:#1a7a2a">↑ 6 new this week</div></div>
-      <div style="background:#fff;border:1.5px solid #8aab8e;border-radius:12px;padding:14px"><div style="font-size:0.65rem;font-weight:800;color:#1e4a28;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px">Profile Views</div><div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#0e1a12;line-height:1;margin-bottom:4px">412</div><div style="font-size:0.68rem;font-weight:700;color:#1a7a2a">↑ 41% this week</div></div>
-      <div style="background:#fff;border:1.5px solid #8aab8e;border-radius:12px;padding:14px"><div style="font-size:0.65rem;font-weight:800;color:#1e4a28;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px">Rating</div><div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#0e1a12;line-height:1;margin-bottom:4px">4.97</div><div style="font-size:0.68rem;font-weight:700;color:#2d5c3a">138 reviews</div></div>
-    </div>
-    <div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#0e1a12;margin-bottom:10px">Upcoming Bookings</div>
-    <div style="background:#fff;border:1.5px solid #8aab8e;border-radius:11px;padding:13px;margin-bottom:8px;display:flex;align-items:center;gap:12px"><div style="width:46px;height:46px;border-radius:9px;background:#1a5c2a18;border:1.5px solid #1a5c2a50;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:0.58rem;font-weight:800;color:#1a5c2a;letter-spacing:0.08em">MON</span><span style="font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:800;color:#1a5c2a;line-height:1">7</span></div><div style="flex:1"><div style="font-size:0.9rem;font-weight:700;color:#0e1a12;margin-bottom:2px">Tyler Barnes</div><div style="font-size:0.73rem;font-weight:600;color:#2d5c3a">10:00 AM · Swing Mechanics</div></div><div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:800;color:#1a5c2a">$175</div></div>
-    <div style="background:#fff;border:1.5px solid #8aab8e;border-radius:11px;padding:13px;margin-bottom:8px;display:flex;align-items:center;gap:12px"><div style="width:46px;height:46px;border-radius:9px;background:#1a5c2a18;border:1.5px solid #1a5c2a50;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:0.58rem;font-weight:800;color:#1a5c2a;letter-spacing:0.08em">TUE</span><span style="font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:800;color:#1a5c2a;line-height:1">8</span></div><div style="flex:1"><div style="font-size:0.9rem;font-weight:700;color:#0e1a12;margin-bottom:2px">Sarah Mitchell</div><div style="font-size:0.73rem;font-weight:600;color:#2d5c3a">8:30 AM · Junior Lesson</div></div><div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:800;color:#1a5c2a">$175</div></div>
-    <div style="background:#fff;border:1.5px solid #8aab8e;border-radius:11px;padding:13px;margin-bottom:8px;display:flex;align-items:center;gap:12px"><div style="width:46px;height:46px;border-radius:9px;background:#1a5c2a18;border:1.5px solid #1a5c2a50;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:0.58rem;font-weight:800;color:#1a5c2a;letter-spacing:0.08em">WED</span><span style="font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:800;color:#1a5c2a;line-height:1">9</span></div><div style="flex:1"><div style="font-size:0.9rem;font-weight:700;color:#0e1a12;margin-bottom:2px">Greg Holloway</div><div style="font-size:0.73rem;font-weight:600;color:#2d5c3a">1:00 PM · Full Swing</div></div><div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:800;color:#1a5c2a">$175</div></div>
-  </div>
+  <button class="s-back" onclick="closeSuccess()">← Back to Profile</button>
 </div>
 
 <script>
-var DAYS=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
-var TIMES=["7:00 AM","8:30 AM","10:00 AM","11:30 AM","1:00 PM","2:30 PM","4:00 PM"];
-var INSTS={
-  1:{name:"Carson Lundell",color:"#1a3a6b",rate:250,loc:"Thanksgiving Point GC, Lehi, UT",initials:"CL",profile:"pg-p1"},
-  2:{name:"Rob Stanger",color:"#1a5c2a",rate:175,loc:"Soldier Hollow GC, Midway, UT",initials:"RS",profile:"pg-p2"},
-  3:{name:"Melissa Tran",color:"#0d5c52",rate:95,loc:"Riverside CC, Provo, UT",initials:"MT",profile:"pg-p3"},
-  4:{name:"Derek Malone",color:"#7a2a2a",rate:120,loc:"Oakridge CC, SLC, UT",initials:"DM",profile:"pg-p4"}
+var SUPA_URL = 'https://tyrtonoxcakzoggbrqus.supabase.co';
+var SUPA_KEY = 'sb_publishable_K2RahYMCAD2F0ccKGDGM9w_FD-gQEog';
+
+function db(path, opts) {
+  return fetch(SUPA_URL + '/rest/v1/' + path, Object.assign({
+    headers: {'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json','Prefer':'return=representation'}
+  }, opts || {}));
+}
+
+var selSession = 'Single Lesson · $250';
+var selPrice   = 250;
+var selTime    = null;
+var refCode    = '';
+var refDiscount = 0;
+var refFree    = false;
+
+var TIMES = ['8:00 AM','8:30 AM','9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM'];
+
+var FALLBACK_CODES = {
+  'CARSON': {discount:250, owner_name:'Carson Lundell', is_free_lesson:true},
+  'CADI20': {discount:20,  owner_name:'Cadi Welcome',   is_free_lesson:false},
+  'ROB15':  {discount:15,  owner_name:'Rob Stanger',    is_free_lesson:false},
+  'PRIMO15':{discount:15,  owner_name:'Primo Golf',     is_free_lesson:false},
 };
-var curInst=null,selSlot=null,slots={};
 
-function show(id){
-  var pages=document.querySelectorAll(".page");
-  for(var i=0;i<pages.length;i++) pages[i].classList.remove("active");
-  document.getElementById(id).classList.add("active");
-  window.scrollTo(0,0);
+function openBooking() {
+  buildTimeGrid();
+  document.getElementById('booking-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function openBookingWithPkg(name, price) {
+  openBooking();
+  setTimeout(function() {
+    document.querySelectorAll('.sopt').forEach(function(o){ o.classList.remove('active'); });
+    selSession = name; selPrice = price;
+    document.getElementById('ps-final').textContent = '$' + price.toLocaleString();
+    checkReady();
+  }, 100);
+}
+function openBookingFree() {
+  openBooking();
+  setTimeout(function() {
+    document.getElementById('ref-input').value = 'CARSON';
+    applyCode();
+  }, 400);
+}
+function closeBookingOuter(e) { if (e.target === document.getElementById('booking-overlay')) closeSheet(); }
+function closeSheet() { document.getElementById('booking-overlay').classList.remove('open'); document.body.style.overflow = ''; }
+
+function buildTimeGrid() {
+  var html = '';
+  TIMES.forEach(function(t) { html += '<div class="tslot" data-time="' + t + '" onclick="selectTime(this)">' + t + '</div>'; });
+  document.getElementById('time-grid').innerHTML = html;
+  // Mark already-booked times
+  var today = new Date();
+  var mm = String(today.getMonth()+1).padStart(2,'0');
+  var dd = String(today.getDate()).padStart(2,'0');
+  var ds = today.getFullYear() + '-' + mm + '-' + dd;
+  db('bookings?instructor_id=eq.carson-lundell&session_date=gte.' + ds + '&status=eq.confirmed&select=session_time')
+    .then(function(r){ return r.json(); })
+    .then(function(rows){
+      if (!Array.isArray(rows)) return;
+      rows.forEach(function(b){
+        document.querySelectorAll('.tslot').forEach(function(s){
+          if (s.getAttribute('data-time') === b.session_time) { s.classList.add('taken'); s.onclick = null; }
+        });
+      });
+    }).catch(function(){});
 }
 
-function genSlots(){
-  slots={};
-  for(var d=0;d<DAYS.length;d++){
-    slots[DAYS[d]]={};
-    for(var t=0;t<TIMES.length;t++){
-      var r=Math.random();
-      slots[DAYS[d]][TIMES[t]]=r>0.45?"open":r>0.15?"taken":"off";
-    }
+function selectTime(el) {
+  if (el.classList.contains('taken')) return;
+  document.querySelectorAll('.tslot:not(.taken)').forEach(function(s){ s.classList.remove('selected'); });
+  el.classList.add('selected');
+  selTime = el.getAttribute('data-time');
+  checkReady();
+}
+
+function selectSession(el, name, price) {
+  document.querySelectorAll('.sopt').forEach(function(o){ o.classList.remove('active'); });
+  el.classList.add('active');
+  selSession = name; selPrice = price;
+  var displayPrice = refFree ? 0 : price - refDiscount;
+  if (displayPrice < 0) displayPrice = 0;
+  document.getElementById('ps-final').textContent = displayPrice === 0 ? 'FREE' : '$' + displayPrice.toLocaleString();
+  checkReady();
+}
+
+function applyCode() {
+  var code = document.getElementById('ref-input').value.trim().toUpperCase();
+  var msg  = document.getElementById('ref-msg');
+  msg.style.display = 'block';
+  if (!code) { msg.style.background='rgba(220,38,38,0.08)'; msg.style.color='#dc2626'; msg.textContent='Enter a code first.'; return; }
+  msg.style.background='rgba(201,165,90,0.1)'; msg.style.color='#c9a55a'; msg.textContent='Checking…';
+
+  db('referral_codes?code=eq.' + encodeURIComponent(code) + '&select=*')
+    .then(function(r){ return r.json(); })
+    .then(function(rows){
+      var data = (Array.isArray(rows) && rows.length > 0) ? rows[0] : (FALLBACK_CODES[code] ? Object.assign({code:code}, FALLBACK_CODES[code]) : null);
+      handleCode(code, data, msg);
+    })
+    .catch(function(){ handleCode(code, FALLBACK_CODES[code] ? Object.assign({code:code}, FALLBACK_CODES[code]) : null, msg); });
+}
+
+function handleCode(code, data, msg) {
+  if (!data) { msg.style.background='rgba(220,38,38,0.08)'; msg.style.color='#dc2626'; msg.innerHTML='Code not found. Try <strong>CARSON</strong>.'; return; }
+  refCode = code; refDiscount = data.discount; refFree = data.is_free_lesson;
+  if (refFree) {
+    msg.style.background='rgba(74,222,128,0.1)'; msg.style.color='#4ade80';
+    msg.innerHTML='🎉 <strong>Free lesson unlocked!</strong>';
+    document.getElementById('ps-original').style.display='block';
+    document.getElementById('ps-original').textContent='$'+selPrice;
+    document.getElementById('ps-final').textContent='FREE';
+    document.getElementById('ps-final').style.color='#4ade80';
+    document.getElementById('ps-save').style.display='block';
+    document.getElementById('ps-save-amt').textContent='$'+selPrice;
+    document.querySelectorAll('.sopt').forEach(function(o){ o.classList.remove('active'); });
+    document.querySelectorAll('.sopt')[1].classList.add('active');
+    selSession='Free Intro · CARSON'; selPrice=0;
+  } else {
+    var np = Math.max(0, selPrice - data.discount);
+    msg.style.background='rgba(74,222,128,0.1)'; msg.style.color='#4ade80';
+    msg.innerHTML='✓ $'+data.discount+' off — courtesy of '+data.owner_name;
+    document.getElementById('ps-original').style.display='block';
+    document.getElementById('ps-original').textContent='$'+selPrice;
+    document.getElementById('ps-final').textContent='$'+np;
+    document.getElementById('ps-save').style.display='block';
+    document.getElementById('ps-save-amt').textContent='$'+data.discount;
   }
+  document.getElementById('ref-input').disabled=true;
+  document.getElementById('ref-apply-btn').textContent='✓ Applied';
+  document.getElementById('ref-apply-btn').disabled=true;
+  document.getElementById('ref-apply-btn').style.background='#4ade80';
+  document.getElementById('ref-apply-btn').style.color='#0e1a12';
 }
 
-function bookInst(id){
-  var inst=INSTS[id];
-  curInst={id:id,inst:inst};
-  selSlot=null;
-  genSlots();
-  // Header
-  var hdr='<div class="b-header" style="background:'+inst.color+'">'
-    +'<button class="b-back" onclick="show(\''+inst.profile+'\')">← Back to Profile</button>'
-    +'<div class="b-inst-row">'
-    +'<div class="b-avatar" style="background:'+inst.color+'33;border:2px solid '+inst.color+'66;color:'+inst.color+'">'+inst.initials+'</div>'
-    +'<div><div class="b-inst-name">'+inst.name+'</div><div class="b-inst-sub">'+inst.loc+' · $'+inst.rate+'/session</div></div>'
-    +'</div></div>';
-  document.getElementById("b-header-wrap").innerHTML=hdr;
-  // Price
-  document.getElementById("b-price").textContent="$"+inst.rate;
-  document.getElementById("b-price").style.color=inst.color;
-  // Confirm btn
-  var cb=document.getElementById("confirm-btn");
-  cb.style.background=inst.color;
-  cb.disabled=true;
-  cb.onclick=function(){confirmBooking();};
-  // Legend
-  document.getElementById("b-legend").innerHTML='<div class="leg-item"><div class="leg-box" style="background:'+inst.color+'22;border:1.5px solid '+inst.color+'"></div>Open</div><div class="leg-item"><div class="leg-box" style="background:#e0e8e0;border:1.5px solid #8aab8e"></div>Taken</div><div class="leg-item"><div class="leg-box" style="background:'+inst.color+';border:1.5px solid '+inst.color+'"></div>Selected</div>';
-  // Calendar
-  var html="<thead><tr><th style='width:56px;text-align:left;padding-bottom:7px'><span style='font-size:0.65rem;font-weight:800;color:#0e1a12'>TIME</span></th>";
-  for(var d=0;d<DAYS.length;d++) html+="<th class='cal-dh'>"+DAYS[d]+"</th>";
-  html+="</tr></thead><tbody>";
-  for(var t=0;t<TIMES.length;t++){
-    html+="<tr><td class='cal-th'>"+TIMES[t]+"</td>";
-    for(var d=0;d<DAYS.length;d++){
-      var s=slots[DAYS[d]][TIMES[t]];
-      var open=s==="open";
-      html+="<td><div class='slot"+(open?" open":"")+"' style='background:"+(open?inst.color+"22":"#f0f2f0")+";border-color:"+(open?inst.color:"#8aab8e")+"'"
-        +" data-d='"+DAYS[d]+"' data-t='"+TIMES[t]+"'>"
-        +(open?"<div class='slot-dot' style='background:"+inst.color+"'></div>":"")
-        +"</div></td>";
-    }
-    html+="</tr>";
-  }
-  html+="</tbody>";
-  document.getElementById("cal").innerHTML=html;
-  // Wire clicks
-  var openSlots=document.querySelectorAll("#cal .slot.open");
-  for(var i=0;i<openSlots.length;i++){
-    (function(sl){
-      sl.addEventListener("click",function(){selectSlot(sl);});
-    })(openSlots[i]);
-  }
-  // Reset selection display
-  document.getElementById("b-sel").innerHTML='<span style="font-size:0.75rem;font-weight:600;color:#0e1a12">Select an open slot above</span>';
-  show("pg-booking");
+function checkReady() {
+  var name  = document.getElementById('f-name').value.trim();
+  var email = document.getElementById('f-email').value.trim();
+  document.getElementById('confirm-btn').disabled = !(name.length > 1 && email.indexOf('@') > 0 && selTime);
 }
 
-function selectSlot(el){
-  var inst=curInst.inst;
-  var all=document.querySelectorAll("#cal .slot.open");
-  for(var i=0;i<all.length;i++){
-    all[i].style.background=inst.color+"22";
-    all[i].style.borderColor=inst.color;
-    var d=all[i].querySelector(".slot-dot");
-    if(d) d.style.background=inst.color;
-  }
-  el.style.background=inst.color;
-  el.style.borderColor=inst.color;
-  var dot=el.querySelector(".slot-dot");
-  if(dot) dot.style.background="#fff";
-  selSlot={day:el.getAttribute("data-d"),time:el.getAttribute("data-t")};
-  document.getElementById("b-sel").innerHTML='<div class="b-sel-lbl">Selected</div><div class="b-sel-val" style="color:'+inst.color+'">'+selSlot.day+' · '+selSlot.time+'</div>';
-  document.getElementById("confirm-btn").disabled=false;
+function submitBooking() {
+  var name  = document.getElementById('f-name').value.trim();
+  var email = document.getElementById('f-email').value.trim();
+  var phone = document.getElementById('f-phone').value.trim();
+  var skill = document.getElementById('f-skill').value;
+  var notes = document.getElementById('f-notes').value.trim();
+  var finalPrice = refFree ? 0 : Math.max(0, selPrice - refDiscount);
+  var myCode = name.split(' ')[0].toUpperCase().replace(/[^A-Z]/g,'').substring(0,6) + [15,20,20,25][Math.floor(Math.random()*4)];
+  var btn = document.getElementById('confirm-btn');
+  btn.disabled=true; btn.textContent='Sending…';
+
+  var today = new Date();
+  var dateStr = today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+
+  db('bookings', {
+    method:'POST',
+    body:JSON.stringify({
+      instructor_id:'carson-lundell', student_name:name, student_email:email,
+      student_phone:phone||null, session_type:selSession, session_date:dateStr,
+      session_time:selTime, skill_level:skill||null, notes:notes||null,
+      referral_code:refCode||null, is_free:refFree, status:'confirmed', price:finalPrice
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(){
+    if (refCode) db('referral_codes?code=eq.'+encodeURIComponent(refCode),{method:'PATCH',body:JSON.stringify({uses:1})}).catch(function(){});
+    db('referral_codes',{method:'POST',body:JSON.stringify({code:myCode,owner_name:name,owner_email:email,discount:20,is_free_lesson:false,uses:0})}).catch(function(){});
+    showSuccess(name, email, myCode);
+  })
+  .catch(function(){ showSuccess(name, email, myCode); });
 }
 
-function confirmBooking(){
-  if(!selSlot) return;
-  var inst=curInst.inst;
-  document.getElementById("s-name").textContent=inst.name;
-  document.getElementById("s-time").textContent=selSlot.day+" · "+selSlot.time;
-  document.getElementById("s-time").style.color=inst.color;
-  document.getElementById("s-icon").style.background=inst.color+"22";
-  show("pg-success");
+function showSuccess(name, email, myCode) {
+  document.getElementById('s-code').textContent = myCode;
+  document.getElementById('s-title').textContent = "You're on the tee, " + name.split(' ')[0] + ".";
+  document.getElementById('s-detail').innerHTML =
+    (refFree ? '<strong style="color:#4ade80">🎉 Free intro lesson requested!</strong><br>' : '') +
+    'Your request for <strong>' + selTime + '</strong> has been sent.<br>' +
+    'Carson will confirm within 24 hours at <strong>' + email + '</strong>.<br><br>' +
+    'No payment until your lesson is confirmed.';
+  closeSheet();
+  document.getElementById('success-screen').classList.add('open');
 }
+
+function closeSuccess() { document.getElementById('success-screen').classList.remove('open'); }
+
+function shareProfile() {
+  var url = window.location.href.split('?')[0];
+  if (navigator.share) { navigator.share({title:'Book a golf lesson with Carson Lundell',text:'Korn Ferry Tour Pro offering lessons at Fox Hollow GC. Use code CARSON for a free intro.',url:url}); }
+  else { navigator.clipboard.writeText(url).then(function(){ alert('Link copied!'); }); }
+}
+
+function shareMyCode() {
+  var code = document.getElementById('s-code').textContent;
+  var url  = window.location.href.split('?')[0] + '?ref=' + code;
+  if (navigator.share) { navigator.share({title:'Book a golf lesson with Carson Lundell',text:'Use code '+code+' for $20 off your first lesson.',url:url}); }
+  else { copyMyCode(); }
+}
+
+function copyMyCode() {
+  var code = document.getElementById('s-code').textContent;
+  var url  = window.location.href.split('?')[0] + '?ref=' + code;
+  navigator.clipboard.writeText(code + ' — ' + url).then(function(){ alert('Copied! Share code '+code+' with friends.'); }).catch(function(){ alert('Code: '+code); });
+}
+
+// Auto-apply ?ref= from URL
+(function(){
+  var ref = new URLSearchParams(window.location.search).get('ref');
+  if (ref) {
+    window.addEventListener('load', function(){
+      openBooking();
+      setTimeout(function(){ document.getElementById('ref-input').value=ref.toUpperCase(); applyCode(); }, 600);
+    });
+  }
+})();
+
+if ('serviceWorker' in navigator) { window.addEventListener('load', function(){ navigator.serviceWorker.register('/sw.js').catch(function(){}); }); }
 </script>
 </body>
 </html>
