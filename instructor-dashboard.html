@@ -778,13 +778,85 @@ function openDetail(id){
   document.getElementById('ds-badge').innerHTML=b.free
     ?'<span style="background:rgba(201,165,90,0.1);color:#c9a55a;border:1px solid rgba(201,165,90,0.3);border-radius:4px;padding:3px 8px;font-size:0.62rem;font-weight:800;">🎁 FREE — CARSON CODE</span>'
     :'<span style="background:#162a1e;color:#4ade80;border:1px solid #1a5c2a;border-radius:4px;padding:3px 8px;font-size:0.62rem;font-weight:800;">✓ CONFIRMED</span>';
+
   document.getElementById('ds-details').innerHTML=
     '<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #1e3024;"><div style="font-size:0.95rem;width:20px;text-align:center;flex-shrink:0;margin-top:2px;">🎯</div><div><div style="font-size:0.6rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Session</div><div style="font-size:0.83rem;font-weight:700;color:#ffffff;">'+b.type+'</div></div></div>'
     +'<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #1e3024;"><div style="font-size:0.95rem;width:20px;text-align:center;flex-shrink:0;margin-top:2px;">📧</div><div><div style="font-size:0.6rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Email</div><div style="font-size:0.83rem;font-weight:700;color:#ffffff;">'+b.email+'</div></div></div>'
-    +(b.phone?'<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #1e3024;"><div style="font-size:0.95rem;width:20px;text-align:center;flex-shrink:0;margin-top:2px;">📱</div><div><div style="font-size:0.6rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Phone</div><div style="font-size:0.83rem;font-weight:700;color:#ffffff;">'+b.phone+'</div></div></div>':'');
-  // Load any previously saved notes
+    +(b.phone?'<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #1e3024;"><div style="font-size:0.95rem;width:20px;text-align:center;flex-shrink:0;margin-top:2px;">📱</div><div><div style="font-size:0.6rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Phone</div><div style="font-size:0.83rem;font-weight:700;color:#ffffff;">'+b.phone+'</div></div></div>':'')
+    +'<div id="student-history" style="margin-top:4px;"></div>';
+
+  // Load student history from Supabase
+  loadStudentHistory(b);
+
+  // Load any previously saved notes for THIS booking
   loadNotesForBooking(b);
   openSheet('detail-sheet');
+}
+
+function loadStudentHistory(currentBooking){
+  var historyEl = document.getElementById('student-history');
+  if(!historyEl) return;
+  historyEl.innerHTML = '<div style="padding:10px 0;font-size:0.72rem;font-weight:600;color:#3a5a42;">Loading history…</div>';
+
+  // Query all past bookings for this student with this instructor
+  db('bookings?instructor_id=eq.'+instructorId
+    +'&student_email=eq.'+encodeURIComponent(currentBooking.email)
+    +'&status=neq.cancelled'
+    +'&id=neq.'+currentBooking.id
+    +'&select=*&order=session_date.desc')
+    .then(function(r){ return r.json(); })
+    .then(function(rows){
+      if(!Array.isArray(rows)||rows.length===0){
+        historyEl.innerHTML='<div style="padding:10px 0 4px;font-size:0.72rem;font-weight:600;color:#3a5a42;">First lesson with you ⛳</div>';
+        return;
+      }
+
+      var html='<div style="padding:12px 0 8px;">'
+        +'<div style="font-size:0.62rem;font-weight:800;color:#c9a55a;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">'+currentBooking.name.split(' ')[0]+'\'s History · '+rows.length+' previous lesson'+(rows.length!==1?'s':'')+'</div>';
+
+      rows.forEach(function(past){
+        var pd=new Date(past.session_date+'T00:00:00');
+        var dateLabel=MONTHS_SHORT[pd.getMonth()]+' '+pd.getDate()+', '+pd.getFullYear();
+        var parsedNotes=null;
+        if(past.notes){try{parsedNotes=JSON.parse(past.notes);}catch(e){}}
+
+        html+='<div style="background:#1e3024;border:1.5px solid #2a4a32;border-radius:9px;padding:11px 13px;margin-bottom:7px;">'
+          +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:'+(parsedNotes?'8':'0')+'px;">'
+          +'<div style="font-size:0.78rem;font-weight:700;color:#ffffff;">'+dateLabel+' · '+past.session_time+'</div>'
+          +'<div style="font-size:0.65rem;font-weight:600;color:#5a8a64;">'+past.session_type+'</div>'
+          +'</div>';
+
+        if(parsedNotes){
+          if(parsedNotes.focus){
+            html+='<div style="margin-bottom:5px;">'
+              +'<div style="font-size:0.58rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Focused on</div>'
+              +'<div style="font-size:0.78rem;font-weight:500;color:#a0c4aa;line-height:1.5;">'+parsedNotes.focus+'</div>'
+              +'</div>';
+          }
+          if(parsedNotes.progress){
+            html+='<div style="margin-bottom:5px;">'
+              +'<div style="font-size:0.58rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Was improving</div>'
+              +'<div style="font-size:0.78rem;font-weight:500;color:#a0c4aa;line-height:1.5;">'+parsedNotes.progress+'</div>'
+              +'</div>';
+          }
+          if(parsedNotes.homework){
+            html+='<div>'
+              +'<div style="font-size:0.58rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Homework was</div>'
+              +'<div style="font-size:0.78rem;font-weight:500;color:#a0c4aa;line-height:1.5;">'+parsedNotes.homework+'</div>'
+              +'</div>';
+          }
+        } else {
+          html+='<div style="font-size:0.72rem;font-weight:500;color:#3a5a42;font-style:italic;">No notes saved for this lesson</div>';
+        }
+        html+='</div>';
+      });
+
+      html+='</div>';
+      historyEl.innerHTML=html;
+    })
+    .catch(function(){
+      historyEl.innerHTML='<div style="padding:10px 0 4px;font-size:0.72rem;font-weight:600;color:#3a5a42;">Could not load history</div>';
+    });
 }
 
 function cancelBooking(){
