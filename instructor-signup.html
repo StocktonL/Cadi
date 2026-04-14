@@ -385,22 +385,71 @@ function updateCustom(){
 }
 
 function createAccount(){
-  var name=document.getElementById('s1-name').value.trim();
-  var email=document.getElementById('s1-email').value.trim();
-  var iid=name.toLowerCase().replace(/[^a-z0-9]+/g,'-');
-  var btn=document.getElementById('n4');
-  btn.disabled=true;btn.textContent='Creating profile…';
-  localStorage.setItem('cadi_instructor',JSON.stringify({id:iid,name:name,email:email}));
-  var dObj={};dayState.forEach(function(v,i){dObj[String(i)]=v;});
-  fetch(SUPA_URL+'/rest/v1/availability',{
-    method:'POST',
-    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json','Prefer':'return=representation'},
-    body:JSON.stringify({instructor_id:iid,days:dObj})
+  var name    = document.getElementById('s1-name').value.trim();
+  var email   = document.getElementById('s1-email').value.trim();
+  var phone   = document.getElementById('s1-phone').value.trim();
+  var title   = document.getElementById('s2-title').value.trim();
+  var course  = document.getElementById('s2-course').value.trim();
+  var loc     = document.getElementById('s2-loc').value.trim();
+  var bio     = document.getElementById('s2-bio').value.trim();
+  var spec    = document.getElementById('s2-spec').value;
+  var iid     = name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'');
+  var btn     = document.getElementById('n4');
+  btn.disabled=true; btn.textContent='Creating profile…';
+
+  // Save session immediately
+  localStorage.setItem('cadi_instructor', JSON.stringify({id:iid, name:name, email:email}));
+
+  var dObj={};
+  dayState.forEach(function(v,i){ dObj[String(i)]=v; });
+
+  // Write instructor to Supabase
+  fetch(SUPA_URL+'/rest/v1/instructors', {
+    method: 'POST',
+    headers: {
+      'apikey': SUPA_KEY,
+      'Authorization': 'Bearer '+SUPA_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation'
+    },
+    body: JSON.stringify({
+      instructor_id: iid,
+      name: name,
+      email: email,
+      phone: phone || null,
+      title: title || 'Golf Instructor',
+      course: course || null,
+      location: loc || null,
+      bio: bio || null,
+      specialty: spec || null,
+      specialties: spec ? [spec] : null,
+      rate: selRate || 150,
+      status: 'active'
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(rows){
+    console.log('Instructor saved:', rows);
+  })
+  .catch(function(e){ console.log('Instructor save error:', e); });
+
+  // Write availability to Supabase
+  fetch(SUPA_URL+'/rest/v1/availability', {
+    method: 'POST',
+    headers: {
+      'apikey': SUPA_KEY,
+      'Authorization': 'Bearer '+SUPA_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation'
+    },
+    body: JSON.stringify({ instructor_id: iid, days: dObj })
   }).catch(function(){});
-  document.getElementById('s-name').textContent="You're live, "+name.split(' ')[0]+'.';
-  document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active');});
+
+  // Show success
+  document.getElementById('s-name').textContent = "You're live, "+name.split(' ')[0]+'.';
+  document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
   document.getElementById('step-done').classList.add('active');
-  document.getElementById('prog').style.display='none';
+  document.getElementById('prog').style.display = 'none';
   window.scrollTo(0,0);
 }
 
