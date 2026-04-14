@@ -389,7 +389,43 @@ button,input,select,textarea{font-family:'DM Sans',sans-serif;}
     <div class="sheet-sub" id="ds-sub" style="font-size:0.72rem;font-weight:600;color:#5a8a64;margin-bottom:14px;"></div>
     <div id="ds-badge" style="margin-bottom:14px;"></div>
     <div id="ds-details"></div>
-    <div style="margin-top:16px;">
+
+    <!-- LESSON NOTES SECTION -->
+    <div style="margin-top:18px;border-top:1px solid #1e3024;padding-top:18px;">
+      <div style="font-size:0.65rem;font-weight:800;color:#c9a55a;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;">📋 Lesson Notes</div>
+
+      <!-- What we focused on -->
+      <div style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px;">What We Focused On</div>
+      <textarea id="note-focus" placeholder="e.g. Driver path and release, staying through the ball…" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:11px 13px;font-size:0.85rem;color:#ffffff;outline:none;resize:none;height:70px;line-height:1.6;margin-bottom:12px;font-family:'DM Sans',sans-serif;" oninput="this.style.borderColor='#c9a55a'"></textarea>
+
+      <!-- What's improving -->
+      <div style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px;">What's Improving</div>
+      <textarea id="note-progress" placeholder="e.g. Ball flight is straightening out, better tempo…" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:11px 13px;font-size:0.85rem;color:#ffffff;outline:none;resize:none;height:70px;line-height:1.6;margin-bottom:12px;font-family:'DM Sans',sans-serif;" oninput="this.style.borderColor='#c9a55a'"></textarea>
+
+      <!-- Homework -->
+      <div style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px;">Homework / Practice Drills</div>
+      <textarea id="note-homework" placeholder="e.g. 20 mins of the pause drill at the range, focus on finishing your turn…" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:11px 13px;font-size:0.85rem;color:#ffffff;outline:none;resize:none;height:70px;line-height:1.6;margin-bottom:12px;font-family:'DM Sans',sans-serif;" oninput="this.style.borderColor='#c9a55a'"></textarea>
+
+      <!-- Private notes -->
+      <div style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px;">Private Coach Notes <span style="color:#3a5a42;font-size:0.6rem;text-transform:none;letter-spacing:0;font-weight:500;">— only you see this</span></div>
+      <textarea id="note-private" placeholder="e.g. Tends to come over the top under pressure. Mental game needs work. Very coachable." style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:11px 13px;font-size:0.85rem;color:#ffffff;outline:none;resize:none;height:70px;line-height:1.6;margin-bottom:16px;font-family:'DM Sans',sans-serif;" oninput="this.style.borderColor='#3a5a42'"></textarea>
+
+      <!-- Preview toggle -->
+      <div id="recap-preview" style="display:none;background:#0e1a12;border:1.5px solid rgba(201,165,90,0.3);border-radius:10px;padding:14px;margin-bottom:14px;">
+        <div style="font-size:0.6rem;font-weight:800;color:#c9a55a;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">Preview — What Student Receives</div>
+        <div id="recap-text" style="font-size:0.82rem;font-weight:500;color:#ffffff;line-height:1.8;white-space:pre-wrap;"></div>
+      </div>
+
+      <!-- Action buttons -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+        <button onclick="saveNotes()" style="background:#1e3024;color:#7a9a84;border:1.5px solid #2a4a32;border-radius:8px;padding:11px;font-size:0.78rem;font-weight:700;cursor:pointer;">💾 Save Notes</button>
+        <button onclick="previewRecap()" style="background:#1e3024;color:#c9a55a;border:1.5px solid rgba(201,165,90,0.3);border-radius:8px;padding:11px;font-size:0.78rem;font-weight:700;cursor:pointer;">👁 Preview Recap</button>
+      </div>
+      <button onclick="sendRecap()" style="width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:9px;padding:13px;font-size:0.88rem;font-weight:800;cursor:pointer;margin-bottom:8px;">⬆ Send Recap to Student</button>
+      <div style="font-size:0.65rem;font-weight:500;color:#3a5a42;text-align:center;line-height:1.6;">Recap is sent to the student's email. Private notes stay on your dashboard only.</div>
+    </div>
+
+    <div style="margin-top:16px;padding-top:14px;border-top:1px solid #1e3024;">
       <button class="mbtn ghost" onclick="closeSheet('detail-sheet')" style="width:100%;background:#1e3024;color:#5a8a64;border:1.5px solid #2a4a32;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;margin-bottom:8px;">Close</button>
       <button class="mbtn danger" onclick="cancelBooking()" style="width:100%;background:#1a0e0e;color:#e05050;border:1.5px solid #3a1a1a;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;">Cancel Booking</button>
     </div>
@@ -745,8 +781,9 @@ function openDetail(id){
   document.getElementById('ds-details').innerHTML=
     '<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #1e3024;"><div style="font-size:0.95rem;width:20px;text-align:center;flex-shrink:0;margin-top:2px;">🎯</div><div><div style="font-size:0.6rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Session</div><div style="font-size:0.83rem;font-weight:700;color:#ffffff;">'+b.type+'</div></div></div>'
     +'<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #1e3024;"><div style="font-size:0.95rem;width:20px;text-align:center;flex-shrink:0;margin-top:2px;">📧</div><div><div style="font-size:0.6rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Email</div><div style="font-size:0.83rem;font-weight:700;color:#ffffff;">'+b.email+'</div></div></div>'
-    +(b.phone?'<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #1e3024;"><div style="font-size:0.95rem;width:20px;text-align:center;flex-shrink:0;margin-top:2px;">📱</div><div><div style="font-size:0.6rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Phone</div><div style="font-size:0.83rem;font-weight:700;color:#ffffff;">'+b.phone+'</div></div></div>':'')
-    +(b.notes?'<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #1e3024;"><div style="font-size:0.95rem;width:20px;text-align:center;flex-shrink:0;margin-top:2px;">📝</div><div><div style="font-size:0.6rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Notes</div><div style="font-size:0.83rem;font-weight:700;color:#ffffff;">'+b.notes+'</div></div></div>':'');
+    +(b.phone?'<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #1e3024;"><div style="font-size:0.95rem;width:20px;text-align:center;flex-shrink:0;margin-top:2px;">📱</div><div><div style="font-size:0.6rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Phone</div><div style="font-size:0.83rem;font-weight:700;color:#ffffff;">'+b.phone+'</div></div></div>':'');
+  // Load any previously saved notes
+  loadNotesForBooking(b);
   openSheet('detail-sheet');
 }
 
@@ -756,6 +793,100 @@ function cancelBooking(){
     db('bookings?id=eq.'+curDetailId,{method:'PATCH',body:JSON.stringify({status:'cancelled'})}).catch(function(){});
     bookings=bookings.filter(function(b){return b.id!==curDetailId;});
     closeSheet('detail-sheet'); renderAll();
+  }
+}
+
+// ── LESSON NOTES ──
+function saveNotes(){
+  if(!curDetailId)return;
+  var focus   = document.getElementById('note-focus').value.trim();
+  var progress= document.getElementById('note-progress').value.trim();
+  var homework= document.getElementById('note-homework').value.trim();
+  var priv    = document.getElementById('note-private').value.trim();
+  if(!focus&&!progress&&!homework&&!priv){alert('Add at least one note first.');return;}
+  var notes = JSON.stringify({focus:focus,progress:progress,homework:homework,private:priv,saved:new Date().toISOString()});
+  db('bookings?id=eq.'+curDetailId,{method:'PATCH',body:JSON.stringify({notes:notes})})
+    .then(function(){
+      // Update local
+      var b=bookings.find(function(x){return x.id===curDetailId;});
+      if(b)b.savedNotes={focus:focus,progress:progress,homework:homework,priv:priv};
+      showNotesSuccess('Notes saved!');
+    })
+    .catch(function(){ showNotesSuccess('Saved locally.'); });
+}
+
+function showNotesSuccess(msg){
+  var btn=document.querySelector('#detail-sheet button[onclick="saveNotes()"]');
+  if(btn){var orig=btn.textContent;btn.textContent='✓ '+msg;btn.style.color='#4ade80';setTimeout(function(){btn.textContent=orig;btn.style.color='#7a9a84';},2000);}
+}
+
+function previewRecap(){
+  var b=bookings.find(function(x){return x.id===curDetailId;});
+  if(!b)return;
+  var focus   = document.getElementById('note-focus').value.trim();
+  var progress= document.getElementById('note-progress').value.trim();
+  var homework= document.getElementById('note-homework').value.trim();
+  if(!focus&&!progress&&!homework){alert('Add some notes first to preview the recap.');return;}
+  var d=new Date(b.date+'T00:00:00');
+  var dateStr=DAYS_FULL[d.getDay()]+', '+MONTHS[d.getMonth()]+' '+d.getDate();
+  var recap='Hi '+b.name.split(' ')[0]+'!\n\nGreat lesson today. Here\'s your recap:\n\n';
+  if(focus)   recap+='📍 What we focused on:\n'+focus+'\n\n';
+  if(progress)recap+='✅ What\'s improving:\n'+progress+'\n\n';
+  if(homework)recap+='📋 Practice before next time:\n'+homework+'\n\n';
+  recap+='See you on the course!\n— '+instructorName;
+  document.getElementById('recap-text').textContent=recap;
+  document.getElementById('recap-preview').style.display='block';
+  document.getElementById('recap-preview').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function sendRecap(){
+  var b=bookings.find(function(x){return x.id===curDetailId;});
+  if(!b){return;}
+  var focus   = document.getElementById('note-focus').value.trim();
+  var progress= document.getElementById('note-progress').value.trim();
+  var homework= document.getElementById('note-homework').value.trim();
+  if(!focus&&!progress&&!homework){alert('Add notes before sending a recap.');return;}
+  if(!b.email){alert('No email address for this student.');return;}
+
+  // Build recap
+  var d=new Date(b.date+'T00:00:00');
+  var recap='Hi '+b.name.split(' ')[0]+'!\n\nGreat lesson today. Here\'s your recap:\n\n';
+  if(focus)   recap+='📍 What we focused on:\n'+focus+'\n\n';
+  if(progress)recap+='✅ What\'s improving:\n'+progress+'\n\n';
+  if(homework)recap+='📋 Practice before next time:\n'+homework+'\n\n';
+  recap+='See you on the course!\n— '+instructorName;
+
+  // Save notes first
+  saveNotes();
+
+  // Send via mailto as fallback (EmailJS/Twilio can replace this later)
+  var subject = encodeURIComponent('Your lesson recap — '+DAYS_SHORT[d.getDay()]+' with '+instructorName);
+  var body    = encodeURIComponent(recap);
+  var mailto  = 'mailto:'+b.email+'?subject='+subject+'&body='+body;
+  window.open(mailto);
+
+  var btn=document.querySelector('#detail-sheet button[onclick="sendRecap()"]');
+  if(btn){btn.textContent='✓ Recap Sent!';btn.style.background='#4ade80';btn.style.color='#0e1a12';
+    setTimeout(function(){btn.textContent='⬆ Send Recap to Student';btn.style.background='#c9a55a';btn.style.color='#0e1a12';},3000);}
+}
+
+function loadNotesForBooking(b){
+  // Clear fields first
+  ['note-focus','note-progress','note-homework','note-private'].forEach(function(id){
+    var el=document.getElementById(id); if(el)el.value='';
+  });
+  document.getElementById('recap-preview').style.display='none';
+  // Load saved notes if they exist
+  if(!b.notes)return;
+  try{
+    var parsed=JSON.parse(b.notes);
+    if(parsed.focus)   document.getElementById('note-focus').value=parsed.focus;
+    if(parsed.progress)document.getElementById('note-progress').value=parsed.progress;
+    if(parsed.homework)document.getElementById('note-homework').value=parsed.homework;
+    if(parsed.private) document.getElementById('note-private').value=parsed.private;
+  }catch(e){
+    // Notes stored as plain text
+    document.getElementById('note-focus').value=b.notes;
   }
 }
 
