@@ -1,588 +1,195 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background:#0e1a12;">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<title>Carson Lundell — Golf Instruction · Cadi</title>
-<meta name="description" content="Book a golf lesson with Carson Lundell — Korn Ferry Tour Pro, BYU Honorable Mention All-American. Fox Hollow GC, Orem UT."/>
+<title>Cadi — Golf Instruction Platform</title>
+<meta name="description" content="Cadi gives golf instructors a professional booking page, real-time schedule, and referral system. Free during beta."/>
 <meta name="theme-color" content="#0e1a12"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="Cadi"/>
 <link rel="manifest" href="/manifest.json"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-:root{
-  --green:#0e1a12;--green-mid:#1a5c2a;--green-pale:#e8f5ec;
-  --gold:#c9a55a;--gold-pale:#fdf8ee;
-  --white:#ffffff;--off:#f0f2f0;--border:#c8dac8;--gray:#475569;
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#0e1a12;
+  color:#ffffff;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
 }
-body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--green);-webkit-font-smoothing:antialiased;min-height:100vh;}
-button,input,textarea,select{font-family:'DM Sans',sans-serif;}
+button{font-family:'DM Sans',sans-serif;}
 
-.hero{background:var(--green);padding-bottom:28px;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(201,165,90,0.07) 0%,transparent 70%);}
-.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+/* NAV */
+.nav{padding:18px 24px;display:flex;align-items:center;justify-content:space-between;}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;}
+.brand-mark{width:32px;height:32px;background:#c9a55a;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.brand-text{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:#ffffff;}
+.signin-btn{background:#162a1e;color:#7a9a84;border:1.5px solid #2a4a32;border-radius:8px;padding:8px 16px;font-size:0.78rem;font-weight:700;cursor:pointer;}
 
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;}
-.brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
-.brand-mark{width:28px;height:28px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;}
-.brand-text{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:#ffffff;}
-.share-btn{background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);color:#ffffff;border-radius:7px;padding:7px 13px;font-size:0.72rem;font-weight:700;cursor:pointer;}
+/* HERO */
+.hero{flex:1;display:flex;flex-direction:column;justify-content:center;padding:40px 24px 20px;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:#c9a55a;}
+.eyebrow-text{font-size:0.65rem;font-weight:700;color:#c9a55a;letter-spacing:0.2em;text-transform:uppercase;}
+.hero-title{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:800;color:#ffffff;line-height:1.1;margin-bottom:14px;}
+.hero-title em{font-style:italic;color:#c9a55a;}
+.hero-sub{font-size:0.92rem;font-weight:500;color:#7a9a84;line-height:1.8;margin-bottom:32px;max-width:320px;}
 
-.hero-body{padding:0 20px;}
-.avatar-row{display:flex;align-items:flex-end;gap:14px;margin-bottom:14px;}
-.avatar{width:82px;height:82px;border-radius:50%;background:linear-gradient(140deg,#1a3a6b,#0d2044);border:3px solid rgba(201,165,90,0.45);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#ffffff;flex-shrink:0;}
-.name-block{flex:1;padding-bottom:2px;}
-.eyebrow{font-size:0.6rem;font-weight:700;color:var(--gold);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:4px;}
-.hero-name{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#ffffff;line-height:1.1;margin-bottom:4px;}
-.hero-title{font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.65);line-height:1.5;}
+/* CTA */
+.cta-stack{display:flex;flex-direction:column;gap:10px;margin-bottom:40px;}
+.cta-primary{width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:11px;padding:16px;font-size:1rem;font-weight:800;cursor:pointer;text-align:center;text-decoration:none;display:block;}
+.cta-secondary{width:100%;background:#162a1e;color:#ffffff;border:1.5px solid #2a4a32;border-radius:11px;padding:15px;font-size:0.95rem;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;display:block;}
 
-.hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
-.badge{display:flex;align-items:center;gap:5px;border-radius:5px;padding:4px 10px;font-size:0.62rem;font-weight:800;letter-spacing:0.06em;}
-.badge-gold{background:rgba(201,165,90,0.2);border:1px solid rgba(201,165,90,0.4);color:var(--gold);}
-.badge-green{background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.25);color:#4ade80;}
+/* FEATURES */
+.features{display:flex;flex-direction:column;gap:10px;margin-bottom:40px;}
+.feat{display:flex;align-items:flex-start;gap:14px;background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;}
+.feat-icon{font-size:1.2rem;flex-shrink:0;margin-top:1px;}
+.feat-title{font-size:0.85rem;font-weight:800;color:#ffffff;margin-bottom:3px;}
+.feat-desc{font-size:0.75rem;font-weight:500;color:#7a9a84;line-height:1.5;}
 
-.stats{display:grid;grid-template-columns:repeat(4,1fr);background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;margin-bottom:18px;}
-.stat{padding:10px 6px;text-align:center;border-right:1px solid rgba(255,255,255,0.07);}
-.stat:last-child{border-right:none;}
-.stat-l{font-size:0.55rem;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;}
-.stat-v{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#ffffff;}
+/* PROOF */
+.proof{background:#162a1e;border:1.5px solid #2a4a32;border-radius:14px;padding:18px;margin-bottom:40px;}
+.proof-quote{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#ffffff;line-height:1.5;margin-bottom:12px;}
+.proof-quote em{font-style:italic;color:#c9a55a;}
+.proof-attr{display:flex;align-items:center;gap:10px;}
+.proof-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(140deg,#1a3a6b,#0d2044);border:2px solid rgba(201,165,90,0.4);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:0.85rem;font-weight:800;color:#ffffff;flex-shrink:0;}
+.proof-name{font-size:0.8rem;font-weight:800;color:#ffffff;}
+.proof-title{font-size:0.68rem;font-weight:600;color:#7a9a84;}
 
-.cta-row{display:flex;gap:9px;}
-.btn-primary{flex:1;background:var(--gold);color:var(--green);border:none;border-radius:10px;padding:14px;font-size:0.92rem;font-weight:800;cursor:pointer;}
-.btn-secondary{background:rgba(255,255,255,0.1);color:#ffffff;border:1.5px solid rgba(255,255,255,0.2);border-radius:10px;padding:14px 16px;font-size:0.82rem;font-weight:700;cursor:pointer;}
+/* BETA BANNER */
+.beta{background:rgba(201,165,90,0.08);border:1.5px solid rgba(201,165,90,0.25);border-radius:12px;padding:14px;margin-bottom:32px;text-align:center;}
+.beta-title{font-size:0.8rem;font-weight:800;color:#c9a55a;margin-bottom:4px;}
+.beta-desc{font-size:0.72rem;font-weight:500;color:#7a9a84;line-height:1.6;}
+.beta-code{display:inline-block;background:#0e1a12;border:1.5px solid #c9a55a;border-radius:6px;padding:4px 12px;font-size:0.85rem;font-weight:800;color:#c9a55a;letter-spacing:0.12em;margin-top:8px;}
 
-.body{padding:20px 20px 120px;}
-.sec{display:flex;align-items:center;gap:10px;margin-bottom:10px;margin-top:22px;}
-.sec-lbl{font-size:0.62rem;font-weight:800;color:var(--green);letter-spacing:0.14em;text-transform:uppercase;white-space:nowrap;}
-.sec-line{flex:1;height:1.5px;background:var(--border);}
+/* HOW IT WORKS */
+.how-title{font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px;}
+.steps{display:flex;flex-direction:column;gap:8px;margin-bottom:40px;}
+.step-row{display:flex;align-items:flex-start;gap:14px;}
+.step-num{width:28px;height:28px;border-radius:50%;background:#1a5c2a;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:800;color:#ffffff;flex-shrink:0;margin-top:1px;}
+.step-text{font-size:0.85rem;font-weight:600;color:#ffffff;line-height:1.5;padding-top:4px;}
+.step-text span{color:#7a9a84;font-weight:500;}
 
-.bio{font-size:0.88rem;font-weight:500;color:#334155;line-height:1.8;}
-
-.chips{display:flex;flex-wrap:wrap;gap:6px;}
-.chip{font-size:0.72rem;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid #4a7a54;color:#1e4a28;background:var(--green-pale);}
-
-.achs{display:flex;flex-direction:column;gap:8px;}
-.ach{display:flex;align-items:flex-start;gap:12px;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;}
-.ach-icon{font-size:1rem;flex-shrink:0;margin-top:1px;}
-.ach-text{font-size:0.82rem;font-weight:600;color:#1e293b;line-height:1.5;}
-
-.price-card{background:var(--green);border-radius:14px;padding:20px;margin-bottom:12px;position:relative;overflow:hidden;}
-.price-card::before{content:'';position:absolute;top:-20px;right:-20px;width:90px;height:90px;border-radius:50%;background:rgba(201,165,90,0.08);}
-.price-eyebrow{font-size:0.6rem;font-weight:700;color:var(--gold);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:6px;}
-.price-amount{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:800;color:#ffffff;line-height:1;margin-bottom:4px;}
-.price-per{font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:14px;}
-.price-features{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
-.pf{display:flex;align-items:center;gap:8px;font-size:0.8rem;font-weight:500;color:rgba(255,255,255,0.8);}
-.pf-check{color:var(--gold);font-size:0.72rem;flex-shrink:0;}
-.price-cta{width:100%;background:var(--gold);color:var(--green);border:none;border-radius:10px;padding:14px;font-size:0.92rem;font-weight:800;cursor:pointer;}
-
-.pkg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.pkg{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
-.pkg.featured{background:var(--green-pale);border-color:var(--green-mid);}
-.pkg-sessions{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;color:var(--green-mid);}
-.pkg-lbl{font-size:0.6rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;}
-.pkg-price{font-size:0.95rem;font-weight:800;color:var(--green);margin-bottom:2px;}
-.pkg-save{font-size:0.65rem;font-weight:700;color:var(--green-mid);background:var(--green-pale);border-radius:4px;padding:2px 7px;display:inline-block;margin-bottom:6px;}
-.pkg-per{font-size:0.68rem;font-weight:600;color:var(--gray);}
-.pkg-btn{width:100%;background:var(--green);color:#ffffff;border:none;border-radius:7px;padding:9px;font-size:0.78rem;font-weight:700;cursor:pointer;margin-top:8px;}
-.pkg.featured .pkg-btn{background:var(--green-mid);}
-
-.sticky{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1.5px solid var(--border);padding:12px 20px;padding-bottom:calc(12px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;z-index:50;}
-.sticky-rate{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:var(--green);}
-.sticky-sub{font-size:0.65rem;font-weight:600;color:var(--gray);}
-.sticky-btn{background:var(--green-mid);color:#ffffff;border:none;border-radius:10px;padding:13px 24px;font-size:0.9rem;font-weight:800;cursor:pointer;}
-
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:100;display:none;align-items:flex-end;}
-.overlay.open{display:flex;}
-.sheet{background:var(--white);border-radius:20px 20px 0 0;width:100%;max-height:90vh;overflow-y:auto;padding:20px 20px 44px;}
-.sheet-handle{width:36px;height:4px;background:#cbd5e1;border-radius:2px;margin:0 auto 18px;}
-.sheet-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:var(--green);margin-bottom:4px;}
-.sheet-sub{font-size:0.75rem;font-weight:600;color:var(--gray);margin-bottom:18px;}
-.sheet-close{float:right;background:none;border:none;color:var(--gray);font-size:1.1rem;cursor:pointer;margin-top:-2px;}
-.flbl{font-size:0.65rem;font-weight:800;color:var(--green);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px;}
-.finput{width:100%;background:var(--off);border:1.5px solid var(--border);border-radius:9px;padding:12px 13px;font-size:0.9rem;font-weight:500;color:var(--green);outline:none;margin-bottom:12px;}
-.finput:focus{border-color:var(--green-mid);}
-.fselect{width:100%;background:var(--off);border:1.5px solid var(--border);border-radius:9px;padding:12px 13px;font-size:0.9rem;font-weight:500;color:var(--green);outline:none;margin-bottom:12px;appearance:none;-webkit-appearance:none;}
-
-.session-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
-.sopt{background:var(--off);border:1.5px solid var(--border);border-radius:9px;padding:11px;text-align:center;cursor:pointer;transition:all 0.15s;}
-.sopt.active{background:var(--green-pale);border-color:var(--green-mid);}
-.sopt-name{font-size:0.78rem;font-weight:700;color:var(--green);}
-.sopt.active .sopt-name{color:var(--green-mid);}
-.sopt-price{font-size:0.68rem;font-weight:600;color:var(--gray);margin-top:2px;}
-
-.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px;}
-.tslot{background:var(--off);border:1.5px solid var(--border);border-radius:7px;padding:9px 4px;text-align:center;cursor:pointer;font-size:0.72rem;font-weight:700;color:var(--green);transition:all 0.15s;}
-.tslot.selected{background:var(--green-pale);border-color:var(--green-mid);color:var(--green-mid);}
-.tslot.taken{opacity:0.35;cursor:not-allowed;text-decoration:line-through;}
-
-.ref-box{background:var(--gold-pale);border:2px solid rgba(201,165,90,0.4);border-radius:11px;padding:14px;margin-bottom:14px;}
-.ref-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
-.ref-title{font-size:0.82rem;font-weight:800;color:var(--green);}
-.ref-hint{font-size:0.65rem;font-weight:600;color:var(--gray);}
-.ref-row{display:flex;gap:8px;}
-.ref-input{flex:1;background:var(--white);border:1.5px solid var(--border);border-radius:8px;padding:11px 12px;font-size:0.95rem;font-weight:800;color:var(--green);letter-spacing:0.12em;text-transform:uppercase;outline:none;}
-.ref-input:focus{border-color:var(--green-mid);}
-.ref-apply{background:var(--green);color:#ffffff;border:none;border-radius:8px;padding:0 16px;font-size:0.8rem;font-weight:800;cursor:pointer;flex-shrink:0;}
-.ref-msg{font-size:0.72rem;font-weight:700;margin-top:8px;padding:8px 10px;border-radius:7px;display:none;}
-
-.price-summary{background:var(--green);border-radius:10px;padding:13px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;}
-.ps-label{font-size:0.62rem;font-weight:700;color:rgba(255,255,255,0.45);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;}
-.ps-original{font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.35);text-decoration:line-through;display:none;}
-.ps-final{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#ffffff;}
-.ps-save{background:rgba(201,165,90,0.2);border:1px solid rgba(201,165,90,0.35);border-radius:7px;padding:8px 12px;text-align:center;display:none;}
-.ps-save-lbl{font-size:0.6rem;font-weight:700;color:var(--gold);letter-spacing:0.08em;}
-.ps-save-amt{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:var(--gold);}
-.confirm-btn{width:100%;background:var(--green-mid);color:#ffffff;border:none;border-radius:10px;padding:14px;font-size:0.92rem;font-weight:800;cursor:pointer;}
-.confirm-btn:disabled{background:#8aab8e;cursor:not-allowed;opacity:0.6;}
-.no-payment-note{font-size:0.65rem;font-weight:500;color:var(--gray);text-align:center;margin-top:10px;line-height:1.6;}
-
-.success-screen{position:fixed;inset:0;background:var(--green);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;}
-.success-screen.open{display:flex;}
-.s-icon{width:70px;height:70px;border-radius:50%;background:rgba(201,165,90,0.15);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:18px;}
-.s-eyebrow{font-size:0.62rem;font-weight:700;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;}
-.s-title{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:800;color:#ffffff;margin-bottom:10px;}
-.s-detail{font-size:0.85rem;font-weight:500;color:rgba(255,255,255,0.65);line-height:1.75;margin-bottom:24px;}
-.s-code-card{background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,165,90,0.3);border-radius:14px;padding:18px;width:100%;max-width:300px;margin-bottom:20px;}
-.s-code-lbl{font-size:0.6rem;font-weight:700;color:var(--gold);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:6px;}
-.s-code-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#ffffff;letter-spacing:0.12em;margin-bottom:6px;}
-.s-code-desc{font-size:0.7rem;font-weight:500;color:rgba(255,255,255,0.55);margin-bottom:14px;line-height:1.6;}
-.s-share{width:100%;background:var(--gold);color:var(--green);border:none;border-radius:8px;padding:11px;font-size:0.85rem;font-weight:800;cursor:pointer;margin-bottom:8px;}
-.s-copy{width:100%;background:rgba(255,255,255,0.08);color:#ffffff;border:1.5px solid rgba(255,255,255,0.15);border-radius:8px;padding:10px;font-size:0.8rem;font-weight:700;cursor:pointer;}
-.s-back{margin-top:16px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:0.82rem;font-weight:600;cursor:pointer;text-decoration:underline;}
+/* FOOTER */
+.footer{padding:24px;border-top:1px solid #162a1e;text-align:center;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:1rem;font-weight:800;color:#ffffff;margin-bottom:6px;}
+.footer-sub{font-size:0.7rem;font-weight:500;color:#3a5a42;}
 </style>
 </head>
-<body>
+<body style="background:#0e1a12;color:#ffffff;">
 
-<div class="hero">
-  <div class="topbar">
-    <a class="brand" href="/index.html">
-      <div class="brand-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/></svg></div>
-      <span class="brand-text">Cadi</span>
-    </a>
-    <button class="share-btn" onclick="shareProfile()">⬆ Share</button>
-  </div>
-  <div class="hero-body">
-    <div class="avatar-row">
-      <div class="avatar">CL</div>
-      <div class="name-block">
-        <div class="eyebrow">Korn Ferry Tour · Alpine, Utah</div>
-        <div class="hero-name">Carson Lundell</div>
-        <div class="hero-title">Professional Golfer · BYU Alumni<br>Fox Hollow GC / BYU Training Facility · Orem, UT</div>
-      </div>
+<nav class="nav" style="background:#0e1a12;">
+  <a class="brand" href="/">
+    <div class="brand-mark">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/>
+      </svg>
     </div>
-    <div class="hero-badges">
-      <div class="badge badge-gold">⛳ KORN FERRY TOUR PRO</div>
-      <div class="badge badge-green">✓ VERIFIED</div>
-    </div>
-    <div class="stats">
-      <div class="stat"><div class="stat-l">HCP</div><div class="stat-v">+6.0</div></div>
-      <div class="stat"><div class="stat-l">School</div><div class="stat-v">BYU</div></div>
-      <div class="stat"><div class="stat-l">Rate</div><div class="stat-v">$250</div></div>
-      <div class="stat"><div class="stat-l">City</div><div class="stat-v">Orem</div></div>
-    </div>
-    <div class="cta-row">
-      <button class="btn-primary" onclick="openBooking()">Book a Lesson</button>
-      <button class="btn-secondary" onclick="shareProfile()">⬆ Share</button>
-    </div>
-  </div>
-</div>
+    <span class="brand-text" style="color:#ffffff;">Cadi</span>
+  </a>
+  <button class="signin-btn" onclick="window.location.href='/instructor-login.html'">Sign In</button>
+</nav>
 
-<div class="body">
-  <div class="sec"><span class="sec-lbl">About</span><div class="sec-line"></div></div>
-  <p class="bio">Carson Lundell is a professional golfer from Alpine, Utah competing on the Korn Ferry Tour. A former BYU standout, Carson was one of the most decorated collegiate golfers in program history — finishing his career with a 70.76 scoring average, 7 top-10 finishes his senior season, and individual medalist honors at the NCAA West Regional. He brings the same competitive precision to his lessons that took him from Lone Peak High School to the professional tour.</p>
+<div class="hero" style="background:#0e1a12;">
 
-  <div class="sec"><span class="sec-lbl">Specialties</span><div class="sec-line"></div></div>
-  <div class="chips">
-    <span class="chip">Full Swing</span>
-    <span class="chip">Ball Striking</span>
-    <span class="chip">Course Management</span>
-    <span class="chip">Competitive Prep</span>
-    <span class="chip">Mental Game</span>
-    <span class="chip">Scoring</span>
+  <div class="eyebrow">
+    <div class="eyebrow-dot"></div>
+    <span class="eyebrow-text" style="color:#c9a55a;">Free During Beta · For Instructors</span>
   </div>
 
-  <div class="sec"><span class="sec-lbl">Career Highlights</span><div class="sec-line"></div></div>
-  <div class="achs">
-    <div class="ach"><div class="ach-icon">⛳</div><div class="ach-text">Korn Ferry Tour Professional — actively competing</div></div>
-    <div class="ach"><div class="ach-icon">🏆</div><div class="ach-text">NCAA West Regional Medalist — 11-under 205, BYU to NCAA Championship</div></div>
-    <div class="ach"><div class="ach-icon">🎓</div><div class="ach-text">BYU Honorable Mention All-American (2021) · WCC First-Team · 3x All-WCC</div></div>
-    <div class="ach"><div class="ach-icon">🥊</div><div class="ach-text">Round of 32 — 2022 US Amateur Championship</div></div>
-    <div class="ach"><div class="ach-icon">🎯</div><div class="ach-text">2021 US Open qualifier champion at Alpine Country Club</div></div>
-    <div class="ach"><div class="ach-icon">📊</div><div class="ach-text">Senior season: 70.76 avg · 2 wins · 7 top-10 finishes in 14 events</div></div>
-    <div class="ach"><div class="ach-icon">🏫</div><div class="ach-text">Lone Peak HS — 2x National Champion · 3x 5A State Champion · 2015 UJGA Player of the Year</div></div>
+  <div class="hero-title" style="color:#ffffff;font-family:Playfair Display,serif;font-size:2.6rem;font-weight:800;line-height:1.1;margin-bottom:14px;">Your lessons.<br>Your <em>profile.</em><br>Your students.</div>
+  <p class="hero-sub" style="color:#7a9a84;font-size:0.92rem;font-weight:500;line-height:1.8;margin-bottom:32px;">Cadi gives independent golf instructors a professional booking page, real-time schedule management, and a referral system that fills your calendar — all in one place.</p>
+
+  <div class="cta-stack">
+    <a class="cta-primary" href="/instructor-signup.html">Join Free as an Instructor →</a>
+    <a class="cta-secondary" href="/instructor-login.html">Sign In to My Account</a>
   </div>
 
-  <div class="sec"><span class="sec-lbl">Pricing</span><div class="sec-line"></div></div>
-  <div class="price-card">
-    <div class="price-eyebrow">Single Session</div>
-    <div class="price-amount">$250</div>
-    <div class="price-per">per 60-minute lesson · Fox Hollow GC</div>
-    <div class="price-features">
-      <div class="pf"><span class="pf-check">✓</span>One-on-one with Carson</div>
-      <div class="pf"><span class="pf-check">✓</span>Tailored to your game</div>
-      <div class="pf"><span class="pf-check">✓</span>Free cancellation 24hrs before</div>
-    </div>
-    <button class="price-cta" onclick="openBooking()">Book Now — $250</button>
+  <div class="beta" style="background:rgba(201,165,90,0.08);border:1.5px solid rgba(201,165,90,0.25);border-radius:12px;padding:14px;margin-bottom:32px;text-align:center;">
+    <div class="beta-title" style="font-size:0.8rem;font-weight:800;color:#c9a55a;margin-bottom:4px;">🎉 Beta Access — Currently Free</div>
+    <div class="beta-desc" style="font-size:0.72rem;font-weight:500;color:#7a9a84;line-height:1.6;">Cadi is free for all instructors during beta. Use your access code at signup.</div>
+    <div class="beta-code" style="display:inline-block;background:#0e1a12;border:1.5px solid #c9a55a;border-radius:6px;padding:4px 12px;font-size:0.85rem;font-weight:800;color:#c9a55a;letter-spacing:0.12em;margin-top:8px;">CADI2026</div>
   </div>
 
-  <div class="sec"><span class="sec-lbl">Lesson Packages</span><div class="sec-line"></div></div>
-  <div class="pkg-grid">
-    <div class="pkg">
-      <div class="pkg-lbl">Sessions</div>
-      <div class="pkg-sessions">3</div>
-      <div class="pkg-price">$690</div>
-      <div class="pkg-save">Save $60 · 8% off</div>
-      <div class="pkg-per">$230 per session</div>
-      <button class="pkg-btn" onclick="openBookingWithPkg('3-Pack · $690',690)">Book Pack</button>
-    </div>
-    <div class="pkg featured">
-      <div class="pkg-lbl">Most Popular</div>
-      <div class="pkg-sessions">6</div>
-      <div class="pkg-price">$1,350</div>
-      <div class="pkg-save">Save $150 · 10% off</div>
-      <div class="pkg-per">$225 per session</div>
-      <button class="pkg-btn" onclick="openBookingWithPkg('6-Pack · $1,350',1350)">Book Pack</button>
-    </div>
-    <div class="pkg">
-      <div class="pkg-lbl">Sessions</div>
-      <div class="pkg-sessions">10</div>
-      <div class="pkg-price">$2,125</div>
-      <div class="pkg-save">Save $375 · 15% off</div>
-      <div class="pkg-per">$212.50 per session</div>
-      <button class="pkg-btn" onclick="openBookingWithPkg('10-Pack · $2,125',2125)">Book Pack</button>
-    </div>
-    <div class="pkg">
-      <div class="pkg-lbl">Free Intro</div>
-      <div class="pkg-sessions">1</div>
-      <div class="pkg-price">Free</div>
-      <div class="pkg-save">Code: CARSON</div>
-      <div class="pkg-per">30-minute intro</div>
-      <button class="pkg-btn" onclick="openBookingFree()">Claim Free</button>
-    </div>
-  </div>
-
-  <div style="margin-top:28px;padding-top:20px;border-top:1.5px solid var(--border);text-align:center;">
-    <div style="font-size:0.65rem;font-weight:600;color:var(--gray);margin-bottom:6px;">Powered by</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;">
-      <div style="width:18px;height:18px;background:var(--gold);border-radius:4px;display:flex;align-items:center;justify-content:center;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/></svg></div>
-      <span style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:800;color:var(--green);">Cadi</span>
-    </div>
-  </div>
-</div>
-
-<!-- STICKY -->
-<div class="sticky">
-  <div><div class="sticky-rate">$250</div><div class="sticky-sub">per session · Fox Hollow GC</div></div>
-  <button class="sticky-btn" onclick="openBooking()">Book Now →</button>
-</div>
-
-<!-- BOOKING SHEET -->
-<div class="overlay" id="booking-overlay" onclick="closeBookingOuter(event)">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <button class="sheet-close" onclick="closeSheet()">✕</button>
-    <div class="sheet-title">Request a Lesson</div>
-    <div class="sheet-sub">with Carson Lundell · Fox Hollow GC</div>
-
-    <div class="flbl">Your Name</div>
-    <input class="finput" id="f-name" placeholder="First and last name" type="text" oninput="checkReady()"/>
-
-    <div class="flbl">Email</div>
-    <input class="finput" id="f-email" placeholder="your@email.com" type="email" oninput="checkReady()"/>
-
-    <div class="flbl">Phone <span style="font-size:0.62rem;text-transform:none;letter-spacing:0;font-weight:500;color:var(--gray);">optional</span></div>
-    <input class="finput" id="f-phone" placeholder="(801) 555-0000" type="tel"/>
-
-    <div class="flbl">Session Type</div>
-    <div class="session-grid" id="session-grid">
-      <div class="sopt active" onclick="selectSession(this,'Single Lesson · $250',250)"><div class="sopt-name">Single Lesson</div><div class="sopt-price">60 min · $250</div></div>
-      <div class="sopt" onclick="selectSession(this,'Free Intro · CARSON',0)"><div class="sopt-name">Free Intro</div><div class="sopt-price">30 min · Code: CARSON</div></div>
-      <div class="sopt" onclick="selectSession(this,'3-Pack · $690',690)"><div class="sopt-name">3-Pack</div><div class="sopt-price">$690 · Save $60</div></div>
-      <div class="sopt" onclick="selectSession(this,'6-Pack · $1,350',1350)"><div class="sopt-name">6-Pack</div><div class="sopt-price">$1,350 · Save $150</div></div>
-    </div>
-
-    <div class="flbl">Preferred Time — Select All That Work</div>
-    <div class="time-grid" id="time-grid"></div>
-
-    <div class="flbl">Skill Level</div>
-    <select class="fselect" id="f-skill">
-      <option value="">Select your level…</option>
-      <option>Complete Beginner</option>
-      <option>Casual (100+ score)</option>
-      <option>Intermediate (85–100)</option>
-      <option>Advanced (70–85)</option>
-      <option>Competitive (under 70)</option>
-    </select>
-
-    <div class="flbl">What do you want to work on? <span style="font-size:0.62rem;text-transform:none;letter-spacing:0;font-weight:500;color:var(--gray);">optional</span></div>
-    <input class="finput" id="f-notes" placeholder="e.g. driving accuracy, putting, full swing…" type="text"/>
-
-    <div class="ref-box">
-      <div class="ref-header">
-        <span style="font-size:1.1rem;">🎁</span>
-        <div><div class="ref-title">Promo or referral code?</div><div class="ref-hint">Enter CARSON for a free intro lesson</div></div>
-      </div>
-      <div class="ref-row">
-        <input class="ref-input" id="ref-input" placeholder="ENTER CODE" type="text" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')"/>
-        <button class="ref-apply" id="ref-apply-btn" onclick="applyCode()">Apply</button>
-      </div>
-      <div class="ref-msg" id="ref-msg"></div>
-    </div>
-
-    <div class="price-summary">
+  <div class="features">
+    <div class="feat" style="display:flex;align-items:flex-start;gap:14px;background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;">
+      <div class="feat-icon">👤</div>
       <div>
-        <div class="ps-label">Total</div>
-        <div class="ps-original" id="ps-original"></div>
-        <div class="ps-final" id="ps-final">$250</div>
+        <div class="feat-title" style="font-size:0.85rem;font-weight:800;color:#ffffff;margin-bottom:3px;">Your Professional Profile</div>
+        <div class="feat-desc" style="font-size:0.75rem;font-weight:500;color:#7a9a84;line-height:1.5;">A clean, shareable booking page with your credentials, pricing, and availability. Share it anywhere — Instagram, text, email.</div>
       </div>
-      <div class="ps-save" id="ps-save"><div class="ps-save-lbl">YOU SAVE</div><div class="ps-save-amt" id="ps-save-amt"></div></div>
     </div>
-
-    <button class="confirm-btn" id="confirm-btn" disabled onclick="submitBooking()">Send Request →</button>
-    <p class="no-payment-note">No payment required today. Carson will confirm within 24 hours.</p>
+    <div class="feat" style="display:flex;align-items:flex-start;gap:14px;background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;">
+      <div class="feat-icon">📅</div>
+      <div>
+        <div class="feat-title" style="font-size:0.85rem;font-weight:800;color:#ffffff;margin-bottom:3px;">Real-Time Schedule</div>
+        <div class="feat-desc" style="font-size:0.75rem;font-weight:500;color:#7a9a84;line-height:1.5;">See all your bookings in one place. Block time off, add lessons manually, and manage your week from your phone.</div>
+      </div>
+    </div>
+    <div class="feat" style="display:flex;align-items:flex-start;gap:14px;background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;">
+      <div class="feat-icon">🔗</div>
+      <div>
+        <div class="feat-title" style="font-size:0.85rem;font-weight:800;color:#ffffff;margin-bottom:3px;">Referral System Built In</div>
+        <div class="feat-desc" style="font-size:0.75rem;font-weight:500;color:#7a9a84;line-height:1.5;">Every student who books gets a personal referral code. They share it, their friends book, your calendar fills itself.</div>
+      </div>
+    </div>
+    <div class="feat" style="display:flex;align-items:flex-start;gap:14px;background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;">
+      <div class="feat-icon">⛳</div>
+      <div>
+        <div class="feat-title" style="font-size:0.85rem;font-weight:800;color:#ffffff;margin-bottom:3px;">Built for Golf, Not Generic</div>
+        <div class="feat-desc" style="font-size:0.75rem;font-weight:500;color:#7a9a84;line-height:1.5;">Lesson packages with correct pricing math, handicap display, course location, and golf-specific booking flows.</div>
+      </div>
+    </div>
   </div>
+
+  <div class="proof" style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:14px;padding:18px;margin-bottom:40px;">
+    <div class="proof-quote" style="font-family:Playfair Display,serif;font-size:1.05rem;font-weight:700;color:#ffffff;line-height:1.5;margin-bottom:12px;">"I built Cadi because I needed it myself. Now every instructor can have what I have — a <em>professional presence</em> without the overhead."</div>
+    <div class="proof-attr">
+      <div class="proof-avatar">CL</div>
+      <div>
+        <div class="proof-name" style="font-size:0.8rem;font-weight:800;color:#ffffff;">Carson Lundell</div>
+        <div class="proof-title" style="font-size:0.68rem;font-weight:600;color:#7a9a84;">Korn Ferry Tour Pro · Cadi Co-Founder</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="how-title" style="font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px;">How it works</div>
+  <div class="steps">
+    <div class="step-row">
+      <div class="step-num">1</div>
+      <div class="step-text" style="font-size:0.85rem;font-weight:600;color:#ffffff;line-height:1.5;padding-top:4px;">Sign up with code <strong>CADI2026</strong> — <span>takes about 4 minutes</span></div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">2</div>
+      <div class="step-text" style="font-size:0.85rem;font-weight:600;color:#ffffff;line-height:1.5;padding-top:4px;">Your profile page goes live instantly — <span>share the link anywhere</span></div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">3</div>
+      <div class="step-text" style="font-size:0.85rem;font-weight:600;color:#ffffff;line-height:1.5;padding-top:4px;">Students find you, book a lesson, and get their own referral code — <span>your calendar fills automatically</span></div>
+    </div>
+  </div>
+
+  <div class="cta-stack">
+    <a class="cta-primary" href="/instructor-signup.html">Create My Free Profile →</a>
+  </div>
+
 </div>
 
-<!-- SUCCESS -->
-<div class="success-screen" id="success-screen">
-  <div class="s-icon">⛳</div>
-  <div class="s-eyebrow">Request Sent</div>
-  <div class="s-title" id="s-title">You're on the tee.</div>
-  <div class="s-detail" id="s-detail"></div>
-  <div class="s-code-card">
-    <div class="s-code-lbl">Your Referral Code</div>
-    <div class="s-code-val" id="s-code"></div>
-    <div class="s-code-desc">Share with friends — they get $20 off their first lesson. You earn $15 credit when they book.</div>
-    <button class="s-share" onclick="shareMyCode()">⬆ Share My Code</button>
-    <button class="s-copy" onclick="copyMyCode()">📋 Copy Code &amp; Link</button>
-  </div>
-  <button class="s-back" onclick="closeSuccess()">← Back to Profile</button>
+<div class="footer" style="background:#0e1a12;border-top:1px solid #162a1e;">
+  <div class="footer-brand" style="font-family:Playfair Display,serif;font-size:1rem;font-weight:800;color:#ffffff;margin-bottom:6px;">Cadi</div>
+  <div class="footer-sub" style="font-size:0.7rem;font-weight:500;color:#3a5a42;">Built for independent golf instructors · Utah & beyond</div>
 </div>
 
 <script>
-var SUPA_URL = 'https://tyrtonoxcakzoggbrqus.supabase.co';
-var SUPA_KEY = 'sb_publishable_K2RahYMCAD2F0ccKGDGM9w_FD-gQEog';
-
-function db(path, opts) {
-  return fetch(SUPA_URL + '/rest/v1/' + path, Object.assign({
-    headers: {'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json','Prefer':'return=representation'}
-  }, opts || {}));
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  });
 }
-
-var selSession = 'Single Lesson · $250';
-var selPrice   = 250;
-var selTime    = null;
-var refCode    = '';
-var refDiscount = 0;
-var refFree    = false;
-
-var TIMES = ['8:00 AM','8:30 AM','9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM'];
-
-var FALLBACK_CODES = {
-  'CARSON': {discount:250, owner_name:'Carson Lundell', is_free_lesson:true},
-  'CADI20': {discount:20,  owner_name:'Cadi Welcome',   is_free_lesson:false},
-  'ROB15':  {discount:15,  owner_name:'Rob Stanger',    is_free_lesson:false},
-  'PRIMO15':{discount:15,  owner_name:'Primo Golf',     is_free_lesson:false},
-};
-
-function openBooking() {
-  buildTimeGrid();
-  document.getElementById('booking-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function openBookingWithPkg(name, price) {
-  openBooking();
-  setTimeout(function() {
-    document.querySelectorAll('.sopt').forEach(function(o){ o.classList.remove('active'); });
-    selSession = name; selPrice = price;
-    document.getElementById('ps-final').textContent = '$' + price.toLocaleString();
-    checkReady();
-  }, 100);
-}
-function openBookingFree() {
-  openBooking();
-  setTimeout(function() {
-    document.getElementById('ref-input').value = 'CARSON';
-    applyCode();
-  }, 400);
-}
-function closeBookingOuter(e) { if (e.target === document.getElementById('booking-overlay')) closeSheet(); }
-function closeSheet() { document.getElementById('booking-overlay').classList.remove('open'); document.body.style.overflow = ''; }
-
-function buildTimeGrid() {
-  var html = '';
-  TIMES.forEach(function(t) { html += '<div class="tslot" data-time="' + t + '" onclick="selectTime(this)">' + t + '</div>'; });
-  document.getElementById('time-grid').innerHTML = html;
-  // Mark already-booked times
-  var today = new Date();
-  var mm = String(today.getMonth()+1).padStart(2,'0');
-  var dd = String(today.getDate()).padStart(2,'0');
-  var ds = today.getFullYear() + '-' + mm + '-' + dd;
-  db('bookings?instructor_id=eq.carson-lundell&session_date=gte.' + ds + '&status=eq.confirmed&select=session_time')
-    .then(function(r){ return r.json(); })
-    .then(function(rows){
-      if (!Array.isArray(rows)) return;
-      rows.forEach(function(b){
-        document.querySelectorAll('.tslot').forEach(function(s){
-          if (s.getAttribute('data-time') === b.session_time) { s.classList.add('taken'); s.onclick = null; }
-        });
-      });
-    }).catch(function(){});
-}
-
-function selectTime(el) {
-  if (el.classList.contains('taken')) return;
-  document.querySelectorAll('.tslot:not(.taken)').forEach(function(s){ s.classList.remove('selected'); });
-  el.classList.add('selected');
-  selTime = el.getAttribute('data-time');
-  checkReady();
-}
-
-function selectSession(el, name, price) {
-  document.querySelectorAll('.sopt').forEach(function(o){ o.classList.remove('active'); });
-  el.classList.add('active');
-  selSession = name; selPrice = price;
-  var displayPrice = refFree ? 0 : price - refDiscount;
-  if (displayPrice < 0) displayPrice = 0;
-  document.getElementById('ps-final').textContent = displayPrice === 0 ? 'FREE' : '$' + displayPrice.toLocaleString();
-  checkReady();
-}
-
-function applyCode() {
-  var code = document.getElementById('ref-input').value.trim().toUpperCase();
-  var msg  = document.getElementById('ref-msg');
-  msg.style.display = 'block';
-  if (!code) { msg.style.background='rgba(220,38,38,0.08)'; msg.style.color='#dc2626'; msg.textContent='Enter a code first.'; return; }
-  msg.style.background='rgba(201,165,90,0.1)'; msg.style.color='#c9a55a'; msg.textContent='Checking…';
-
-  db('referral_codes?code=eq.' + encodeURIComponent(code) + '&select=*')
-    .then(function(r){ return r.json(); })
-    .then(function(rows){
-      var data = (Array.isArray(rows) && rows.length > 0) ? rows[0] : (FALLBACK_CODES[code] ? Object.assign({code:code}, FALLBACK_CODES[code]) : null);
-      handleCode(code, data, msg);
-    })
-    .catch(function(){ handleCode(code, FALLBACK_CODES[code] ? Object.assign({code:code}, FALLBACK_CODES[code]) : null, msg); });
-}
-
-function handleCode(code, data, msg) {
-  if (!data) { msg.style.background='rgba(220,38,38,0.08)'; msg.style.color='#dc2626'; msg.innerHTML='Code not found. Try <strong>CARSON</strong>.'; return; }
-  refCode = code; refDiscount = data.discount; refFree = data.is_free_lesson;
-  if (refFree) {
-    msg.style.background='rgba(74,222,128,0.1)'; msg.style.color='#4ade80';
-    msg.innerHTML='🎉 <strong>Free lesson unlocked!</strong>';
-    document.getElementById('ps-original').style.display='block';
-    document.getElementById('ps-original').textContent='$'+selPrice;
-    document.getElementById('ps-final').textContent='FREE';
-    document.getElementById('ps-final').style.color='#4ade80';
-    document.getElementById('ps-save').style.display='block';
-    document.getElementById('ps-save-amt').textContent='$'+selPrice;
-    document.querySelectorAll('.sopt').forEach(function(o){ o.classList.remove('active'); });
-    document.querySelectorAll('.sopt')[1].classList.add('active');
-    selSession='Free Intro · CARSON'; selPrice=0;
-  } else {
-    var np = Math.max(0, selPrice - data.discount);
-    msg.style.background='rgba(74,222,128,0.1)'; msg.style.color='#4ade80';
-    msg.innerHTML='✓ $'+data.discount+' off — courtesy of '+data.owner_name;
-    document.getElementById('ps-original').style.display='block';
-    document.getElementById('ps-original').textContent='$'+selPrice;
-    document.getElementById('ps-final').textContent='$'+np;
-    document.getElementById('ps-save').style.display='block';
-    document.getElementById('ps-save-amt').textContent='$'+data.discount;
-  }
-  document.getElementById('ref-input').disabled=true;
-  document.getElementById('ref-apply-btn').textContent='✓ Applied';
-  document.getElementById('ref-apply-btn').disabled=true;
-  document.getElementById('ref-apply-btn').style.background='#4ade80';
-  document.getElementById('ref-apply-btn').style.color='#0e1a12';
-}
-
-function checkReady() {
-  var name  = document.getElementById('f-name').value.trim();
-  var email = document.getElementById('f-email').value.trim();
-  document.getElementById('confirm-btn').disabled = !(name.length > 1 && email.indexOf('@') > 0 && selTime);
-}
-
-function submitBooking() {
-  var name  = document.getElementById('f-name').value.trim();
-  var email = document.getElementById('f-email').value.trim();
-  var phone = document.getElementById('f-phone').value.trim();
-  var skill = document.getElementById('f-skill').value;
-  var notes = document.getElementById('f-notes').value.trim();
-  var finalPrice = refFree ? 0 : Math.max(0, selPrice - refDiscount);
-  var myCode = name.split(' ')[0].toUpperCase().replace(/[^A-Z]/g,'').substring(0,6) + [15,20,20,25][Math.floor(Math.random()*4)];
-  var btn = document.getElementById('confirm-btn');
-  btn.disabled=true; btn.textContent='Sending…';
-
-  var today = new Date();
-  var dateStr = today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
-
-  db('bookings', {
-    method:'POST',
-    body:JSON.stringify({
-      instructor_id:'carson-lundell', student_name:name, student_email:email,
-      student_phone:phone||null, session_type:selSession, session_date:dateStr,
-      session_time:selTime, skill_level:skill||null, notes:notes||null,
-      referral_code:refCode||null, is_free:refFree, status:'confirmed', price:finalPrice
-    })
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(){
-    if (refCode) db('referral_codes?code=eq.'+encodeURIComponent(refCode),{method:'PATCH',body:JSON.stringify({uses:1})}).catch(function(){});
-    db('referral_codes',{method:'POST',body:JSON.stringify({code:myCode,owner_name:name,owner_email:email,discount:20,is_free_lesson:false,uses:0})}).catch(function(){});
-    showSuccess(name, email, myCode);
-  })
-  .catch(function(){ showSuccess(name, email, myCode); });
-}
-
-function showSuccess(name, email, myCode) {
-  document.getElementById('s-code').textContent = myCode;
-  document.getElementById('s-title').textContent = "You're on the tee, " + name.split(' ')[0] + ".";
-  document.getElementById('s-detail').innerHTML =
-    (refFree ? '<strong style="color:#4ade80">🎉 Free intro lesson requested!</strong><br>' : '') +
-    'Your request for <strong>' + selTime + '</strong> has been sent.<br>' +
-    'Carson will confirm within 24 hours at <strong>' + email + '</strong>.<br><br>' +
-    'No payment until your lesson is confirmed.';
-  closeSheet();
-  document.getElementById('success-screen').classList.add('open');
-}
-
-function closeSuccess() { document.getElementById('success-screen').classList.remove('open'); }
-
-function shareProfile() {
-  var url = window.location.href.split('?')[0];
-  if (navigator.share) { navigator.share({title:'Book a golf lesson with Carson Lundell',text:'Korn Ferry Tour Pro offering lessons at Fox Hollow GC. Use code CARSON for a free intro.',url:url}); }
-  else { navigator.clipboard.writeText(url).then(function(){ alert('Link copied!'); }); }
-}
-
-function shareMyCode() {
-  var code = document.getElementById('s-code').textContent;
-  var url  = window.location.href.split('?')[0] + '?ref=' + code;
-  if (navigator.share) { navigator.share({title:'Book a golf lesson with Carson Lundell',text:'Use code '+code+' for $20 off your first lesson.',url:url}); }
-  else { copyMyCode(); }
-}
-
-function copyMyCode() {
-  var code = document.getElementById('s-code').textContent;
-  var url  = window.location.href.split('?')[0] + '?ref=' + code;
-  navigator.clipboard.writeText(code + ' — ' + url).then(function(){ alert('Copied! Share code '+code+' with friends.'); }).catch(function(){ alert('Code: '+code); });
-}
-
-// Auto-apply ?ref= from URL
-(function(){
-  var ref = new URLSearchParams(window.location.search).get('ref');
-  if (ref) {
-    window.addEventListener('load', function(){
-      openBooking();
-      setTimeout(function(){ document.getElementById('ref-input').value=ref.toUpperCase(); applyCode(); }, 600);
-    });
-  }
-})();
-
-if ('serviceWorker' in navigator) { window.addEventListener('load', function(){ navigator.serviceWorker.register('/sw.js').catch(function(){}); }); }
 </script>
 </body>
 </html>
