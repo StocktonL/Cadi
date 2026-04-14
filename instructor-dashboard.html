@@ -658,7 +658,7 @@ function bookingCardHTML(b){
 }
 
 function renderProfileLink(){
-  var url='https://cadi-nine.vercel.app/profile.html?id='+instructorId;
+  var url='https://cadi.golf/profile.html?id='+instructorId;
   document.getElementById('profile-link').textContent=url;
 }
 
@@ -876,12 +876,12 @@ function switchView(v){
 
 // ── PROFILE LINK ──
 function shareProfileLink(){
-  var url='https://cadi-nine.vercel.app/profile.html?id='+instructorId;
+  var url='https://cadi.golf/profile.html?id='+instructorId;
   if(navigator.share){navigator.share({title:'Book a golf lesson with '+instructorName,text:'Book your lesson online — it only takes a minute.',url:url});}
   else{copyProfileLink();}
 }
 function copyProfileLink(){
-  var url='https://cadi-nine.vercel.app/profile.html?id='+instructorId;
+  var url='https://cadi.golf/profile.html?id='+instructorId;
   navigator.clipboard.writeText(url).then(function(){alert('Link copied!\n'+url);}).catch(function(){alert('Your link:\n'+url);});
 }
 function viewMyProfile(){window.location.href='/profile.html?id='+instructorId;}
