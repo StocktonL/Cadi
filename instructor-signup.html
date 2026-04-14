@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Join Cadi — Instructor Sign Up</title>
+<meta name="theme-color" content="#0e1a12"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<link rel="manifest" href="/manifest.json"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#0e1a12;
+  color:#ffffff;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+button,input,select,textarea{font-family:'DM Sans',sans-serif;}
+.page{flex:1;padding:0 24px 60px;}
+
+/* HEADER */
+.header{padding:18px 0 24px;display:flex;align-items:center;justify-content:space-between;}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;}
+.brand-mark{width:30px;height:30px;background:#c9a55a;border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.brand-text{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:#ffffff;}
+.login-link{font-size:0.72rem;font-weight:700;color:#7a9a84;background:#162a1e;border:1.5px solid #2a4a32;border-radius:7px;padding:6px 12px;text-decoration:none;}
+
+/* PROGRESS */
+.prog{display:flex;align-items:center;margin-bottom:28px;}
+.sdot{width:28px;height:28px;border-radius:50%;border:2px solid #2a4a32;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:800;color:#3a5a42;flex-shrink:0;transition:all 0.3s;}
+.sdot.done{background:#1a5c2a;border-color:#1a5c2a;color:#ffffff;}
+.sdot.active{background:#c9a55a;border-color:#c9a55a;color:#0e1a12;}
+.sline{flex:1;height:2px;background:#2a4a32;transition:background 0.3s;}
+.sline.done{background:#1a5c2a;}
+
+/* STEP */
+.step{display:none;}
+.step.active{display:block;}
+.eyebrow{font-size:0.62rem;font-weight:700;color:#c9a55a;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:8px;}
+.stitle{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:800;color:#ffffff;line-height:1.15;margin-bottom:6px;}
+.ssub{font-size:0.85rem;font-weight:500;color:#7a9a84;margin-bottom:22px;line-height:1.6;}
+
+/* FORM ELEMENTS */
+.flbl{font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;}
+.finput{
+  width:100%;
+  background:#0e1a12;
+  border:1.5px solid #2a4a32;
+  border-radius:9px;
+  padding:13px 14px;
+  font-size:0.92rem;
+  font-weight:600;
+  color:#ffffff;
+  outline:none;
+  margin-bottom:14px;
+  transition:border-color 0.2s;
+}
+.finput::placeholder{color:#3a5a42;font-weight:400;}
+.finput:focus{border-color:#c9a55a;}
+.fselect{
+  width:100%;
+  background:#0e1a12;
+  border:1.5px solid #2a4a32;
+  border-radius:9px;
+  padding:13px 14px;
+  font-size:0.92rem;
+  font-weight:600;
+  color:#ffffff;
+  outline:none;
+  margin-bottom:14px;
+  appearance:none;
+  -webkit-appearance:none;
+}
+.fselect option{background:#0e1a12;color:#ffffff;}
+.ftextarea{
+  width:100%;
+  background:#0e1a12;
+  border:1.5px solid #2a4a32;
+  border-radius:9px;
+  padding:13px 14px;
+  font-size:0.88rem;
+  font-weight:500;
+  color:#ffffff;
+  outline:none;
+  resize:none;
+  height:90px;
+  line-height:1.6;
+  margin-bottom:14px;
+}
+.ftextarea::placeholder{color:#3a5a42;font-weight:400;}
+.ftextarea:focus{border-color:#c9a55a;}
+
+/* BETA CODE */
+.code-box{background:#162a1e;border:2px solid #c9a55a40;border-radius:11px;padding:14px;margin-bottom:16px;}
+.code-title{font-size:0.8rem;font-weight:800;color:#c9a55a;margin-bottom:4px;}
+.code-sub{font-size:0.7rem;font-weight:500;color:#7a9a84;margin-bottom:10px;}
+.code-row{display:flex;gap:8px;}
+.code-input{
+  flex:1;
+  background:#0e1a12;
+  border:1.5px solid #2a4a32;
+  border-radius:8px;
+  padding:11px 12px;
+  font-size:1rem;
+  font-weight:800;
+  color:#ffffff;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  outline:none;
+}
+.code-input:focus{border-color:#c9a55a;}
+.code-btn{background:#c9a55a;color:#0e1a12;border:none;border-radius:8px;padding:0 18px;font-size:0.82rem;font-weight:800;cursor:pointer;flex-shrink:0;}
+.code-msg{font-size:0.72rem;font-weight:700;margin-top:8px;padding:8px 10px;border-radius:7px;display:none;}
+
+/* DAYS */
+.day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:16px;}
+.day-btn{background:#162a1e;border:1.5px solid #2a4a32;border-radius:8px;padding:10px 3px;text-align:center;cursor:pointer;transition:all 0.15s;}
+.day-btn.on{background:#1a5c2a;border-color:#1a5c2a;}
+.dname{font-size:0.55rem;font-weight:700;color:#3a5a42;text-transform:uppercase;letter-spacing:0.05em;}
+.day-btn.on .dname{color:rgba(255,255,255,0.7);}
+.dabbr{font-size:1rem;font-weight:800;color:#ffffff;}
+
+/* TIME ROWS */
+.tlist{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+.trow{background:#162a1e;border:1.5px solid #2a4a32;border-radius:9px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;}
+.tlbl{font-size:0.85rem;font-weight:700;color:#ffffff;}
+.tsub{font-size:0.65rem;font-weight:600;color:#7a9a84;margin-top:2px;}
+.toggle{width:42px;height:24px;border-radius:12px;border:none;cursor:pointer;position:relative;transition:background 0.2s;flex-shrink:0;}
+.toggle.on{background:#1a5c2a;}
+.toggle.off{background:#2a4a32;}
+.tknob{position:absolute;top:3px;width:18px;height:18px;border-radius:50%;background:#ffffff;transition:left 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.3);}
+.toggle.on .tknob{left:21px;}
+.toggle.off .tknob{left:3px;}
+
+/* PRICING */
+.price-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.popt{background:#162a1e;border:1.5px solid #2a4a32;border-radius:10px;padding:14px;cursor:pointer;transition:all 0.15s;}
+.popt.selected{background:#1a3a0e;border-color:#c9a55a;}
+.popt-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.popt-name{font-size:0.88rem;font-weight:700;color:#ffffff;}
+.popt-amt{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:#c9a55a;}
+.popt-desc{font-size:0.7rem;font-weight:500;color:#7a9a84;line-height:1.4;}
+
+/* BUTTONS */
+.next-btn{width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:10px;padding:15px;font-size:0.95rem;font-weight:800;cursor:pointer;margin-top:6px;}
+.next-btn:disabled{opacity:0.3;cursor:not-allowed;}
+.back-btn-s{width:100%;background:#162a1e;color:#7a9a84;border:1.5px solid #2a4a32;border-radius:10px;padding:13px;font-size:0.88rem;font-weight:700;cursor:pointer;margin-top:8px;}
+
+/* SUCCESS */
+.success-wrap{text-align:center;padding:20px 0;}
+.sicon{width:72px;height:72px;border-radius:50%;background:#162a1e;border:2px solid #c9a55a;display:flex;align-items:center;justify-content:center;font-size:1.9rem;margin:0 auto 20px;}
+.stitle-s{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:800;color:#ffffff;margin-bottom:8px;}
+.ssub-s{font-size:0.85rem;font-weight:500;color:#7a9a84;line-height:1.75;margin-bottom:28px;}
+.go-btn{width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:10px;padding:15px;font-size:0.95rem;font-weight:800;cursor:pointer;margin-bottom:10px;}
+.prof-btn{width:100%;background:#162a1e;color:#ffffff;border:1.5px solid #2a4a32;border-radius:10px;padding:13px;font-size:0.88rem;font-weight:700;cursor:pointer;}
+</style>
+</head>
+<body style="background:#0e1a12;color:#ffffff;">
+<div class="page" style="background:#0e1a12;">
+  <div class="header">
+    <a class="brand" href="/index.html">
+      <div class="brand-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/></svg></div>
+      <span class="brand-text" style="color:#ffffff;">Cadi</span>
+    </a>
+    <a class="login-link" href="/instructor-login.html">Sign In</a>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="prog" id="prog">
+    <div class="sdot active" id="d1">1</div><div class="sline" id="l1"></div>
+    <div class="sdot" id="d2">2</div><div class="sline" id="l2"></div>
+    <div class="sdot" id="d3">3</div><div class="sline" id="l3"></div>
+    <div class="sdot" id="d4">4</div>
+  </div>
+
+  <!-- STEP 1 — ACCOUNT -->
+  <div class="step active" id="step-1">
+    <div class="eyebrow">Step 1 of 4</div>
+    <div class="stitle" style="color:#ffffff;">Create your account.</div>
+    <div class="ssub" style="color:#7a9a84;">Cadi is free during beta. Enter your access code to get started.</div>
+
+    <div class="code-box">
+      <div class="code-title">🎉 Beta Access Code</div>
+      <div class="code-sub">Enter code CADI2026 to unlock your free instructor profile.</div>
+      <div class="code-row">
+        <input class="code-input" id="beta-code" placeholder="CADI2026" type="text" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')"/>
+        <button class="code-btn" onclick="applyCode()">Apply</button>
+      </div>
+      <div class="code-msg" id="code-msg"></div>
+    </div>
+
+    <div class="flbl">Full Name</div>
+    <input class="finput" id="s1-name" placeholder="First and last name" type="text" oninput="chk1()"/>
+    <div class="flbl">Email</div>
+    <input class="finput" id="s1-email" placeholder="your@email.com" type="email" oninput="chk1()"/>
+    <div class="flbl">Phone</div>
+    <input class="finput" id="s1-phone" placeholder="(801) 555-0000" type="tel" oninput="chk1()"/>
+    <div class="flbl">Password</div>
+    <input class="finput" id="s1-pw" placeholder="Minimum 6 characters" type="password" oninput="chk1()"/>
+    <button class="next-btn" id="n1" onclick="goTo(2)" disabled>Continue →</button>
+  </div>
+
+  <!-- STEP 2 — PROFILE -->
+  <div class="step" id="step-2">
+    <div class="eyebrow">Step 2 of 4</div>
+    <div class="stitle" style="color:#ffffff;">Your instructor profile.</div>
+    <div class="ssub" style="color:#7a9a84;">This is what students see when they find you on Cadi.</div>
+
+    <div class="flbl">Title / Credentials</div>
+    <input class="finput" id="s2-title" placeholder="e.g. PGA Teaching Professional, LPGA Instructor…" type="text"/>
+    <div class="flbl">Home Course / Teaching Location</div>
+    <input class="finput" id="s2-course" placeholder="e.g. Fox Hollow GC, Orem UT" type="text" oninput="chk2()"/>
+    <div class="flbl">City, State</div>
+    <input class="finput" id="s2-loc" placeholder="e.g. Orem, UT" type="text" oninput="chk2()"/>
+    <div class="flbl">Short Bio</div>
+    <textarea class="ftextarea" id="s2-bio" placeholder="Tell students about your background and teaching style…"></textarea>
+    <div class="flbl">Primary Specialty</div>
+    <select class="fselect" id="s2-spec">
+      <option value="">Select…</option>
+      <option>Full Swing</option>
+      <option>Short Game</option>
+      <option>Putting</option>
+      <option>Course Management</option>
+      <option>Junior Development</option>
+      <option>Beginner Instruction</option>
+      <option>Competitive Prep</option>
+      <option>All Levels</option>
+    </select>
+    <button class="next-btn" id="n2" onclick="goTo(3)" disabled>Continue →</button>
+    <button class="back-btn-s" onclick="goTo(1)">← Back</button>
+  </div>
+
+  <!-- STEP 3 — AVAILABILITY -->
+  <div class="step" id="step-3">
+    <div class="eyebrow">Step 3 of 4</div>
+    <div class="stitle" style="color:#ffffff;">When do you teach?</div>
+    <div class="ssub" style="color:#7a9a84;">Set your default availability. You can update this anytime.</div>
+    <div class="flbl">Teaching Days</div>
+    <div class="day-grid" id="day-grid"></div>
+    <div class="flbl">Session Times</div>
+    <div class="tlist" id="tlist"></div>
+    <button class="next-btn" onclick="goTo(4)">Continue →</button>
+    <button class="back-btn-s" onclick="goTo(2)">← Back</button>
+  </div>
+
+  <!-- STEP 4 — PRICING -->
+  <div class="step" id="step-4">
+    <div class="eyebrow">Step 4 of 4</div>
+    <div class="stitle" style="color:#ffffff;">Set your rate.</div>
+    <div class="ssub" style="color:#7a9a84;">Most Utah instructors charge $100–$200/hr. You can change this anytime.</div>
+    <div class="price-opts">
+      <div class="popt" onclick="pickRate(this,100)">
+        <div class="popt-top"><span class="popt-name">Standard</span><span class="popt-amt">$100</span></div>
+        <div class="popt-desc">Per 60-min session · Great for instructors building a student base</div>
+      </div>
+      <div class="popt" onclick="pickRate(this,150)">
+        <div class="popt-top"><span class="popt-name">Professional</span><span class="popt-amt">$150</span></div>
+        <div class="popt-desc">Per 60-min session · Most common for certified PGA/LPGA instructors</div>
+      </div>
+      <div class="popt" onclick="pickRate(this,200)">
+        <div class="popt-top"><span class="popt-name">Premium</span><span class="popt-amt">$200</span></div>
+        <div class="popt-desc">Per 60-min session · For highly credentialed or in-demand instructors</div>
+      </div>
+      <div class="popt" id="custom-popt" onclick="pickRate(this,0)">
+        <div class="popt-top"><span class="popt-name">Custom</span><span class="popt-amt" id="c-disp">$—</span></div>
+        <div class="popt-desc">Set your own rate per session</div>
+        <div id="c-wrap" style="display:none;margin-top:10px;">
+          <input class="finput" id="c-val" placeholder="e.g. 175" type="number" min="50" max="1000" style="margin-bottom:0;" oninput="updateCustom()"/>
+        </div>
+      </div>
+    </div>
+    <button class="next-btn" id="n4" onclick="createAccount()" disabled>Create My Profile →</button>
+    <button class="back-btn-s" onclick="goTo(3)">← Back</button>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="step" id="step-done">
+    <div class="success-wrap">
+      <div class="sicon">⛳</div>
+      <div class="stitle-s" id="s-name" style="color:#ffffff;">You're live.</div>
+      <div class="ssub-s" style="color:#7a9a84;">Your Cadi instructor profile is active. Head to your schedule to manage availability and bookings.</div>
+      <button class="go-btn" onclick="window.location.href='/instructor-dashboard.html'">Go to My Schedule →</button>
+      <button class="prof-btn" onclick="window.location.href='/profile.html?id='+iid">View Example Profile</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var SUPA_URL = 'https://tyrtonoxcakzoggbrqus.supabase.co';
+var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR5cnRvbm94Y2Frem9nZ2JycXVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2MTA0MzgsImV4cCI6MjA5MTE4NjQzOH0.qjD6DWnywjbLKU0F7WrYSHUhEXDJfQI7ZSJb2O6qYyM';
+var BETA_CODES = ['CADI2026','CADI','BETA2026'];
+var unlocked = false;
+var selRate = 0;
+var dayState = [false,true,true,false,true,true,true,false];
+var DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var DABBR = ['S','M','T','W','T','F','S'];
+var TSLOTS = [
+  {l:'7:00 AM – 8:00 AM',  on:false},
+  {l:'8:00 AM – 10:00 AM', on:true},
+  {l:'10:00 AM – 12:00 PM',on:true},
+  {l:'12:00 PM – 2:00 PM', on:false},
+  {l:'2:00 PM – 4:00 PM',  on:true},
+  {l:'4:00 PM – 6:00 PM',  on:false},
+];
+
+function applyCode(){
+  var code=document.getElementById('beta-code').value.trim().toUpperCase();
+  var msg=document.getElementById('code-msg');
+  msg.style.display='block';
+  if(BETA_CODES.indexOf(code)>-1){
+    unlocked=true;
+    msg.style.background='#0a2a12';msg.style.color='#4ade80';
+    msg.textContent='✓ Beta access unlocked — Cadi is free!';
+    document.getElementById('beta-code').disabled=true;
+    var btn=document.querySelector('.code-btn');
+    btn.textContent='✓';btn.disabled=true;btn.style.background='#4ade80';btn.style.color='#0e1a12';
+    chk1();
+  } else {
+    msg.style.background='#2a0a0a';msg.style.color='#f87171';
+    msg.textContent='Code not found. Try CADI2026.';
+  }
+}
+
+function chk1(){
+  var n=document.getElementById('s1-name').value.trim();
+  var e=document.getElementById('s1-email').value.trim();
+  var p=document.getElementById('s1-phone').value.trim();
+  var pw=document.getElementById('s1-pw').value;
+  document.getElementById('n1').disabled=!(unlocked&&n.length>1&&e.indexOf('@')>0&&p.length>9&&pw.length>=6);
+}
+
+function chk2(){
+  var c=document.getElementById('s2-course').value.trim();
+  var l=document.getElementById('s2-loc').value.trim();
+  document.getElementById('n2').disabled=!(c.length>2&&l.length>2);
+}
+
+function goTo(n){
+  for(var i=1;i<=4;i++){
+    var s=document.getElementById('step-'+i);if(s)s.classList.remove('active');
+    var d=document.getElementById('d'+i);
+    if(d){d.classList.remove('active','done');if(i<n)d.classList.add('done');else if(i===n)d.classList.add('active');}
+    var l=document.getElementById('l'+i);if(l){l.classList.remove('done');if(i<n)l.classList.add('done');}
+  }
+  var st=document.getElementById('step-'+n);if(st)st.classList.add('active');
+  window.scrollTo(0,0);
+  if(n===3)renderAvail();
+}
+
+function renderAvail(){
+  var html='';
+  DAYS.forEach(function(d,i){
+    html+='<div class="day-btn'+(dayState[i]?' on':'')+'" onclick="toggleDay('+i+')">'
+      +'<div class="dname">'+d+'</div><div class="dabbr">'+DABBR[i]+'</div></div>';
+  });
+  document.getElementById('day-grid').innerHTML=html;
+  html='';
+  TSLOTS.forEach(function(t,i){
+    html+='<div class="trow">'
+      +'<div><div class="tlbl">'+t.l+'</div><div class="tsub">'+(t.on?'Available':'Not available')+'</div></div>'
+      +'<button class="toggle '+(t.on?'on':'off')+'" onclick="toggleT('+i+')"><div class="tknob"></div></button>'
+      +'</div>';
+  });
+  document.getElementById('tlist').innerHTML=html;
+}
+
+function toggleDay(i){dayState[i]=!dayState[i];renderAvail();}
+function toggleT(i){TSLOTS[i].on=!TSLOTS[i].on;renderAvail();}
+
+function pickRate(el,amt){
+  document.querySelectorAll('.popt').forEach(function(o){o.classList.remove('selected');});
+  el.classList.add('selected');
+  var cw=document.getElementById('c-wrap');
+  if(amt===0){cw.style.display='block';selRate=0;}
+  else{cw.style.display='none';selRate=amt;document.getElementById('n4').disabled=false;}
+}
+
+function updateCustom(){
+  var v=parseInt(document.getElementById('c-val').value);
+  if(v>0){document.getElementById('c-disp').textContent='$'+v;selRate=v;document.getElementById('n4').disabled=false;}
+}
+
+function createAccount(){
+  var name=document.getElementById('s1-name').value.trim();
+  var email=document.getElementById('s1-email').value.trim();
+  var iid=name.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+  var btn=document.getElementById('n4');
+  btn.disabled=true;btn.textContent='Creating profile…';
+  localStorage.setItem('cadi_instructor',JSON.stringify({id:iid,name:name,email:email}));
+  var dObj={};dayState.forEach(function(v,i){dObj[String(i)]=v;});
+  fetch(SUPA_URL+'/rest/v1/availability',{
+    method:'POST',
+    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json','Prefer':'return=representation'},
+    body:JSON.stringify({instructor_id:iid,days:dObj})
+  }).catch(function(){});
+  document.getElementById('s-name').textContent="You're live, "+name.split(' ')[0]+'.';
+  document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('step-done').classList.add('active');
+  document.getElementById('prog').style.display='none';
+  window.scrollTo(0,0);
+}
+
+function goToProfile(){
+  var s=localStorage.getItem('cadi_instructor');
+  try{var inst=JSON.parse(s);if(inst&&inst.id){window.location.href='/profile.html?id='+inst.id;return;}}catch(e){}
+  window.location.href='/index.html';
+}
+
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
+</script>
+</body>
+</html>

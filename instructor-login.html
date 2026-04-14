@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#0e1a12;">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Instructor Login · Cadi</title>
+<meta name="theme-color" content="#0e1a12"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<link rel="manifest" href="/manifest.json"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#0e1a12;
+  color:#ffffff;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+button,input{font-family:'DM Sans',sans-serif;}
+
+.page{flex:1;padding:0 24px 60px;}
+
+/* HEADER */
+.header{padding:20px 0 36px;display:flex;align-items:center;justify-content:space-between;}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;}
+.brand-mark{width:32px;height:32px;background:#c9a55a;border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.brand-text{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:#ffffff;}
+.back-link{font-size:0.72rem;font-weight:700;color:#a0b4a8;border:1.5px solid #2a4a32;border-radius:7px;padding:6px 12px;text-decoration:none;background:#162a1e;}
+
+/* HERO */
+.eyebrow{font-size:0.62rem;font-weight:700;color:#c9a55a;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:10px;}
+.title{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:800;color:#ffffff;line-height:1.1;margin-bottom:8px;}
+.subtitle{font-size:0.88rem;font-weight:500;color:#7a9a84;line-height:1.7;margin-bottom:28px;}
+
+/* BETA BANNER */
+.beta-banner{background:#162a1e;border:1.5px solid #2a4a32;border-radius:10px;padding:13px 14px;margin-bottom:24px;display:flex;align-items:center;gap:10px;}
+.beta-text{font-size:0.75rem;font-weight:600;color:#7a9a84;line-height:1.5;}
+.beta-text strong{color:#c9a55a;}
+
+/* FORM */
+.form-card{background:#162a1e;border:1.5px solid #2a4a32;border-radius:16px;padding:22px;}
+.flbl{font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;}
+.finput{
+  width:100%;
+  background:#0e1a12;
+  border:1.5px solid #2a4a32;
+  border-radius:9px;
+  padding:13px 14px;
+  font-size:0.95rem;
+  font-weight:600;
+  color:#ffffff;
+  outline:none;
+  margin-bottom:16px;
+  transition:border-color 0.2s;
+}
+.finput::placeholder{color:#3a5a42;font-weight:400;}
+.finput:focus{border-color:#c9a55a;}
+.pw-wrap{position:relative;margin-bottom:16px;}
+.pw-wrap .finput{margin-bottom:0;padding-right:56px;}
+.pw-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#7a9a84;cursor:pointer;font-size:0.78rem;font-weight:700;}
+.remember-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+.remember-check{display:flex;align-items:center;gap:8px;cursor:pointer;}
+.remember-check input{width:16px;height:16px;accent-color:#c9a55a;cursor:pointer;}
+.remember-lbl{font-size:0.78rem;font-weight:600;color:#7a9a84;}
+.forgot{font-size:0.78rem;font-weight:700;color:#c9a55a;text-decoration:none;}
+.login-btn{
+  width:100%;
+  background:#c9a55a;
+  color:#0e1a12;
+  border:none;
+  border-radius:10px;
+  padding:15px;
+  font-size:0.95rem;
+  font-weight:800;
+  cursor:pointer;
+}
+.login-btn:disabled{opacity:0.35;cursor:not-allowed;}
+
+/* ERROR */
+.error-box{background:#2a1010;border:1.5px solid #5a2020;border-radius:9px;padding:12px 14px;font-size:0.82rem;font-weight:700;color:#f87171;margin-bottom:16px;display:none;}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:12px;margin:24px 0;}
+.div-line{flex:1;height:1px;background:#2a4a32;}
+.div-text{font-size:0.68rem;font-weight:700;color:#3a5a42;}
+
+/* SIGNUP */
+.signup-row{text-align:center;}
+.signup-text{font-size:0.82rem;font-weight:500;color:#7a9a84;}
+.signup-link{font-size:0.82rem;font-weight:800;color:#c9a55a;text-decoration:none;}
+</style>
+</head>
+<body style="background:#0e1a12;color:#ffffff;">
+<div class="page" style="background:#0e1a12;color:#ffffff;">
+  <div class="header">
+    <a class="brand" href="/index.html">
+      <div class="brand-mark">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/>
+        </svg>
+      </div>
+      <span class="brand-text" style="color:#ffffff;">Cadi</span>
+    </a>
+    <a style="font-size:0.72rem;font-weight:700;color:#7a9a84;background:#162a1e;border:1.5px solid #2a4a32;border-radius:7px;padding:6px 12px;text-decoration:none;" href="/index.html">← Back</a>
+  </div>
+
+  <div style="font-size:0.62rem;font-weight:700;color:#c9a55a;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:10px;">Instructor Portal</div>
+  <div class="title" style="color:#ffffff;">Welcome<br>back.</div>
+  <div class="subtitle" style="color:#7a9a84;">Sign in to manage your schedule, view bookings, and grow your teaching business.</div>
+
+  <div style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:10px;padding:13px 14px;margin-bottom:24px;display:flex;align-items:center;gap:10px;">
+    <span style="font-size:1.1rem;">🎉</span>
+    <div style="font-size:0.75rem;font-weight:600;color:#7a9a84;line-height:1.5;">Cadi is in <strong>beta</strong> — free for all instructors. Use code <strong>CADI2026</strong> to sign up.</div>
+  </div>
+
+  <div style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:16px;padding:22px;">
+    <div class="error-box" id="err">Incorrect email or password. Please try again.</div>
+
+    <div style="font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Email</div>
+    <input class="finput" id="f-email" type="email" placeholder="your@email.com" autocomplete="email" oninput="chk()"/>
+
+    <div style="font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Password</div>
+    <div class="pw-wrap">
+      <input class="finput" id="f-pw" type="password" placeholder="••••••••" autocomplete="current-password" oninput="chk()"/>
+      <button class="pw-toggle" type="button" onclick="togglePw()">Show</button>
+    </div>
+
+    <div class="remember-row">
+      <label class="remember-check">
+        <input type="checkbox" id="remember" checked/>
+        <span style="font-size:0.78rem;font-weight:600;color:#7a9a84;">Remember me</span>
+      </label>
+      <a class="forgot" href="#">Forgot password?</a>
+    </div>
+
+    <button class="login-btn" id="login-btn" onclick="doLogin()" disabled>Sign In →</button>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:12px;margin:24px 0;">
+    <div style="flex:1;height:1px;background:#2a4a32;"></div>
+    <div style="font-size:0.68rem;font-weight:700;color:#3a5a42;">NEW TO CADI?</div>
+    <div style="flex:1;height:1px;background:#2a4a32;"></div>
+  </div>
+
+  <div style="text-align:center;">
+    <span style="font-size:0.82rem;font-weight:500;color:#7a9a84;">Don't have an account? </span>
+    <a style="font-size:0.82rem;font-weight:800;color:#c9a55a;text-decoration:none;" href="/instructor-signup.html">Join free →</a>
+  </div>
+</div>
+
+<script>
+var INSTRUCTORS = {
+  'carson@cadi.com': { password:'carson123', name:'Carson Lundell', id:'carson-lundell' }
+};
+
+(function(){
+  var s = localStorage.getItem('cadi_instructor');
+  if (s) { try { var i=JSON.parse(s); if(i&&i.id) window.location.href='/instructor-dashboard.html'; } catch(e){} }
+  var em = localStorage.getItem('cadi_remember_email');
+  if (em) { document.getElementById('f-email').value=em; chk(); }
+})();
+
+function chk(){
+  var e=document.getElementById('f-email').value.trim();
+  var p=document.getElementById('f-pw').value;
+  document.getElementById('login-btn').disabled=!(e.indexOf('@')>0&&p.length>0);
+}
+
+function togglePw(){
+  var i=document.getElementById('f-pw');
+  var b=document.querySelector('.pw-toggle');
+  i.type=i.type==='password'?'text':'password';
+  b.textContent=i.type==='password'?'Show':'Hide';
+}
+
+function doLogin(){
+  var email=document.getElementById('f-email').value.trim().toLowerCase();
+  var pw=document.getElementById('f-pw').value;
+  var btn=document.getElementById('login-btn');
+  var err=document.getElementById('err');
+  btn.disabled=true; btn.textContent='Signing in…'; err.style.display='none';
+  setTimeout(function(){
+    var inst=INSTRUCTORS[email];
+    if(inst&&inst.password===pw){
+      localStorage.setItem('cadi_instructor',JSON.stringify({id:inst.id,name:inst.name,email:email}));
+      if(document.getElementById('remember').checked) localStorage.setItem('cadi_remember_email',email);
+      else localStorage.removeItem('cadi_remember_email');
+      window.location.href='/instructor-dashboard.html';
+    } else {
+      err.style.display='block';
+      btn.disabled=false; btn.textContent='Sign In →';
+      document.getElementById('f-pw').value=''; chk();
+    }
+  },600);
+}
+
+document.addEventListener('keydown',function(e){if(e.key==='Enter'){var b=document.getElementById('login-btn');if(!b.disabled)doLogin();}});
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
+</script>
+</body>
+</html>

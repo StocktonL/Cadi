@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Instructor Profile · Cadi</title>
+<meta name="theme-color" content="#0e1a12"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<link rel="manifest" href="/manifest.json"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+:root{
+  --green:#0e1a12;--green-mid:#1a5c2a;--green-pale:#e8f5ec;
+  --gold:#c9a55a;--gold-pale:#fdf8ee;--white:#ffffff;--off:#f0f2f0;
+  --border:#c8dac8;--gray:#475569;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--green);-webkit-font-smoothing:antialiased;min-height:100vh;}
+button,input,textarea,select{font-family:'DM Sans',sans-serif;}
+
+/* LOADING */
+.loading-screen{position:fixed;inset:0;background:#0e1a12;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;}
+.loading-screen.hidden{display:none;}
+.loading-logo{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#ffffff;margin-bottom:16px;}
+.loading-sub{font-size:0.82rem;font-weight:600;color:#7a9a84;}
+.loading-dot{display:inline-block;animation:pulse 1.2s infinite;}
+@keyframes pulse{0%,100%{opacity:0.3;}50%{opacity:1;}}
+
+/* ERROR */
+.error-screen{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:40px 24px;background:#0e1a12;}
+.error-screen.show{display:flex;}
+.error-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#ffffff;margin-bottom:8px;}
+.error-sub{font-size:0.85rem;font-weight:500;color:#7a9a84;margin-bottom:24px;line-height:1.7;}
+.error-btn{background:#c9a55a;color:#0e1a12;border:none;border-radius:10px;padding:13px 28px;font-size:0.9rem;font-weight:800;cursor:pointer;}
+
+/* HERO */
+.hero{background:#0e1a12;padding-bottom:28px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(201,165,90,0.07) 0%,transparent 70%);}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#c9a55a,transparent);}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.brand-mark{width:28px;height:28px;background:#c9a55a;border-radius:6px;display:flex;align-items:center;justify-content:center;}
+.brand-text{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:#ffffff;}
+.share-btn{background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);color:#ffffff;border-radius:7px;padding:7px 13px;font-size:0.72rem;font-weight:700;cursor:pointer;}
+.hero-body{padding:0 20px;}
+.avatar-row{display:flex;align-items:flex-end;gap:14px;margin-bottom:14px;}
+.avatar{width:82px;height:82px;border-radius:50%;border:3px solid rgba(201,165,90,0.45);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#ffffff;flex-shrink:0;}
+.name-block{flex:1;padding-bottom:2px;}
+.eyebrow{font-size:0.6rem;font-weight:700;color:#c9a55a;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:4px;}
+.hero-name{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#ffffff;line-height:1.1;margin-bottom:4px;}
+.hero-title{font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.65);line-height:1.5;}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.badge{display:flex;align-items:center;gap:5px;border-radius:5px;padding:4px 10px;font-size:0.62rem;font-weight:800;letter-spacing:0.06em;}
+.badge-gold{background:rgba(201,165,90,0.2);border:1px solid rgba(201,165,90,0.4);color:#c9a55a;}
+.badge-green{background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.25);color:#4ade80;}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;margin-bottom:18px;}
+.stat{padding:10px 6px;text-align:center;border-right:1px solid rgba(255,255,255,0.07);}
+.stat:last-child{border-right:none;}
+.stat-l{font-size:0.55rem;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;}
+.stat-v{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#ffffff;}
+.cta-row{display:flex;gap:9px;}
+.btn-primary{flex:1;background:#c9a55a;color:#0e1a12;border:none;border-radius:10px;padding:14px;font-size:0.92rem;font-weight:800;cursor:pointer;}
+.btn-secondary{background:rgba(255,255,255,0.1);color:#ffffff;border:1.5px solid rgba(255,255,255,0.2);border-radius:10px;padding:14px 16px;font-size:0.82rem;font-weight:700;cursor:pointer;}
+
+/* BODY */
+.body{padding:20px 20px 120px;}
+.sec{display:flex;align-items:center;gap:10px;margin-bottom:10px;margin-top:22px;}
+.sec-lbl{font-size:0.62rem;font-weight:800;color:#0e1a12;letter-spacing:0.14em;text-transform:uppercase;white-space:nowrap;}
+.sec-line{flex:1;height:1.5px;background:#c8dac8;}
+.bio{font-size:0.88rem;font-weight:500;color:#334155;line-height:1.8;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{font-size:0.72rem;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid #4a7a54;color:#1e4a28;background:#e8f5ec;}
+.achs{display:flex;flex-direction:column;gap:8px;}
+.ach{display:flex;align-items:flex-start;gap:12px;background:#ffffff;border:1.5px solid #c8dac8;border-radius:10px;padding:12px 14px;}
+.ach-icon{font-size:1rem;flex-shrink:0;margin-top:1px;}
+.ach-text{font-size:0.82rem;font-weight:600;color:#1e293b;line-height:1.5;}
+
+/* PRICING */
+.price-card{background:#0e1a12;border-radius:14px;padding:20px;margin-bottom:12px;}
+.price-eyebrow{font-size:0.6rem;font-weight:700;color:#c9a55a;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:6px;}
+.price-amount{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:800;color:#ffffff;line-height:1;margin-bottom:4px;}
+.price-per{font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:14px;}
+.price-features{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
+.pf{display:flex;align-items:center;gap:8px;font-size:0.8rem;font-weight:500;color:rgba(255,255,255,0.8);}
+.pf-check{color:#c9a55a;font-size:0.72rem;flex-shrink:0;}
+.price-cta{width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:10px;padding:14px;font-size:0.92rem;font-weight:800;cursor:pointer;}
+.pkg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.pkg{background:#ffffff;border:1.5px solid #c8dac8;border-radius:12px;padding:14px;text-align:center;}
+.pkg.featured{background:#e8f5ec;border-color:#1a5c2a;}
+.pkg-sessions{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;color:#1a5c2a;}
+.pkg-lbl{font-size:0.6rem;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;}
+.pkg-price{font-size:0.95rem;font-weight:800;color:#0e1a12;margin-bottom:2px;}
+.pkg-save{font-size:0.65rem;font-weight:700;color:#1a5c2a;background:#e8f5ec;border-radius:4px;padding:2px 7px;display:inline-block;margin-bottom:6px;}
+.pkg-per{font-size:0.68rem;font-weight:600;color:#475569;}
+.pkg-btn{width:100%;background:#0e1a12;color:#ffffff;border:none;border-radius:7px;padding:9px;font-size:0.78rem;font-weight:700;cursor:pointer;margin-top:8px;}
+.pkg.featured .pkg-btn{background:#1a5c2a;}
+
+/* STICKY */
+.sticky{position:fixed;bottom:0;left:0;right:0;background:#ffffff;border-top:1.5px solid #c8dac8;padding:12px 20px;padding-bottom:calc(12px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;z-index:50;}
+.sticky-rate{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#0e1a12;}
+.sticky-sub{font-size:0.65rem;font-weight:600;color:#475569;}
+.sticky-btn{background:#1a5c2a;color:#ffffff;border:none;border-radius:10px;padding:13px 24px;font-size:0.9rem;font-weight:800;cursor:pointer;}
+.manage-btn{display:none;background:#162a1e;color:#7a9a84;border:1.5px solid #2a4a32;border-radius:10px;padding:13px 14px;font-size:0.82rem;font-weight:700;cursor:pointer;}
+
+/* BOOKING SHEET */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:100;display:none;align-items:flex-end;}
+.overlay.open{display:flex;}
+.sheet{background:#ffffff;border-radius:20px 20px 0 0;width:100%;max-height:90vh;overflow-y:auto;padding:20px 20px 44px;}
+.sheet-handle{width:36px;height:4px;background:#cbd5e1;border-radius:2px;margin:0 auto 18px;}
+.sheet-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:#0e1a12;margin-bottom:4px;}
+.sheet-sub{font-size:0.75rem;font-weight:600;color:#475569;margin-bottom:18px;}
+.sheet-close{float:right;background:none;border:none;color:#475569;font-size:1.1rem;cursor:pointer;margin-top:-2px;}
+.flbl{font-size:0.65rem;font-weight:800;color:#0e1a12;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px;}
+.finput{width:100%;background:#f0f2f0;border:1.5px solid #c8dac8;border-radius:9px;padding:12px 13px;font-size:0.9rem;font-weight:500;color:#0e1a12;outline:none;margin-bottom:12px;}
+.finput:focus{border-color:#1a5c2a;}
+.fselect{width:100%;background:#f0f2f0;border:1.5px solid #c8dac8;border-radius:9px;padding:12px 13px;font-size:0.9rem;font-weight:500;color:#0e1a12;outline:none;margin-bottom:12px;appearance:none;-webkit-appearance:none;}
+.session-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.sopt{background:#f0f2f0;border:1.5px solid #c8dac8;border-radius:9px;padding:11px;text-align:center;cursor:pointer;transition:all 0.15s;}
+.sopt.active{background:#e8f5ec;border-color:#1a5c2a;}
+.sopt-name{font-size:0.78rem;font-weight:700;color:#0e1a12;}
+.sopt.active .sopt-name{color:#1a5c2a;}
+.sopt-price{font-size:0.68rem;font-weight:600;color:#475569;margin-top:2px;}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px;}
+.tslot{background:#f0f2f0;border:1.5px solid #c8dac8;border-radius:7px;padding:9px 4px;text-align:center;cursor:pointer;font-size:0.72rem;font-weight:700;color:#0e1a12;transition:all 0.15s;}
+.tslot.selected{background:#e8f5ec;border-color:#1a5c2a;color:#1a5c2a;}
+.tslot.taken{opacity:0.35;cursor:not-allowed;text-decoration:line-through;}
+.ref-box{background:#fdf8ee;border:2px solid rgba(201,165,90,0.4);border-radius:11px;padding:14px;margin-bottom:14px;}
+.ref-title{font-size:0.82rem;font-weight:800;color:#0e1a12;margin-bottom:2px;}
+.ref-hint{font-size:0.65rem;font-weight:600;color:#475569;margin-bottom:10px;}
+.ref-row{display:flex;gap:8px;}
+.ref-input{flex:1;background:#ffffff;border:1.5px solid #c8dac8;border-radius:8px;padding:11px 12px;font-size:0.95rem;font-weight:800;color:#0e1a12;letter-spacing:0.12em;text-transform:uppercase;outline:none;}
+.ref-input:focus{border-color:#1a5c2a;}
+.ref-apply{background:#0e1a12;color:#ffffff;border:none;border-radius:8px;padding:0 16px;font-size:0.8rem;font-weight:800;cursor:pointer;flex-shrink:0;}
+.ref-msg{font-size:0.72rem;font-weight:700;margin-top:8px;padding:8px 10px;border-radius:7px;display:none;}
+.price-summary{background:#0e1a12;border-radius:10px;padding:13px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;}
+.ps-label{font-size:0.62rem;font-weight:700;color:rgba(255,255,255,0.45);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;}
+.ps-original{font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.35);text-decoration:line-through;display:none;}
+.ps-final{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#ffffff;}
+.ps-save{background:rgba(201,165,90,0.2);border:1px solid rgba(201,165,90,0.35);border-radius:7px;padding:8px 12px;text-align:center;display:none;}
+.ps-save-lbl{font-size:0.6rem;font-weight:700;color:#c9a55a;letter-spacing:0.08em;}
+.ps-save-amt{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:#c9a55a;}
+.confirm-btn{width:100%;background:#1a5c2a;color:#ffffff;border:none;border-radius:10px;padding:14px;font-size:0.92rem;font-weight:800;cursor:pointer;}
+.confirm-btn:disabled{background:#8aab8e;cursor:not-allowed;opacity:0.6;}
+.no-pay-note{font-size:0.65rem;font-weight:500;color:#475569;text-align:center;margin-top:10px;line-height:1.6;}
+
+/* SUCCESS */
+.success-screen{position:fixed;inset:0;background:#0e1a12;z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;}
+.success-screen.open{display:flex;}
+.s-icon{width:70px;height:70px;border-radius:50%;background:rgba(201,165,90,0.15);border:2px solid #c9a55a;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:18px;}
+.s-eyebrow{font-size:0.62rem;font-weight:700;color:#c9a55a;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;}
+.s-title{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:800;color:#ffffff;margin-bottom:10px;}
+.s-detail{font-size:0.85rem;font-weight:500;color:rgba(255,255,255,0.65);line-height:1.75;margin-bottom:24px;}
+.s-code-card{background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,165,90,0.3);border-radius:14px;padding:18px;width:100%;max-width:300px;margin-bottom:20px;}
+.s-code-lbl{font-size:0.6rem;font-weight:700;color:#c9a55a;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:6px;}
+.s-code-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#ffffff;letter-spacing:0.12em;margin-bottom:6px;}
+.s-code-desc{font-size:0.7rem;font-weight:500;color:rgba(255,255,255,0.55);margin-bottom:14px;line-height:1.6;}
+.s-share{width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:8px;padding:11px;font-size:0.85rem;font-weight:800;cursor:pointer;margin-bottom:8px;}
+.s-copy{width:100%;background:rgba(255,255,255,0.08);color:#ffffff;border:1.5px solid rgba(255,255,255,0.15);border-radius:8px;padding:10px;font-size:0.8rem;font-weight:700;cursor:pointer;}
+.s-back{margin-top:16px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:0.82rem;font-weight:600;cursor:pointer;text-decoration:underline;}
+</style>
+</head>
+<body style="background:#f0f2f0;">
+
+<!-- LOADING -->
+<div class="loading-screen" id="loading">
+  <div class="loading-logo">Cadi</div>
+  <div class="loading-sub">Loading profile<span class="loading-dot">...</span></div>
+</div>
+
+<!-- ERROR -->
+<div class="error-screen" id="error-screen">
+  <div style="font-size:2rem;margin-bottom:16px;">⛳</div>
+  <div class="error-title">Profile not found.</div>
+  <div class="error-sub">This instructor hasn't set up their Cadi profile yet, or the link may be incorrect.</div>
+  <button class="error-btn" onclick="window.location.href='/index.html'">Browse Instructors</button>
+</div>
+
+<!-- PROFILE (populated by JS) -->
+<div id="profile-page" style="display:none;">
+
+  <div class="hero">
+    <div class="topbar">
+      <a class="brand" href="/index.html">
+        <div class="brand-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/></svg></div>
+        <span class="brand-text" style="color:#ffffff;">Cadi</span>
+      </a>
+      <button class="share-btn" onclick="shareProfile()">⬆ Share</button>
+    </div>
+    <div class="hero-body">
+      <div class="avatar-row">
+        <div class="avatar" id="p-avatar" style="background:linear-gradient(140deg,#1a5c2a,#0d3a18);">CL</div>
+        <div class="name-block">
+          <div class="eyebrow" id="p-eyebrow">Korn Ferry Tour · Alpine, Utah</div>
+          <div class="hero-name" id="p-name">Carson Lundell</div>
+          <div class="hero-title" id="p-title">Professional Golfer · BYU Alumni<br>Fox Hollow GC · Orem, UT</div>
+        </div>
+      </div>
+      <div class="hero-badges" id="p-badges">
+        <div class="badge badge-gold">⛳ VERIFIED PRO</div>
+        <div class="badge badge-green">✓ VERIFIED</div>
+      </div>
+      <div class="stats" id="p-stats">
+        <div class="stat"><div class="stat-l">HCP</div><div class="stat-v" id="st-hcp">—</div></div>
+        <div class="stat"><div class="stat-l">School</div><div class="stat-v" id="st-school">—</div></div>
+        <div class="stat"><div class="stat-l">Rate</div><div class="stat-v" id="st-rate">—</div></div>
+        <div class="stat"><div class="stat-l">City</div><div class="stat-v" id="st-city">—</div></div>
+      </div>
+      <div class="cta-row">
+        <button class="btn-primary" onclick="openBooking()">Book a Lesson</button>
+        <button class="btn-secondary" onclick="shareProfile()">⬆ Share</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="sec"><span class="sec-lbl">About</span><div class="sec-line"></div></div>
+    <p class="bio" id="p-bio">Loading…</p>
+
+    <div class="sec"><span class="sec-lbl">Specialties</span><div class="sec-line"></div></div>
+    <div class="chips" id="p-chips"></div>
+
+    <div id="achs-section">
+      <div class="sec"><span class="sec-lbl">Career Highlights</span><div class="sec-line"></div></div>
+      <div class="achs" id="p-achs"></div>
+    </div>
+
+    <div class="sec"><span class="sec-lbl">Pricing</span><div class="sec-line"></div></div>
+    <div class="price-card">
+      <div class="price-eyebrow">Single Session</div>
+      <div class="price-amount" id="p-rate">$—</div>
+      <div class="price-per" id="p-rate-sub">per 60-minute lesson</div>
+      <div class="price-features">
+        <div class="pf"><span class="pf-check">✓</span>One-on-one instruction</div>
+        <div class="pf"><span class="pf-check">✓</span>Tailored to your game</div>
+        <div class="pf"><span class="pf-check">✓</span>Free cancellation 24hrs before</div>
+      </div>
+      <button class="price-cta" onclick="openBooking()" id="price-cta-btn">Book Now</button>
+    </div>
+
+    <div class="sec"><span class="sec-lbl">Lesson Packages</span><div class="sec-line"></div></div>
+    <div class="pkg-grid" id="p-packages"></div>
+
+    <div style="margin-top:28px;padding-top:20px;border-top:1.5px solid #c8dac8;text-align:center;">
+      <div style="font-size:0.65rem;font-weight:600;color:#475569;margin-bottom:6px;">Powered by</div>
+      <div style="display:inline-flex;align-items:center;gap:6px;">
+        <div style="width:18px;height:18px;background:#c9a55a;border-radius:4px;display:flex;align-items:center;justify-content:center;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/></svg></div>
+        <span style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:800;color:#0e1a12;">Cadi</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STICKY -->
+  <div class="sticky">
+    <div>
+      <div class="sticky-rate" id="sticky-rate">$—</div>
+      <div class="sticky-sub" id="sticky-sub">per session</div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="manage-btn" id="manage-btn" onclick="goToSchedule()">My Schedule</button>
+      <button class="sticky-btn" onclick="openBooking()">Book Now →</button>
+    </div>
+  </div>
+
+  <!-- BOOKING SHEET -->
+  <div class="overlay" id="booking-overlay" onclick="closeBookingOuter(event)">
+    <div class="sheet">
+      <div class="sheet-handle"></div>
+      <button class="sheet-close" onclick="closeBooking()">✕</button>
+      <div class="sheet-title">Request a Lesson</div>
+      <div class="sheet-sub" id="sheet-sub">with your instructor · Cadi</div>
+
+      <div class="flbl">Your Name</div>
+      <input class="finput" id="f-name" placeholder="First and last name" type="text" oninput="checkReady()"/>
+      <div class="flbl">Email</div>
+      <input class="finput" id="f-email" placeholder="your@email.com" type="email" oninput="checkReady()"/>
+      <div class="flbl">Phone <span style="font-size:0.6rem;text-transform:none;letter-spacing:0;font-weight:400;color:#475569;">optional</span></div>
+      <input class="finput" id="f-phone" placeholder="(801) 555-0000" type="tel"/>
+
+      <div class="flbl">Session Type</div>
+      <div class="session-grid" id="session-grid"></div>
+
+      <div class="flbl">Preferred Time</div>
+      <div class="time-grid" id="time-grid"></div>
+
+      <div class="flbl">Skill Level</div>
+      <select class="fselect" id="f-skill">
+        <option value="">Select your level…</option>
+        <option>Complete Beginner</option>
+        <option>Casual (100+ score)</option>
+        <option>Intermediate (85–100)</option>
+        <option>Advanced (70–85)</option>
+        <option>Competitive (under 70)</option>
+      </select>
+
+      <div class="flbl">What do you want to work on? <span style="font-size:0.6rem;text-transform:none;letter-spacing:0;font-weight:400;color:#475569;">optional</span></div>
+      <input class="finput" id="f-notes" placeholder="e.g. driving accuracy, putting, full swing…" type="text"/>
+
+      <div class="ref-box">
+        <div class="ref-title">🎁 Promo or referral code?</div>
+        <div class="ref-hint" id="ref-hint">Enter a code for a discount</div>
+        <div class="ref-row">
+          <input class="ref-input" id="ref-input" placeholder="ENTER CODE" type="text" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')"/>
+          <button class="ref-apply" id="ref-apply-btn" onclick="applyCode()">Apply</button>
+        </div>
+        <div class="ref-msg" id="ref-msg"></div>
+      </div>
+
+      <div class="price-summary">
+        <div>
+          <div class="ps-label">Total</div>
+          <div class="ps-original" id="ps-original"></div>
+          <div class="ps-final" id="ps-final">$—</div>
+        </div>
+        <div class="ps-save" id="ps-save">
+          <div class="ps-save-lbl">YOU SAVE</div>
+          <div class="ps-save-amt" id="ps-save-amt"></div>
+        </div>
+      </div>
+
+      <button class="confirm-btn" id="confirm-btn" disabled onclick="submitBooking()">Send Request →</button>
+      <p class="no-pay-note">No payment required today. Your instructor will confirm within 24 hours.</p>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="success-screen">
+    <div class="s-icon">⛳</div>
+    <div class="s-eyebrow">Request Sent</div>
+    <div class="s-title" id="s-title">You're on the tee.</div>
+    <div class="s-detail" id="s-detail"></div>
+    <div class="s-code-card">
+      <div class="s-code-lbl">Your Referral Code</div>
+      <div class="s-code-val" id="s-code"></div>
+      <div class="s-code-desc">Share with friends — they get $20 off. You earn $15 credit when they book.</div>
+      <button class="s-share" onclick="shareMyCode()">⬆ Share My Code</button>
+      <button class="s-copy" onclick="copyMyCode()">📋 Copy Code &amp; Link</button>
+    </div>
+    <button class="s-back" onclick="closeSuccess()">← Back to Profile</button>
+  </div>
+
+</div><!-- end profile-page -->
+
+<script>
+var SUPA_URL = 'https://tyrtonoxcakzoggbrqus.supabase.co';
+var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR5cnRvbm94Y2Frem9nZ2JycXVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2MTA0MzgsImV4cCI6MjA5MTE4NjQzOH0.qjD6DWnywjbLKU0F7WrYSHUhEXDJfQI7ZSJb2O6qYyM';
+
+function db(path, opts) {
+  return fetch(SUPA_URL + '/rest/v1/' + path, Object.assign({
+    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json','Prefer':'return=representation'}
+  }, opts||{}));
+}
+
+// ── STATE ──
+var instructor = null;
+var selSession = '';
+var selPrice   = 0;
+var selTime    = null;
+var refCode    = '';
+var refDiscount = 0;
+var refFree    = false;
+
+var TIMES = ['8:00 AM','8:30 AM','9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM'];
+
+var FALLBACK_CODES = {
+  'CARSON': {discount:250, owner_name:'Carson Lundell', is_free_lesson:true},
+  'CADI20': {discount:20,  owner_name:'Cadi Welcome',   is_free_lesson:false},
+  'ROB15':  {discount:15,  owner_name:'Rob Stanger',    is_free_lesson:false},
+  'PRIMO15':{discount:15,  owner_name:'Primo Golf',     is_free_lesson:false},
+};
+
+// Carson's full data as fallback if Supabase table doesn't exist yet
+var CARSON_FALLBACK = {
+  instructor_id: 'carson-lundell',
+  name: 'Carson Lundell',
+  title: 'Korn Ferry Tour Professional',
+  location: 'Orem, UT',
+  course: 'Fox Hollow GC / BYU Training Facility',
+  bio: 'Carson Lundell is a professional golfer from Alpine, Utah competing on the Korn Ferry Tour. A former BYU standout, Carson was one of the most decorated collegiate golfers in program history — finishing his career with a 70.76 scoring average, 7 top-10 finishes his senior season, and individual medalist honors at the NCAA West Regional. He brings the same competitive precision to his lessons that took him from Lone Peak High School to the professional tour.',
+  specialty: 'Ball Striking',
+  rate: 250,
+  handicap: '+6.0',
+  school: 'BYU',
+  accolades: [
+    'Korn Ferry Tour Professional — actively competing',
+    'NCAA West Regional Medalist — 11-under 205',
+    'BYU Honorable Mention All-American (2021) · WCC First-Team · 3x All-WCC',
+    'Round of 32 — 2022 US Amateur Championship',
+    '2021 US Open qualifier champion at Alpine Country Club',
+    'Senior season: 70.76 avg · 2 wins · 7 top-10 finishes in 14 events',
+    'Lone Peak HS — 2x National Champion · 3x 5A State Champion · 2015 UJGA Player of the Year'
+  ],
+  accolade_icons: ['⛳','🏆','🎓','🥊','🎯','📊','🏫'],
+  specialties: ['Full Swing','Ball Striking','Course Management','Competitive Prep','Mental Game','Scoring'],
+  avatar_bg: 'linear-gradient(140deg,#1a3a6b,#0d2044)',
+  badge: 'KORN FERRY TOUR PRO',
+  promo_code: 'CARSON'
+};
+
+// ── LOAD INSTRUCTOR ──
+function loadInstructor() {
+  var params = new URLSearchParams(window.location.search);
+  var id = params.get('id');
+  if (!id) { showError(); return; }
+
+  // Try Supabase first
+  db('instructors?instructor_id=eq.' + encodeURIComponent(id) + '&select=*')
+    .then(function(r){ return r.json(); })
+    .then(function(rows){
+      if (Array.isArray(rows) && rows.length > 0) {
+        renderProfile(rows[0]);
+      } else if (id === 'carson-lundell') {
+        // Use Carson's hardcoded fallback
+        renderProfile(CARSON_FALLBACK);
+      } else {
+        showError();
+      }
+    })
+    .catch(function(){
+      if (id === 'carson-lundell') {
+        renderProfile(CARSON_FALLBACK);
+      } else {
+        showError();
+      }
+    });
+}
+
+// ── RENDER PROFILE ──
+function renderProfile(inst) {
+  instructor = inst;
+  var rate = inst.rate || 150;
+  var name = inst.name || 'Instructor';
+  var initials = name.split(' ').map(function(w){return w[0];}).join('').substring(0,2).toUpperCase();
+  var city = (inst.location || '').split(',')[0].trim();
+
+  // Update page title
+  document.title = name + ' — Golf Instruction · Cadi';
+
+  // Hero
+  document.getElementById('p-avatar').textContent = initials;
+  document.getElementById('p-avatar').style.background = inst.avatar_bg || 'linear-gradient(140deg,#1a5c2a,#0d3a18)';
+  document.getElementById('p-eyebrow').textContent = (inst.title || 'Golf Instructor') + ' · ' + (inst.location || '');
+  document.getElementById('p-name').textContent = name;
+  document.getElementById('p-title').innerHTML = (inst.title || 'Golf Instructor') + '<br>' + (inst.course || inst.location || '');
+
+  // Badge
+  if (inst.badge) {
+    document.getElementById('p-badges').innerHTML =
+      '<div class="badge badge-gold">⛳ ' + inst.badge + '</div>' +
+      '<div class="badge badge-green">✓ VERIFIED</div>';
+  }
+
+  // Stats
+  document.getElementById('st-hcp').textContent  = inst.handicap || '—';
+  document.getElementById('st-school').textContent = inst.school || '—';
+  document.getElementById('st-rate').textContent  = '$' + rate;
+  document.getElementById('st-city').textContent  = city || '—';
+
+  // Bio
+  document.getElementById('p-bio').textContent = inst.bio || 'This instructor hasn\'t added a bio yet.';
+
+  // Specialties
+  var specs = inst.specialties || (inst.specialty ? [inst.specialty] : ['Full Swing','Short Game']);
+  document.getElementById('p-chips').innerHTML = specs.map(function(s){
+    return '<span class="chip">'+s+'</span>';
+  }).join('');
+
+  // Accolades
+  var achs = inst.accolades || [];
+  var icons = inst.accolade_icons || [];
+  if (achs.length > 0) {
+    document.getElementById('p-achs').innerHTML = achs.map(function(a,i){
+      return '<div class="ach"><div class="ach-icon">'+(icons[i]||'🏆')+'</div><div class="ach-text">'+a+'</div></div>';
+    }).join('');
+  } else {
+    document.getElementById('achs-section').style.display = 'none';
+  }
+
+  // Pricing
+  document.getElementById('p-rate').textContent = '$' + rate;
+  document.getElementById('p-rate-sub').textContent = 'per 60-minute lesson · ' + (inst.course || inst.location || '');
+  document.getElementById('price-cta-btn').textContent = 'Book Now — $' + rate;
+  document.getElementById('sticky-rate').textContent = '$' + rate;
+  document.getElementById('sticky-sub').textContent = 'per session · ' + (city || 'Utah');
+
+  // Packages
+  var p3 = Math.round(rate * 3 * 0.92);
+  var p6 = Math.round(rate * 6 * 0.90);
+  var p10 = Math.round(rate * 10 * 0.85);
+  document.getElementById('p-packages').innerHTML =
+    '<div class="pkg"><div class="pkg-lbl">Sessions</div><div class="pkg-sessions">3</div>'
+    +'<div class="pkg-price">$'+p3.toLocaleString()+'</div><div class="pkg-save">Save 8%</div>'
+    +'<div class="pkg-per">$'+Math.round(p3/3)+' per session</div>'
+    +'<button class="pkg-btn" onclick="openBookingWithPkg(\'3-Pack · $'+p3+'\','+p3+')">Book Pack</button></div>'
+
+    +'<div class="pkg featured"><div class="pkg-lbl">Most Popular</div><div class="pkg-sessions">6</div>'
+    +'<div class="pkg-price">$'+p6.toLocaleString()+'</div><div class="pkg-save">Save 10%</div>'
+    +'<div class="pkg-per">$'+Math.round(p6/6)+' per session</div>'
+    +'<button class="pkg-btn" onclick="openBookingWithPkg(\'6-Pack · $'+p6+'\','+p6+')">Book Pack</button></div>'
+
+    +'<div class="pkg"><div class="pkg-lbl">Sessions</div><div class="pkg-sessions">10</div>'
+    +'<div class="pkg-price">$'+p10.toLocaleString()+'</div><div class="pkg-save">Save 15%</div>'
+    +'<div class="pkg-per">$'+Math.round(p10/10)+' per session</div>'
+    +'<button class="pkg-btn" onclick="openBookingWithPkg(\'10-Pack · $'+p10+'\','+p10+')">Book Pack</button></div>'
+
+    +'<div class="pkg"><div class="pkg-lbl">Free Intro</div><div class="pkg-sessions">1</div>'
+    +'<div class="pkg-price">Free</div>'
+    +(inst.promo_code ? '<div class="pkg-save">Code: '+inst.promo_code+'</div>' : '<div class="pkg-save">Ask instructor</div>')
+    +'<div class="pkg-per">30-minute intro</div>'
+    +'<button class="pkg-btn" onclick="openBookingFree()">Claim Free</button></div>';
+
+  // Booking modal subtitle
+  document.getElementById('sheet-sub').textContent = 'with ' + name + ' · ' + (inst.course || inst.location || '');
+
+  // Ref hint
+  if (inst.promo_code) {
+    document.getElementById('ref-hint').textContent = 'Enter ' + inst.promo_code + ' for a free intro lesson';
+  }
+
+  // Init session grid
+  buildSessionGrid(rate);
+
+  // Show manage button if this instructor is logged in
+  try {
+    var s = localStorage.getItem('cadi_instructor');
+    if (s) {
+      var sess = JSON.parse(s);
+      if (sess && sess.id === inst.instructor_id) {
+        document.getElementById('manage-btn').style.display = 'block';
+      }
+    }
+  } catch(e) {}
+
+  // Show profile
+  document.getElementById('loading').classList.add('hidden');
+  document.getElementById('profile-page').style.display = 'block';
+
+  // Default price summary
+  document.getElementById('ps-final').textContent = '$' + rate;
+}
+
+function showError() {
+  document.getElementById('loading').classList.add('hidden');
+  document.getElementById('error-screen').classList.add('show');
+}
+
+// ── BOOKING ──
+function buildSessionGrid(rate) {
+  var html =
+    '<div class="sopt active" onclick="selectSession(this,\'Single Lesson · $'+rate+'\','+rate+')">'
+    +'<div class="sopt-name">Single Lesson</div><div class="sopt-price">60 min · $'+rate+'</div></div>'
+    +'<div class="sopt" onclick="selectSession(this,\'Free Intro\',0)">'
+    +'<div class="sopt-name">Free Intro</div><div class="sopt-price">30 min · Use promo code</div></div>'
+    +'<div class="sopt" onclick="selectSession(this,\'3-Pack · $'+Math.round(rate*3*0.92)+'\','+Math.round(rate*3*0.92)+')">'
+    +'<div class="sopt-name">3-Pack</div><div class="sopt-price">$'+Math.round(rate*3*0.92)+' · Save 8%</div></div>'
+    +'<div class="sopt" onclick="selectSession(this,\'6-Pack · $'+Math.round(rate*6*0.90)+'\','+Math.round(rate*6*0.90)+')">'
+    +'<div class="sopt-name">6-Pack</div><div class="sopt-price">$'+Math.round(rate*6*0.90)+' · Save 10%</div></div>';
+  document.getElementById('session-grid').innerHTML = html;
+  selSession = 'Single Lesson · $' + rate;
+  selPrice = rate;
+}
+
+function buildTimeGrid() {
+  var html = '';
+  TIMES.forEach(function(t){
+    html += '<div class="tslot" data-time="'+t+'" onclick="selectTime(this)">'+t+'</div>';
+  });
+  document.getElementById('time-grid').innerHTML = html;
+  // Mark taken slots
+  if (!instructor) return;
+  var today = new Date();
+  var ds = today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+  db('bookings?instructor_id=eq.'+instructor.instructor_id+'&session_date=gte.'+ds+'&status=eq.confirmed&select=session_time')
+    .then(function(r){return r.json();})
+    .then(function(rows){
+      if(!Array.isArray(rows))return;
+      rows.forEach(function(b){
+        document.querySelectorAll('.tslot').forEach(function(s){
+          if(s.getAttribute('data-time')===b.session_time){s.classList.add('taken');s.onclick=null;}
+        });
+      });
+    }).catch(function(){});
+}
+
+function openBooking() { buildTimeGrid(); document.getElementById('booking-overlay').classList.add('open'); document.body.style.overflow='hidden'; }
+function openBookingWithPkg(name, price) {
+  openBooking();
+  setTimeout(function(){
+    document.querySelectorAll('.sopt').forEach(function(o){o.classList.remove('active');});
+    selSession=name; selPrice=price;
+    document.getElementById('ps-final').textContent='$'+price.toLocaleString();
+    checkReady();
+  },100);
+}
+function openBookingFree() {
+  openBooking();
+  if (instructor && instructor.promo_code) {
+    setTimeout(function(){ document.getElementById('ref-input').value=instructor.promo_code; applyCode(); },400);
+  }
+}
+function closeBookingOuter(e){if(e.target===document.getElementById('booking-overlay'))closeBooking();}
+function closeBooking(){document.getElementById('booking-overlay').classList.remove('open');document.body.style.overflow='';}
+
+function selectTime(el){
+  if(el.classList.contains('taken'))return;
+  document.querySelectorAll('.tslot:not(.taken)').forEach(function(s){s.classList.remove('selected');});
+  el.classList.add('selected'); selTime=el.getAttribute('data-time'); checkReady();
+}
+
+function selectSession(el,name,price){
+  document.querySelectorAll('.sopt').forEach(function(o){o.classList.remove('active');});
+  el.classList.add('active'); selSession=name; selPrice=price;
+  var dp = refFree ? 0 : price - refDiscount;
+  if(dp<0)dp=0;
+  document.getElementById('ps-final').textContent = dp===0?'FREE':'$'+dp.toLocaleString();
+  checkReady();
+}
+
+// ── REFERRAL ──
+function applyCode(){
+  var code=document.getElementById('ref-input').value.trim().toUpperCase();
+  var msg=document.getElementById('ref-msg');
+  msg.style.display='block';
+  if(!code){msg.style.background='rgba(220,38,38,0.08)';msg.style.color='#dc2626';msg.textContent='Enter a code first.';return;}
+  msg.style.background='rgba(201,165,90,0.1)';msg.style.color='#c9a55a';msg.textContent='Checking…';
+  db('referral_codes?code=eq.'+encodeURIComponent(code)+'&select=*')
+    .then(function(r){return r.json();})
+    .then(function(rows){
+      var data=(Array.isArray(rows)&&rows.length>0)?rows[0]:(FALLBACK_CODES[code]?Object.assign({code:code},FALLBACK_CODES[code]):null);
+      handleCode(code,data,msg);
+    })
+    .catch(function(){handleCode(code,FALLBACK_CODES[code]?Object.assign({code:code},FALLBACK_CODES[code]):null,msg);});
+}
+
+function handleCode(code,data,msg){
+  if(!data){msg.style.background='rgba(220,38,38,0.08)';msg.style.color='#dc2626';msg.textContent='Code not recognized.';return;}
+  refCode=code; refDiscount=data.discount; refFree=data.is_free_lesson;
+  if(refFree){
+    msg.style.background='rgba(74,222,128,0.1)';msg.style.color='#4ade80';msg.innerHTML='🎉 <strong>Free lesson unlocked!</strong>';
+    document.getElementById('ps-original').style.display='block';
+    document.getElementById('ps-original').textContent='$'+selPrice;
+    document.getElementById('ps-final').textContent='FREE';
+    document.getElementById('ps-final').style.color='#4ade80';
+    document.getElementById('ps-save').style.display='block';
+    document.getElementById('ps-save-amt').textContent='$'+selPrice;
+    document.querySelectorAll('.sopt').forEach(function(o){o.classList.remove('active');});
+    document.querySelectorAll('.sopt')[1].classList.add('active');
+    selSession='Free Intro'; selPrice=0;
+  } else {
+    var np=Math.max(0,selPrice-data.discount);
+    msg.style.background='rgba(74,222,128,0.1)';msg.style.color='#4ade80';
+    msg.innerHTML='✓ $'+data.discount+' off — courtesy of '+data.owner_name;
+    document.getElementById('ps-original').style.display='block';
+    document.getElementById('ps-original').textContent='$'+selPrice;
+    document.getElementById('ps-final').textContent='$'+np;
+    document.getElementById('ps-save').style.display='block';
+    document.getElementById('ps-save-amt').textContent='$'+data.discount;
+  }
+  document.getElementById('ref-input').disabled=true;
+  document.getElementById('ref-apply-btn').textContent='✓ Applied';
+  document.getElementById('ref-apply-btn').disabled=true;
+  document.getElementById('ref-apply-btn').style.background='#4ade80';
+  document.getElementById('ref-apply-btn').style.color='#0e1a12';
+}
+
+function checkReady(){
+  var name=document.getElementById('f-name').value.trim();
+  var email=document.getElementById('f-email').value.trim();
+  document.getElementById('confirm-btn').disabled=!(name.length>1&&email.indexOf('@')>0&&selTime);
+}
+
+// ── SUBMIT ──
+function submitBooking(){
+  var name=document.getElementById('f-name').value.trim();
+  var email=document.getElementById('f-email').value.trim();
+  var phone=document.getElementById('f-phone').value.trim();
+  var skill=document.getElementById('f-skill').value;
+  var notes=document.getElementById('f-notes').value.trim();
+  var finalPrice=refFree?0:Math.max(0,selPrice-refDiscount);
+  var myCode=name.split(' ')[0].toUpperCase().replace(/[^A-Z]/g,'').substring(0,6)+[15,20,20,25][Math.floor(Math.random()*4)];
+  var btn=document.getElementById('confirm-btn');
+  btn.disabled=true;btn.textContent='Sending…';
+  var today=new Date();
+  var ds=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+  db('bookings',{method:'POST',body:JSON.stringify({
+    instructor_id:instructor.instructor_id,student_name:name,student_email:email,
+    student_phone:phone||null,session_type:selSession,session_date:ds,session_time:selTime,
+    skill_level:skill||null,notes:notes||null,referral_code:refCode||null,
+    is_free:refFree,status:'confirmed',price:finalPrice
+  })})
+  .then(function(r){return r.json();})
+  .then(function(){
+    if(refCode)db('referral_codes?code=eq.'+encodeURIComponent(refCode),{method:'PATCH',body:JSON.stringify({uses:1})}).catch(function(){});
+    db('referral_codes',{method:'POST',body:JSON.stringify({code:myCode,owner_name:name,owner_email:email,discount:20,is_free_lesson:false,uses:0})}).catch(function(){});
+    showSuccess(name,email,finalPrice,myCode);
+  })
+  .catch(function(){showSuccess(name,email,finalPrice,myCode);});
+}
+
+function showSuccess(name,email,price,myCode){
+  document.getElementById('s-code').textContent=myCode;
+  document.getElementById('s-title').textContent="You're on the tee, "+name.split(' ')[0]+'.';
+  document.getElementById('s-detail').innerHTML=
+    (refFree?'<strong style="color:#4ade80">🎉 Free intro lesson requested!</strong><br>':'')+
+    'Your request for <strong>'+selTime+'</strong> has been sent.<br>'+
+    'Your instructor will confirm within 24 hours at <strong>'+email+'</strong>.<br><br>'+
+    'No payment until your lesson is confirmed.';
+  closeBooking();
+  document.getElementById('success-screen').classList.add('open');
+}
+
+function closeSuccess(){document.getElementById('success-screen').classList.remove('open');}
+
+// ── SHARE ──
+function shareProfile(){
+  var url=window.location.href.split('?')[0]+'?id='+(instructor?instructor.instructor_id:'');
+  if(navigator.share){navigator.share({title:'Book a golf lesson with '+(instructor?instructor.name:'an instructor'),text:'Book a lesson on Cadi.',url:url});}
+  else{navigator.clipboard.writeText(url).then(function(){alert('Link copied!');});}
+}
+function shareMyCode(){
+  var code=document.getElementById('s-code').textContent;
+  var url=window.location.href.split('?')[0]+'?id='+(instructor?instructor.instructor_id:'')+'&ref='+code;
+  if(navigator.share){navigator.share({title:'Get $20 off a golf lesson',text:'Use code '+code+' for $20 off.',url:url});}
+  else{copyMyCode();}
+}
+function copyMyCode(){
+  var code=document.getElementById('s-code').textContent;
+  var url=window.location.href.split('?')[0]+'?id='+(instructor?instructor.instructor_id:'')+'&ref='+code;
+  navigator.clipboard.writeText(code+' — '+url).then(function(){alert('Copied! Share code '+code+' with friends.');}).catch(function(){alert('Code: '+code);});
+}
+
+function goToSchedule(){window.location.href='/schedule.html';}
+
+// Auto-apply ?ref= from URL
+(function(){
+  var ref=new URLSearchParams(window.location.search).get('ref');
+  if(ref){
+    window.addEventListener('load',function(){
+      openBooking();
+      setTimeout(function(){document.getElementById('ref-input').value=ref.toUpperCase();applyCode();},600);
+    });
+  }
+})();
+
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
+
+// ── INIT ──
+loadInstructor();
+</script>
+</body>
+</html>

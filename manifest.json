@@ -1,0 +1,49 @@
+{
+  "name": "Cadi — Golf Instruction",
+  "short_name": "Cadi",
+  "description": "Utah's premier golf instruction marketplace. Find instructors, book lessons, grow your teaching business.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0e1a12",
+  "theme_color": "#0e1a12",
+  "orientation": "portrait",
+  "categories": ["sports", "education", "lifestyle"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%230e1a12'/%3E%3Crect x='76' y='28' width='4' height='112' rx='2' fill='%23c9a55a'/%3E%3Cpolygon points='80,28 116,44 80,60' fill='%23c9a55a'/%3E%3Cellipse cx='78' cy='143' rx='22' ry='7' fill='none' stroke='%23c9a55a' stroke-width='3'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%230e1a12'/%3E%3Crect x='200' y='72' width='10' height='300' rx='5' fill='%23c9a55a'/%3E%3Cpolygon points='210,72 310,116 210,160' fill='%23c9a55a'/%3E%3Cellipse cx='205' cy='382' rx='58' ry='18' fill='none' stroke='%23c9a55a' stroke-width='8'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Find an Instructor",
+      "short_name": "Find",
+      "description": "Browse Utah golf instructors",
+      "url": "/index.html",
+      "icons": []
+    },
+    {
+      "name": "Join as Instructor",
+      "short_name": "Join",
+      "description": "Sign up as a teaching pro",
+      "url": "/instructor-signup.html",
+      "icons": []
+    },
+    {
+      "name": "My Dashboard",
+      "short_name": "Dashboard",
+      "description": "Instructor analytics and bookings",
+      "url": "/instructor-dashboard.html",
+      "icons": []
+    }
+  ]
+}

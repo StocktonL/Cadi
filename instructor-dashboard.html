@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#0e1a12;">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Dashboard · Cadi</title>
+<meta name="theme-color" content="#0e1a12"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<link rel="manifest" href="/manifest.json"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'DM Sans',sans-serif;background:#0e1a12;color:#ffffff;-webkit-font-smoothing:antialiased;min-height:100vh;padding-bottom:80px;}
+button,input,select,textarea{font-family:'DM Sans',sans-serif;}
+
+/* NAV */
+.nav{background:#111c14;border-bottom:1px solid #1e3024;padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;}
+.nav-brand{display:flex;align-items:center;gap:9px;}
+.nav-mark{width:28px;height:28px;background:#c9a55a;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.nav-name{font-size:0.85rem;font-weight:700;color:#ffffff;}
+.nav-sub{font-size:0.6rem;font-weight:600;color:#5a8a64;}
+.nav-avatar{width:32px;height:32px;border-radius:50%;background:#1a5c2a;border:1.5px solid #c9a55a;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:0.72rem;font-weight:800;color:#ffffff;cursor:pointer;flex-shrink:0;}
+
+/* TAB BAR */
+.tab-bar{position:fixed;bottom:0;left:0;right:0;background:#111c14;border-top:1px solid #1e3024;display:grid;grid-template-columns:repeat(3,1fr);z-index:99;padding-bottom:env(safe-area-inset-bottom);}
+.tbar-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 0 8px;gap:3px;border:none;background:none;cursor:pointer;}
+.tbar-icon{font-size:1.1rem;}
+.tbar-lbl{font-size:0.58rem;font-weight:700;color:#5a8a64;}
+.tbar-btn.active .tbar-lbl{color:#c9a55a;}
+
+/* VIEWS */
+.view{display:none;padding:16px 16px 24px;}
+.view.active{display:block;}
+
+/* ── TODAY TAB ── */
+.greeting{margin-bottom:20px;}
+.g-eyebrow{font-size:0.6rem;font-weight:700;color:#c9a55a;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:4px;}
+.g-name{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#ffffff;line-height:1.15;}
+.g-sub{font-size:0.75rem;font-weight:500;color:#5a8a64;margin-top:3px;}
+
+/* Stats row */
+.stats-row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px;}
+.stat-card{background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;}
+.stat-label{font-size:0.6rem;font-weight:700;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+.stat-value{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#ffffff;line-height:1;}
+.stat-sub{font-size:0.65rem;font-weight:600;color:#5a8a64;margin-top:4px;}
+.stat-card.gold-border{border-color:rgba(201,165,90,0.4);}
+.stat-value.gold{color:#c9a55a;}
+
+/* Section header */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;margin-top:20px;}
+.sec-title{font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.12em;text-transform:uppercase;}
+.sec-action{font-size:0.72rem;font-weight:700;color:#c9a55a;background:none;border:none;cursor:pointer;}
+
+/* Booking cards */
+.booking-card{background:#162a1e;border:1.5px solid #2a4a32;border-radius:11px;padding:13px 14px;margin-bottom:8px;cursor:pointer;transition:border-color 0.15s;}
+.booking-card:hover{border-color:#c9a55a;}
+.booking-card.free{border-color:rgba(201,165,90,0.35);}
+.bc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.bc-name{font-size:0.88rem;font-weight:800;color:#ffffff;}
+.bc-price{font-size:0.82rem;font-weight:800;color:#4ade80;}
+.bc-price.paid{color:#c9a55a;}
+.bc-row{display:flex;align-items:center;gap:8px;}
+.bc-time{font-size:0.72rem;font-weight:700;color:#7a9a84;}
+.bc-type{font-size:0.68rem;font-weight:600;color:#5a8a64;background:#1e3024;border-radius:4px;padding:2px 8px;}
+.bc-free-tag{font-size:0.6rem;font-weight:800;color:#c9a55a;background:rgba(201,165,90,0.12);border:1px solid rgba(201,165,90,0.3);border-radius:4px;padding:2px 7px;margin-left:auto;}
+
+/* Empty state */
+.empty{text-align:center;padding:32px 20px;background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;}
+.empty-icon{font-size:2rem;margin-bottom:10px;}
+.empty-title{font-size:0.88rem;font-weight:700;color:#ffffff;margin-bottom:6px;}
+.empty-sub{font-size:0.75rem;font-weight:500;color:#5a8a64;line-height:1.6;margin-bottom:16px;}
+.empty-btn{background:#c9a55a;color:#0e1a12;border:none;border-radius:8px;padding:10px 20px;font-size:0.82rem;font-weight:800;cursor:pointer;}
+
+/* Profile link card */
+.link-card{background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;margin-bottom:8px;}
+.link-label{font-size:0.62rem;font-weight:700;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+.link-url{font-size:0.78rem;font-weight:700;color:#c9a55a;word-break:break-all;margin-bottom:12px;line-height:1.5;}
+.link-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.link-btn{border:none;border-radius:8px;padding:10px;font-size:0.78rem;font-weight:700;cursor:pointer;}
+.link-btn.share{background:#c9a55a;color:#0e1a12;}
+.link-btn.copy{background:#1e3024;color:#7a9a84;border:1.5px solid #2a4a32;}
+
+/* ── SCHEDULE TAB ── */
+.week-nav{display:flex;align-items:center;justify-content:space-between;background:#162a1e;border:1.5px solid #2a4a32;border-radius:11px;padding:11px 14px;margin-bottom:12px;}
+.week-arrow{background:#1e3024;border:1.5px solid #2a4a32;border-radius:6px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#ffffff;font-size:0.85rem;}
+.week-label{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;color:#ffffff;}
+.week-sub{font-size:0.62rem;font-weight:600;color:#5a8a64;text-align:center;margin-top:2px;}
+
+/* Day pills */
+.day-pills{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px;}
+.dpill{background:#162a1e;border:1.5px solid #2a4a32;border-radius:8px;padding:7px 3px;text-align:center;cursor:pointer;transition:all 0.15s;}
+.dpill.active{background:#c9a55a;border-color:#c9a55a;}
+.dpill.has{background:#1a3a22;border-color:#1a5c2a;}
+.dpill.today-pill{border-color:#c9a55a;}
+.dpill-day{font-size:0.52rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.04em;}
+.dpill.active .dpill-day{color:rgba(14,26,18,0.7);}
+.dpill.has .dpill-day{color:#4ade80;}
+.dpill-num{font-family:'Playfair Display',serif;font-size:1rem;font-weight:800;color:#ffffff;}
+.dpill.active .dpill-num{color:#0e1a12;}
+.dpill.has .dpill-num{color:#4ade80;}
+.dpill-dot{width:4px;height:4px;border-radius:50%;margin:3px auto 0;background:transparent;}
+.dpill.has .dpill-dot{background:#1a5c2a;}
+.dpill.active .dpill-dot{background:rgba(14,26,18,0.4);}
+
+/* Day header */
+.day-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.day-hdr-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:800;color:#ffffff;}
+.day-hdr-sub{font-size:0.68rem;font-weight:600;color:#5a8a64;}
+.sched-actions{display:flex;gap:7px;margin-bottom:14px;}
+.sched-btn{flex:1;border:none;border-radius:8px;padding:10px;font-size:0.75rem;font-weight:700;cursor:pointer;}
+.sched-btn.add{background:#c9a55a;color:#0e1a12;}
+.sched-btn.block{background:#1e3024;color:#7a9a84;border:1.5px solid #2a4a32;}
+.sched-btn.avail{background:#1e3024;color:#7a9a84;border:1.5px solid #2a4a32;}
+
+/* Slots */
+.hour-divider{display:flex;align-items:center;gap:8px;margin:8px 0 4px;}
+.hour-line{flex:1;height:1px;background:#1e3024;}
+.hour-text{font-size:0.58rem;font-weight:700;color:#3a5a42;white-space:nowrap;}
+.slot-row{display:flex;gap:8px;margin-bottom:5px;}
+.slot-time{width:50px;flex-shrink:0;padding-top:12px;text-align:right;}
+.slot-time-txt{font-size:0.62rem;font-weight:700;color:#3a5a42;}
+.slot{flex:1;min-height:46px;border-radius:9px;border:1.5px solid #1e3024;overflow:hidden;transition:all 0.15s;cursor:pointer;}
+.slot.open{background:#111c14;}
+.slot.open:active{border-color:#c9a55a;background:#162a1e;}
+.slot.booked{background:#162a1e;border-color:#1a5c2a;cursor:pointer;}
+.slot.blocked{background:#1a0e0e;border-color:#3a1a1a;}
+.slot.off{background:#0d150f;border-color:#131e15;opacity:0.4;cursor:default;}
+.slot-inner{padding:9px 11px;}
+.slot-open-hint{font-size:0.68rem;font-weight:600;color:#2a4a32;}
+.slot-booked-name{font-size:0.8rem;font-weight:800;color:#4ade80;}
+.slot-booked-detail{font-size:0.65rem;font-weight:600;color:#5a8a64;margin-top:2px;}
+.slot-free-tag{font-size:0.58rem;font-weight:800;color:#c9a55a;margin-left:5px;}
+.slot-blocked-lbl{font-size:0.75rem;font-weight:700;color:#e05050;}
+.slot-blocked-reason{font-size:0.62rem;font-weight:600;color:#7a3a3a;margin-top:2px;}
+
+/* ── PROFILE TAB ── */
+.profile-card{background:#162a1e;border:1.5px solid #2a4a32;border-radius:14px;padding:18px;margin-bottom:12px;}
+.pc-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(140deg,#1a3a6b,#0d2044);border:2px solid rgba(201,165,90,0.5);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#ffffff;margin-bottom:12px;}
+.pc-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:#ffffff;margin-bottom:3px;}
+.pc-title{font-size:0.75rem;font-weight:600;color:#5a8a64;margin-bottom:12px;}
+.pc-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.pc-stat{text-align:center;background:#1e3024;border-radius:8px;padding:9px 6px;}
+.pc-stat-val{font-family:'Playfair Display',serif;font-size:1rem;font-weight:800;color:#c9a55a;}
+.pc-stat-lbl{font-size:0.55rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;}
+
+/* Settings list */
+.settings-list{display:flex;flex-direction:column;gap:6px;}
+.setting-row{background:#162a1e;border:1.5px solid #2a4a32;border-radius:10px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
+.setting-left{display:flex;align-items:center;gap:11px;}
+.setting-icon{font-size:1rem;width:22px;text-align:center;}
+.setting-lbl{font-size:0.85rem;font-weight:700;color:#ffffff;}
+.setting-sub{font-size:0.65rem;font-weight:500;color:#5a8a64;margin-top:1px;}
+.setting-arrow{color:#3a5a42;font-size:0.8rem;}
+
+.signout-btn{width:100%;background:#1a0e0e;color:#e05050;border:1.5px solid #3a1a1a;border-radius:10px;padding:13px;font-size:0.88rem;font-weight:700;cursor:pointer;margin-top:8px;}
+
+/* OVERLAYS */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;display:none;align-items:flex-end;}
+.overlay.open{display:flex;}
+.sheet{background:#162a1e;border-radius:20px 20px 0 0;width:100%;max-height:88vh;overflow-y:auto;padding:20px 20px 44px;}
+.sheet-handle{width:36px;height:4px;background:#2a4a32;border-radius:2px;margin:0 auto 18px;}
+.sheet-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#ffffff;margin-bottom:4px;}
+.sheet-sub{font-size:0.72rem;font-weight:600;color:#5a8a64;margin-bottom:18px;}
+.sheet-close{float:right;background:none;border:none;color:#5a8a64;font-size:1.1rem;cursor:pointer;margin-top:-2px;}
+.flbl{font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+.finput{width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;}
+.finput:focus{border-color:#c9a55a;}
+.finput::placeholder{color:#3a5a42;}
+.fselect{width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;appearance:none;-webkit-appearance:none;}
+.ftextarea{width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.85rem;font-weight:500;color:#ffffff;outline:none;resize:none;height:76px;line-height:1.6;margin-bottom:12px;}
+.ftextarea::placeholder{color:#3a5a42;}
+.mbtn{width:100%;border:none;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;margin-bottom:8px;}
+.mbtn.primary{background:#c9a55a;color:#0e1a12;}
+.mbtn.danger{background:#1a0e0e;color:#e05050;border:1.5px solid #3a1a1a;}
+.mbtn.ghost{background:#1e3024;color:#5a8a64;border:1.5px solid #2a4a32;}
+
+/* Detail rows */
+.drow{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #1e3024;}
+.drow:last-of-type{border-bottom:none;}
+.dicon{font-size:0.95rem;width:20px;text-align:center;flex-shrink:0;margin-top:2px;}
+.dlbl{font-size:0.6rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;}
+.dval{font-size:0.83rem;font-weight:700;color:#ffffff;}
+.badge-confirmed{background:#162a1e;color:#4ade80;border:1px solid #1a5c2a;border-radius:4px;padding:3px 8px;font-size:0.62rem;font-weight:800;}
+.badge-free{background:rgba(201,165,90,0.1);color:#c9a55a;border:1px solid rgba(201,165,90,0.3);border-radius:4px;padding:3px 8px;font-size:0.62rem;font-weight:800;}
+
+/* Avail toggles */
+.avail-days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px;}
+.aday{background:#1e3024;border:1.5px solid #2a4a32;border-radius:7px;padding:8px 3px;text-align:center;cursor:pointer;transition:all 0.15s;}
+.aday.on{background:#1a5c2a;border-color:#1a5c2a;}
+.aday-lbl{font-size:0.52rem;font-weight:700;color:#3a5a42;text-transform:uppercase;}
+.aday.on .aday-lbl{color:rgba(255,255,255,0.65);}
+.aday-abbr{font-size:0.92rem;font-weight:800;color:#ffffff;}
+.atime-list{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+.atime-row{background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:10px 13px;display:flex;align-items:center;justify-content:space-between;}
+.atime-lbl{font-size:0.82rem;font-weight:700;color:#ffffff;}
+.atime-sub{font-size:0.62rem;font-weight:600;color:#5a8a64;margin-top:1px;}
+.toggle{width:40px;height:22px;border-radius:11px;border:none;cursor:pointer;position:relative;transition:background 0.2s;flex-shrink:0;}
+.toggle.on{background:#1a5c2a;}
+.toggle.off{background:#2a4a32;}
+.tknob{position:absolute;top:2px;width:18px;height:18px;border-radius:50%;background:#ffffff;transition:left 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.3);}
+.toggle.on .tknob{left:20px;}
+.toggle.off .tknob{left:2px;}
+</style>
+</head>
+<body style="background:#0e1a12;color:#ffffff;">
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-mark">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/>
+      </svg>
+    </div>
+    <div>
+      <div class="nav-name" id="nav-name" style="color:#ffffff;">My Dashboard</div>
+      <div class="nav-sub" id="nav-sub" style="color:#5a8a64;">Loading…</div>
+    </div>
+  </div>
+  <div class="nav-avatar" id="nav-avatar" onclick="switchView('profile')" style="color:#ffffff;">?</div>
+</nav>
+
+<!-- TODAY VIEW -->
+<div class="view active" id="view-today">
+
+  <div class="greeting">
+    <div class="g-eyebrow" style="color:#c9a55a;">Good to see you</div>
+    <div class="g-name" id="greeting-name" style="color:#ffffff;font-family:'Playfair Display',serif;">Loading…</div>
+    <div class="g-sub" id="greeting-date" style="color:#5a8a64;"></div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card" style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;">
+      <div class="stat-label" style="font-size:0.6rem;font-weight:700;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Today</div>
+      <div class="stat-value" id="stat-today" style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#ffffff;line-height:1;">0</div>
+      <div class="stat-sub" style="font-size:0.65rem;font-weight:600;color:#5a8a64;margin-top:4px;">lessons</div>
+    </div>
+    <div class="stat-card gold-border" style="background:#162a1e;border:1.5px solid rgba(201,165,90,0.3);border-radius:12px;padding:14px;">
+      <div class="stat-label" style="font-size:0.6rem;font-weight:700;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">This Week</div>
+      <div class="stat-value gold" id="stat-week" style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#c9a55a;line-height:1;">0</div>
+      <div class="stat-sub" style="font-size:0.65rem;font-weight:600;color:#5a8a64;margin-top:4px;">lessons</div>
+    </div>
+    <div class="stat-card" style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;">
+      <div class="stat-label" style="font-size:0.6rem;font-weight:700;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Week Rev</div>
+      <div class="stat-value" id="stat-rev" style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#ffffff;line-height:1;">$0</div>
+      <div class="stat-sub" style="font-size:0.65rem;font-weight:600;color:#5a8a64;margin-top:4px;">earned</div>
+    </div>
+    <div class="stat-card" style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;">
+      <div class="stat-label" style="font-size:0.6rem;font-weight:700;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Open Slots</div>
+      <div class="stat-value" id="stat-open" style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#ffffff;line-height:1;">—</div>
+      <div class="stat-sub" style="font-size:0.65rem;font-weight:600;color:#5a8a64;margin-top:4px;">this week</div>
+    </div>
+  </div>
+
+  <!-- Today's lessons -->
+  <div class="sec-hdr">
+    <div class="sec-title" style="font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.12em;text-transform:uppercase;">Today's Lessons</div>
+    <button class="sec-action" onclick="switchView('schedule')" style="font-size:0.72rem;font-weight:700;color:#c9a55a;background:none;border:none;cursor:pointer;">Full Schedule →</button>
+  </div>
+  <div id="today-list"></div>
+
+  <!-- Upcoming -->
+  <div class="sec-hdr">
+    <div class="sec-title" style="font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.12em;text-transform:uppercase;">Upcoming This Week</div>
+  </div>
+  <div id="upcoming-list"></div>
+
+  <!-- Profile link -->
+  <div class="sec-hdr">
+    <div class="sec-title" style="font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.12em;text-transform:uppercase;">My Booking Link</div>
+  </div>
+  <div class="link-card" style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;margin-bottom:8px;">
+    <div class="link-label" style="font-size:0.62rem;font-weight:700;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Share this link with students</div>
+    <div class="link-url" id="profile-link" style="font-size:0.78rem;font-weight:700;color:#c9a55a;word-break:break-all;margin-bottom:12px;line-height:1.5;">Loading…</div>
+    <div class="link-btns" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <button class="link-btn share" onclick="shareProfileLink()" style="background:#c9a55a;color:#0e1a12;border:none;border-radius:8px;padding:10px;font-size:0.78rem;font-weight:700;cursor:pointer;">⬆ Share</button>
+      <button class="link-btn copy" onclick="copyProfileLink()" style="background:#1e3024;color:#7a9a84;border:1.5px solid #2a4a32;border-radius:8px;padding:10px;font-size:0.78rem;font-weight:700;cursor:pointer;">📋 Copy</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- SCHEDULE VIEW -->
+<div class="view" id="view-schedule">
+  <div class="week-nav" style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:11px;padding:11px 14px;margin-bottom:12px;">
+    <button class="week-arrow" onclick="changeWeek(-1)" style="background:#1e3024;border:1.5px solid #2a4a32;border-radius:6px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#ffffff;">←</button>
+    <div style="text-align:center;">
+      <div class="week-label" id="week-label" style="font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;color:#ffffff;"></div>
+      <div class="week-sub" id="week-sub" style="font-size:0.62rem;font-weight:600;color:#5a8a64;margin-top:2px;"></div>
+    </div>
+    <button class="week-arrow" onclick="changeWeek(1)" style="background:#1e3024;border:1.5px solid #2a4a32;border-radius:6px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#ffffff;">→</button>
+  </div>
+
+  <div class="day-pills" id="day-pills"></div>
+
+  <div class="day-hdr">
+    <div>
+      <div class="day-hdr-title" id="day-title" style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:800;color:#ffffff;"></div>
+      <div class="day-hdr-sub" id="day-count" style="font-size:0.68rem;font-weight:600;color:#5a8a64;"></div>
+    </div>
+  </div>
+
+  <div class="sched-actions">
+    <button class="sched-btn add" onclick="openSheet('add-sheet');populateTimes('a-time');" style="background:#c9a55a;color:#0e1a12;border:none;border-radius:8px;padding:10px;font-size:0.75rem;font-weight:700;cursor:pointer;flex:1;">+ Add Booking</button>
+    <button class="sched-btn block" onclick="openSheet('block-sheet');populateTimes('b-start');populateTimes('b-end');" style="background:#1e3024;color:#7a9a84;border:1.5px solid #2a4a32;border-radius:8px;padding:10px;font-size:0.75rem;font-weight:700;cursor:pointer;flex:1;">Block Time</button>
+    <button class="sched-btn avail" onclick="openSheet('avail-sheet');" style="background:#1e3024;color:#7a9a84;border:1.5px solid #2a4a32;border-radius:8px;padding:10px;font-size:0.75rem;font-weight:700;cursor:pointer;flex:1;">Availability</button>
+  </div>
+
+  <div id="slot-list"></div>
+</div>
+
+<!-- PROFILE VIEW -->
+<div class="view" id="view-profile">
+
+  <div class="profile-card" style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:14px;padding:18px;margin-bottom:12px;">
+    <div class="pc-avatar" id="pc-avatar" style="width:64px;height:64px;border-radius:50%;background:linear-gradient(140deg,#1a3a6b,#0d2044);border:2px solid rgba(201,165,90,0.5);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#ffffff;margin-bottom:12px;">?</div>
+    <div class="pc-name" id="pc-name" style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:#ffffff;margin-bottom:3px;"></div>
+    <div class="pc-title" id="pc-title" style="font-size:0.75rem;font-weight:600;color:#5a8a64;margin-bottom:12px;"></div>
+    <div class="pc-stat-row" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;">
+      <div class="pc-stat" style="text-align:center;background:#1e3024;border-radius:8px;padding:9px 6px;">
+        <div class="pc-stat-val" id="pcs-total" style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:800;color:#c9a55a;">0</div>
+        <div class="pc-stat-lbl" style="font-size:0.55rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">Total Lessons</div>
+      </div>
+      <div class="pc-stat" style="text-align:center;background:#1e3024;border-radius:8px;padding:9px 6px;">
+        <div class="pc-stat-val" id="pcs-free" style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:800;color:#c9a55a;">0</div>
+        <div class="pc-stat-lbl" style="font-size:0.55rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">Free Intros</div>
+      </div>
+      <div class="pc-stat" style="text-align:center;background:#1e3024;border-radius:8px;padding:9px 6px;">
+        <div class="pc-stat-val" id="pcs-rate" style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:800;color:#c9a55a;">$0</div>
+        <div class="pc-stat-lbl" style="font-size:0.55rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">My Rate</div>
+      </div>
+    </div>
+    <button onclick="viewMyProfile()" style="width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:9px;padding:12px;font-size:0.85rem;font-weight:800;cursor:pointer;">View My Profile Page →</button>
+  </div>
+
+  <div class="settings-list">
+    <div class="setting-row" onclick="openSheet('avail-sheet')" style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:10px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+      <div style="display:flex;align-items:center;gap:11px;">
+        <div style="font-size:1rem;width:22px;text-align:center;">📅</div>
+        <div><div style="font-size:0.85rem;font-weight:700;color:#ffffff;">Availability</div><div style="font-size:0.65rem;font-weight:500;color:#5a8a64;margin-top:1px;">Set your teaching days and times</div></div>
+      </div>
+      <div style="color:#3a5a42;">›</div>
+    </div>
+    <div class="setting-row" onclick="shareProfileLink()" style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:10px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+      <div style="display:flex;align-items:center;gap:11px;">
+        <div style="font-size:1rem;width:22px;text-align:center;">🔗</div>
+        <div><div style="font-size:0.85rem;font-weight:700;color:#ffffff;">Share My Profile</div><div style="font-size:0.65rem;font-weight:500;color:#5a8a64;margin-top:1px;">Send your booking link to students</div></div>
+      </div>
+      <div style="color:#3a5a42;">›</div>
+    </div>
+    <div class="setting-row" onclick="switchView('schedule')" style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:10px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+      <div style="display:flex;align-items:center;gap:11px;">
+        <div style="font-size:1rem;width:22px;text-align:center;">📆</div>
+        <div><div style="font-size:0.85rem;font-weight:700;color:#ffffff;">My Schedule</div><div style="font-size:0.65rem;font-weight:500;color:#5a8a64;margin-top:1px;">Manage bookings and time blocks</div></div>
+      </div>
+      <div style="color:#3a5a42;">›</div>
+    </div>
+  </div>
+
+  <button class="signout-btn" onclick="signOut()" style="width:100%;background:#1a0e0e;color:#e05050;border:1.5px solid #3a1a1a;border-radius:10px;padding:13px;font-size:0.88rem;font-weight:700;cursor:pointer;margin-top:16px;">Sign Out</button>
+
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tbar-btn active" id="tb-today" onclick="switchView('today')">
+    <span class="tbar-icon">🏠</span>
+    <span class="tbar-lbl" style="color:#c9a55a;">Today</span>
+  </button>
+  <button class="tbar-btn" id="tb-schedule" onclick="switchView('schedule')">
+    <span class="tbar-icon">📅</span>
+    <span class="tbar-lbl" style="color:#5a8a64;">Schedule</span>
+  </button>
+  <button class="tbar-btn" id="tb-profile" onclick="switchView('profile')">
+    <span class="tbar-icon">👤</span>
+    <span class="tbar-lbl" style="color:#5a8a64;">Profile</span>
+  </button>
+</div>
+
+<!-- BOOKING DETAIL SHEET -->
+<div class="overlay" id="detail-sheet" onclick="closeOuter(event,'detail-sheet')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" onclick="closeSheet('detail-sheet')" style="float:right;background:none;border:none;color:#5a8a64;font-size:1.1rem;cursor:pointer;">✕</button>
+    <div class="sheet-title" id="ds-name" style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#ffffff;margin-bottom:4px;"></div>
+    <div class="sheet-sub" id="ds-sub" style="font-size:0.72rem;font-weight:600;color:#5a8a64;margin-bottom:14px;"></div>
+    <div id="ds-badge" style="margin-bottom:14px;"></div>
+    <div id="ds-details"></div>
+    <div style="margin-top:16px;">
+      <button class="mbtn ghost" onclick="closeSheet('detail-sheet')" style="width:100%;background:#1e3024;color:#5a8a64;border:1.5px solid #2a4a32;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;margin-bottom:8px;">Close</button>
+      <button class="mbtn danger" onclick="cancelBooking()" style="width:100%;background:#1a0e0e;color:#e05050;border:1.5px solid #3a1a1a;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;">Cancel Booking</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD BOOKING SHEET -->
+<div class="overlay" id="add-sheet" onclick="closeOuter(event,'add-sheet')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" onclick="closeSheet('add-sheet')" style="float:right;background:none;border:none;color:#5a8a64;font-size:1.1rem;cursor:pointer;">✕</button>
+    <div class="sheet-title" style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#ffffff;margin-bottom:4px;">Add Booking</div>
+    <div class="sheet-sub" style="font-size:0.72rem;font-weight:600;color:#5a8a64;margin-bottom:18px;">Manually add a lesson to your schedule</div>
+    <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Student Name</div>
+    <input class="finput" id="a-name" placeholder="First and last name" type="text" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;"/>
+    <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Student Email</div>
+    <input class="finput" id="a-email" placeholder="student@email.com" type="email" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;"/>
+    <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Student Phone</div>
+    <input class="finput" id="a-phone" placeholder="(801) 555-0000" type="tel" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;"/>
+    <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Date</div>
+    <input class="finput" id="a-date" type="date" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;"/>
+    <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Time</div>
+    <select class="fselect" id="a-time" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;appearance:none;"></select>
+    <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Session Type</div>
+    <select class="fselect" id="a-type" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;appearance:none;">
+      <option value="Single Lesson">Single Lesson · 60 min</option>
+      <option value="Free Intro">Free Intro (CARSON code) · 30 min</option>
+      <option value="3-Pack">3-Pack</option>
+      <option value="6-Pack">6-Pack</option>
+      <option value="10-Pack">10-Pack</option>
+    </select>
+    <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Notes</div>
+    <textarea class="ftextarea" id="a-notes" placeholder="Skill level, what they want to work on…" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.85rem;color:#ffffff;outline:none;resize:none;height:76px;line-height:1.6;margin-bottom:12px;"></textarea>
+    <button class="mbtn primary" onclick="saveBooking()" style="width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;margin-bottom:8px;">Add to Schedule</button>
+    <button class="mbtn ghost" onclick="closeSheet('add-sheet')" style="width:100%;background:#1e3024;color:#5a8a64;border:1.5px solid #2a4a32;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;">Cancel</button>
+  </div>
+</div>
+
+<!-- BLOCK TIME SHEET -->
+<div class="overlay" id="block-sheet" onclick="closeOuter(event,'block-sheet')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" onclick="closeSheet('block-sheet')" style="float:right;background:none;border:none;color:#5a8a64;font-size:1.1rem;cursor:pointer;">✕</button>
+    <div class="sheet-title" style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#ffffff;margin-bottom:4px;">Block Time</div>
+    <div class="sheet-sub" style="font-size:0.72rem;font-weight:600;color:#5a8a64;margin-bottom:18px;">Students won't be able to book these times</div>
+    <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Date</div>
+    <input class="finput" id="b-date" type="date" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;"/>
+    <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Start Time</div>
+    <select class="fselect" id="b-start" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;appearance:none;"></select>
+    <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">End Time</div>
+    <select class="fselect" id="b-end" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;appearance:none;"></select>
+    <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Reason</div>
+    <select class="fselect" id="b-reason" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;appearance:none;">
+      <option>Tournament</option><option>Travel</option><option>Personal</option>
+      <option>Course Maintenance</option><option>Weather</option><option>Other</option>
+    </select>
+    <button class="mbtn primary" onclick="saveBlock()" style="width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;margin-bottom:8px;">Block This Time</button>
+    <button class="mbtn ghost" onclick="closeSheet('block-sheet')" style="width:100%;background:#1e3024;color:#5a8a64;border:1.5px solid #2a4a32;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;">Cancel</button>
+  </div>
+</div>
+
+<!-- AVAILABILITY SHEET -->
+<div class="overlay" id="avail-sheet" onclick="closeOuter(event,'avail-sheet')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" onclick="closeSheet('avail-sheet')" style="float:right;background:none;border:none;color:#5a8a64;font-size:1.1rem;cursor:pointer;">✕</button>
+    <div class="sheet-title" style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#ffffff;margin-bottom:4px;">My Availability</div>
+    <div class="sheet-sub" style="font-size:0.72rem;font-weight:600;color:#5a8a64;margin-bottom:18px;">Students can only book during these times</div>
+    <div style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Teaching Days</div>
+    <div class="avail-days" id="avail-days" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px;"></div>
+    <div style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Session Times</div>
+    <div class="atime-list" id="avail-times" style="display:flex;flex-direction:column;gap:5px;margin-bottom:16px;"></div>
+    <button class="mbtn primary" onclick="saveAvailability()" style="width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;margin-bottom:8px;">Save Availability</button>
+    <button class="mbtn ghost" onclick="closeSheet('avail-sheet')" style="width:100%;background:#1e3024;color:#5a8a64;border:1.5px solid #2a4a32;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;">Cancel</button>
+  </div>
+</div>
+
+<script>
+var SUPA_URL = 'https://tyrtonoxcakzoggbrqus.supabase.co';
+var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR5cnRvbm94Y2Frem9nZ2JycXVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2MTA0MzgsImV4cCI6MjA5MTE4NjQzOH0.qjD6DWnywjbLKU0F7WrYSHUhEXDJfQI7ZSJb2O6qYyM';
+
+function db(path, opts) {
+  return fetch(SUPA_URL + '/rest/v1/' + path, Object.assign({
+    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json','Prefer':'return=representation'}
+  }, opts||{}));
+}
+
+// ── SESSION ──
+var session = null;
+var instructorId = '';
+var instructorName = '';
+var instructorRate = 150;
+
+(function(){
+  var s = localStorage.getItem('cadi_instructor');
+  if (!s) { window.location.href = '/instructor-login.html'; return; }
+  try {
+    session = JSON.parse(s);
+    if (!session || !session.id) { window.location.href = '/instructor-login.html'; return; }
+    instructorId = session.id;
+    instructorName = session.name || 'Instructor';
+    var initials = instructorName.split(' ').map(function(w){return w[0];}).join('').substring(0,2).toUpperCase();
+    document.getElementById('nav-avatar').textContent = initials;
+    document.getElementById('nav-name').textContent = instructorName.split(' ')[0] + '\'s Dashboard';
+    document.getElementById('nav-sub').textContent = 'Welcome back';
+    document.getElementById('pc-avatar').textContent = initials;
+    document.getElementById('pc-name').textContent = instructorName;
+    // Load instructor rate from Supabase
+    db('instructors?instructor_id=eq.'+encodeURIComponent(instructorId)+'&select=rate,title,course')
+      .then(function(r){return r.json();})
+      .then(function(rows){
+        if(Array.isArray(rows)&&rows.length>0){
+          instructorRate = rows[0].rate || 150;
+          document.getElementById('pc-title').textContent = (rows[0].title||'Golf Instructor') + ' · ' + (rows[0].course||'');
+          document.getElementById('pcs-rate').textContent = '$' + instructorRate;
+        }
+      }).catch(function(){});
+  } catch(e) { window.location.href = '/instructor-login.html'; }
+})();
+
+// ── DATA ──
+var DAYS_SHORT   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var DAYS_FULL    = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+var MONTHS       = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var TIMES = ['7:00 AM','7:30 AM','8:00 AM','8:30 AM','9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM','12:30 PM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM','4:00 PM','4:30 PM','5:00 PM'];
+
+var availability = {
+  days:[false,true,true,false,true,true,true,false],
+  times:{'7:00 AM':false,'7:30 AM':false,'8:00 AM':true,'8:30 AM':true,'9:00 AM':true,'9:30 AM':true,'10:00 AM':true,'10:30 AM':true,'11:00 AM':true,'11:30 AM':true,'12:00 PM':false,'12:30 PM':false,'1:00 PM':true,'1:30 PM':true,'2:00 PM':true,'2:30 PM':true,'3:00 PM':true,'3:30 PM':true,'4:00 PM':false,'4:30 PM':false,'5:00 PM':false}
+};
+var bookings = [];
+var blocked  = [];
+var curDay   = 0;
+var weekOff  = 0;
+var curView  = 'today';
+var curDetailId = null;
+
+function dateStr(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function getToday(){var d=new Date();d.setHours(0,0,0,0);return d;}
+
+function getWeekDates(){
+  var t=getToday(); var day=t.getDay();
+  var diff=day===0?-6:1-day;
+  var mon=new Date(t); mon.setDate(t.getDate()+diff+weekOff*7);
+  var dates=[];
+  for(var i=0;i<7;i++){var d=new Date(mon);d.setDate(mon.getDate()+i);dates.push(d);}
+  return dates;
+}
+
+// ── LOAD DATA ──
+function loadData(){
+  var dates=getWeekDates();
+  var minD=dateStr(dates[0]); var maxD=dateStr(dates[6]);
+  db('bookings?instructor_id=eq.'+instructorId+'&session_date=gte.'+minD+'&session_date=lte.'+maxD+'&status=neq.cancelled&select=*&order=session_time.asc')
+    .then(function(r){return r.json();})
+    .then(function(rows){
+      bookings=Array.isArray(rows)?rows.map(function(b){return{id:b.id,date:b.session_date,time:b.session_time,name:b.student_name,email:b.student_email,phone:b.student_phone||'',type:b.session_type,notes:b.notes||'',status:b.status,free:b.is_free,price:b.price};}):[]; renderAll();
+    }).catch(function(){renderAll();});
+  db('blocked_times?instructor_id=eq.'+instructorId+'&block_date=gte.'+minD+'&block_date=lte.'+maxD+'&select=*')
+    .then(function(r){return r.json();})
+    .then(function(rows){blocked=Array.isArray(rows)?rows.map(function(b){return{id:b.id,date:b.block_date,time:b.start_time,endTime:b.end_time,reason:b.reason};}):[]; renderAll();}).catch(function(){});
+  db('availability?instructor_id=eq.'+instructorId+'&select=*')
+    .then(function(r){return r.json();})
+    .then(function(rows){
+      if(rows&&rows.length>0){
+        if(rows[0].days){var d=rows[0].days;availability.days=[d['0'],d['1'],d['2'],d['3'],d['4'],d['5'],d['6']].map(Boolean);}
+        if(rows[0].times)availability.times=rows[0].times;
+      }
+      renderAll();
+    }).catch(function(){});
+  // Load all-time stats for profile
+  db('bookings?instructor_id=eq.'+instructorId+'&status=neq.cancelled&select=is_free,price')
+    .then(function(r){return r.json();})
+    .then(function(rows){
+      if(!Array.isArray(rows))return;
+      var total=rows.length; var free=rows.filter(function(b){return b.is_free;}).length;
+      document.getElementById('pcs-total').textContent=total;
+      document.getElementById('pcs-free').textContent=free;
+    }).catch(function(){});
+}
+
+// ── RENDER ALL ──
+function renderAll(){
+  renderGreeting();
+  renderStats();
+  renderTodayList();
+  renderUpcomingList();
+  renderProfileLink();
+  renderWeekBar();
+  renderDayView();
+}
+
+function renderGreeting(){
+  var today=getToday();
+  var h=new Date().getHours();
+  var greeting='Good morning';
+  if(h>=12&&h<17)greeting='Good afternoon';
+  else if(h>=17)greeting='Good evening';
+  document.getElementById('greeting-name').textContent=greeting+', '+instructorName.split(' ')[0]+'.';
+  document.getElementById('greeting-date').textContent=DAYS_FULL[today.getDay()]+', '+MONTHS[today.getMonth()]+' '+today.getDate();
+}
+
+function renderStats(){
+  var dates=getWeekDates(); var todayStr=dateStr(getToday());
+  var todayCount=bookings.filter(function(b){return b.date===todayStr;}).length;
+  var weekCount=0; var weekRev=0; var openCount=0;
+  dates.forEach(function(d){
+    var ds=dateStr(d);
+    bookings.forEach(function(b){if(b.date===ds){weekCount++;if(!b.free)weekRev+=(b.price||instructorRate);}});
+    if(availability.days[d.getDay()]){
+      TIMES.forEach(function(t){
+        if(availability.times[t]){
+          var bk=bookings.some(function(b){return b.date===ds&&b.time===t;});
+          var bl=blocked.some(function(b){return b.date===ds&&b.time===t;});
+          if(!bk&&!bl)openCount++;
+        }
+      });
+    }
+  });
+  document.getElementById('stat-today').textContent=todayCount;
+  document.getElementById('stat-week').textContent=weekCount;
+  document.getElementById('stat-rev').textContent='$'+weekRev;
+  document.getElementById('stat-open').textContent=openCount;
+}
+
+function renderTodayList(){
+  var todayStr=dateStr(getToday());
+  var todayB=bookings.filter(function(b){return b.date===todayStr;});
+  var el=document.getElementById('today-list');
+  if(todayB.length===0){
+    el.innerHTML='<div class="empty" style="text-align:center;padding:24px 16px;background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;">'
+      +'<div style="font-size:1.6rem;margin-bottom:8px;">⛳</div>'
+      +'<div style="font-size:0.85rem;font-weight:700;color:#ffffff;margin-bottom:5px;">No lessons today</div>'
+      +'<div style="font-size:0.72rem;font-weight:500;color:#5a8a64;line-height:1.6;">Share your profile link to get bookings.</div>'
+      +'</div>';
+  } else {
+    el.innerHTML=todayB.map(function(b){return bookingCardHTML(b);}).join('');
+  }
+}
+
+function renderUpcomingList(){
+  var todayStr=dateStr(getToday());
+  var upcoming=bookings.filter(function(b){return b.date>todayStr;}).slice(0,5);
+  var el=document.getElementById('upcoming-list');
+  if(upcoming.length===0){
+    el.innerHTML='<div style="text-align:center;padding:16px;font-size:0.75rem;font-weight:600;color:#3a5a42;">No upcoming lessons this week</div>';
+  } else {
+    el.innerHTML=upcoming.map(function(b){return bookingCardHTML(b);}).join('');
+  }
+}
+
+function bookingCardHTML(b){
+  var d=new Date(b.date+'T00:00:00');
+  var dateLabel=DAYS_SHORT[d.getDay()]+' '+MONTHS_SHORT[d.getMonth()]+' '+d.getDate();
+  return '<div onclick="openDetail(\''+b.id+'\')" style="background:#162a1e;border:1.5px solid '+(b.free?'rgba(201,165,90,0.35)':'#2a4a32')+';border-radius:11px;padding:13px 14px;margin-bottom:8px;cursor:pointer;">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">'
+    +'<div style="font-size:0.88rem;font-weight:800;color:#ffffff;">'+b.name+'</div>'
+    +(b.free?'<span style="font-size:0.6rem;font-weight:800;color:#c9a55a;background:rgba(201,165,90,0.12);border:1px solid rgba(201,165,90,0.3);border-radius:4px;padding:2px 7px;">FREE</span>'
+    :'<div style="font-size:0.82rem;font-weight:800;color:#4ade80;">$'+(b.price||instructorRate)+'</div>')
+    +'</div>'
+    +'<div style="display:flex;align-items:center;gap:8px;">'
+    +'<div style="font-size:0.72rem;font-weight:700;color:#7a9a84;">'+dateLabel+' · '+b.time+'</div>'
+    +'<div style="font-size:0.68rem;font-weight:600;color:#5a8a64;background:#1e3024;border-radius:4px;padding:2px 8px;">'+b.type+'</div>'
+    +'</div></div>';
+}
+
+function renderProfileLink(){
+  var url='https://cadi-nine.vercel.app/profile.html?id='+instructorId;
+  document.getElementById('profile-link').textContent=url;
+}
+
+// ── SCHEDULE ──
+function renderWeekBar(){
+  var dates=getWeekDates(); var mon=dates[0]; var sun=dates[6];
+  document.getElementById('week-label').textContent=MONTHS_SHORT[mon.getMonth()]+' '+mon.getDate()+' – '+MONTHS_SHORT[sun.getMonth()]+' '+sun.getDate()+', '+sun.getFullYear();
+  var wk=0,wr=0;
+  dates.forEach(function(d){var ds=dateStr(d);bookings.forEach(function(b){if(b.date===ds){wk++;if(!b.free)wr+=(b.price||instructorRate);}});});
+  document.getElementById('week-sub').textContent=wk+' lesson'+(wk!==1?'s':'')+' · $'+wr;
+  var todayStr=dateStr(getToday());
+  var html='';
+  dates.forEach(function(d,i){
+    var ds=dateStr(d);
+    var hasE=bookings.some(function(b){return b.date===ds;})||blocked.some(function(b){return b.date===ds;});
+    var isT=ds===todayStr; var isA=i===curDay;
+    var cls='dpill'+(isA?' active':hasE?' has':'')+(isT&&!isA?' today-pill':'');
+    html+='<div class="'+cls+'" onclick="selectDay('+i+')" style="background:'+(isA?'#c9a55a':hasE?'#1a3a22':'#162a1e')+';border:1.5px solid '+(isA?'#c9a55a':hasE?'#1a5c2a':isT?'#c9a55a':'#2a4a32')+';border-radius:8px;padding:7px 3px;text-align:center;cursor:pointer;">'
+      +'<div style="font-size:0.52rem;font-weight:700;color:'+(isA?'rgba(14,26,18,0.7)':hasE?'#4ade80':'#5a8a64')+';text-transform:uppercase;letter-spacing:0.04em;">'+DAYS_SHORT[d.getDay()]+'</div>'
+      +'<div style="font-family:\'Playfair Display\',serif;font-size:1rem;font-weight:800;color:'+(isA?'#0e1a12':hasE?'#4ade80':'#ffffff')+';">'+d.getDate()+'</div>'
+      +'<div style="width:4px;height:4px;border-radius:50%;margin:3px auto 0;background:'+(isA&&hasE?'rgba(14,26,18,0.4)':hasE?'#1a5c2a':'transparent')+';"></div>'
+      +'</div>';
+  });
+  document.getElementById('day-pills').innerHTML=html;
+}
+
+function selectDay(i){curDay=i;renderWeekBar();renderDayView();}
+
+function renderDayView(){
+  var dates=getWeekDates(); var d=dates[curDay]; var ds=dateStr(d);
+  document.getElementById('day-title').textContent=DAYS_FULL[d.getDay()]+', '+MONTHS[d.getMonth()]+' '+d.getDate();
+  var dayB=bookings.filter(function(b){return b.date===ds;});
+  document.getElementById('day-count').textContent=dayB.length>0?dayB.length+' lesson'+(dayB.length!==1?'s':'')+' today':'No lessons today';
+  var isDayOn=availability.days[d.getDay()];
+  var html=''; var lastH=-1;
+  TIMES.forEach(function(t){
+    var h=parseInt(t.split(':')[0]); var isPM=t.indexOf('PM')>-1&&h!==12; var h24=isPM?h+12:(h===12?12:h);
+    if(h24!==lastH){lastH=h24;var dl=h===12?'12 PM':(isPM?h+' PM':h+' AM');
+      html+='<div style="display:flex;align-items:center;gap:8px;margin:8px 0 4px;">'
+        +'<div style="flex:1;height:1px;background:#1e3024;"></div>'
+        +'<div style="font-size:0.58rem;font-weight:700;color:#3a5a42;white-space:nowrap;">'+dl+'</div>'
+        +'<div style="flex:1;height:1px;background:#1e3024;"></div></div>';}
+    var bk=bookings.find(function(b){return b.date===ds&&b.time===t;});
+    var bl=blocked.find(function(b){return b.date===ds&&b.time===t;});
+    var isOn=availability.times[t];
+    html+='<div style="display:flex;gap:8px;margin-bottom:5px;">'
+      +'<div style="width:50px;flex-shrink:0;padding-top:12px;text-align:right;"><div style="font-size:0.62rem;font-weight:700;color:#3a5a42;">'+t+'</div></div>';
+    if(bk){
+      html+='<div onclick="openDetail(\''+bk.id+'\')" style="flex:1;min-height:46px;border-radius:9px;border:1.5px solid #1a5c2a;background:#162a1e;cursor:pointer;overflow:hidden;">'
+        +'<div style="padding:9px 11px;">'
+        +'<div style="font-size:0.8rem;font-weight:800;color:#4ade80;">'+bk.name+(bk.free?'<span style="font-size:0.58rem;font-weight:800;color:#c9a55a;margin-left:5px;">FREE</span>':'')+'</div>'
+        +'<div style="font-size:0.65rem;font-weight:600;color:#5a8a64;margin-top:2px;">'+bk.type+'</div>'
+        +'</div></div>';
+    } else if(bl){
+      html+='<div style="flex:1;min-height:46px;border-radius:9px;border:1.5px solid #3a1a1a;background:#1a0e0e;overflow:hidden;">'
+        +'<div style="padding:9px 11px;">'
+        +'<div style="font-size:0.75rem;font-weight:700;color:#e05050;">Blocked — '+bl.reason+'</div>'
+        +'<div style="font-size:0.62rem;font-weight:600;color:#7a3a3a;margin-top:2px;">Not available</div>'
+        +'</div></div>';
+    } else if(!isDayOn||!isOn){
+      html+='<div style="flex:1;min-height:46px;border-radius:9px;border:1.5px solid #131e15;background:#0d150f;opacity:0.4;"><div style="padding:9px 11px;"><div style="font-size:0.68rem;font-weight:600;color:#2a4a32;">Not available</div></div></div>';
+    } else {
+      html+='<div onclick="quickAdd(\''+ds+'\',\''+t+'\')" style="flex:1;min-height:46px;border-radius:9px;border:1.5px solid #1e3024;background:#111c14;cursor:pointer;">'
+        +'<div style="padding:9px 11px;"><div style="font-size:0.68rem;font-weight:600;color:#2a4a32;">Open — tap to add</div></div></div>';
+    }
+    html+='</div>';
+  });
+  document.getElementById('slot-list').innerHTML=html;
+}
+
+function changeWeek(dir){weekOff+=dir;curDay=0;bookings=[];blocked=[];loadData();}
+
+// ── DETAIL ──
+function openDetail(id){
+  var b=bookings.find(function(x){return x.id===id;});
+  if(!b)return;
+  curDetailId=id;
+  var d=new Date(b.date+'T00:00:00');
+  document.getElementById('ds-name').textContent=b.name;
+  document.getElementById('ds-sub').textContent=DAYS_FULL[d.getDay()]+', '+MONTHS[d.getMonth()]+' '+d.getDate()+' · '+b.time;
+  document.getElementById('ds-badge').innerHTML=b.free
+    ?'<span style="background:rgba(201,165,90,0.1);color:#c9a55a;border:1px solid rgba(201,165,90,0.3);border-radius:4px;padding:3px 8px;font-size:0.62rem;font-weight:800;">🎁 FREE — CARSON CODE</span>'
+    :'<span style="background:#162a1e;color:#4ade80;border:1px solid #1a5c2a;border-radius:4px;padding:3px 8px;font-size:0.62rem;font-weight:800;">✓ CONFIRMED</span>';
+  document.getElementById('ds-details').innerHTML=
+    '<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #1e3024;"><div style="font-size:0.95rem;width:20px;text-align:center;flex-shrink:0;margin-top:2px;">🎯</div><div><div style="font-size:0.6rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Session</div><div style="font-size:0.83rem;font-weight:700;color:#ffffff;">'+b.type+'</div></div></div>'
+    +'<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #1e3024;"><div style="font-size:0.95rem;width:20px;text-align:center;flex-shrink:0;margin-top:2px;">📧</div><div><div style="font-size:0.6rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Email</div><div style="font-size:0.83rem;font-weight:700;color:#ffffff;">'+b.email+'</div></div></div>'
+    +(b.phone?'<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #1e3024;"><div style="font-size:0.95rem;width:20px;text-align:center;flex-shrink:0;margin-top:2px;">📱</div><div><div style="font-size:0.6rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Phone</div><div style="font-size:0.83rem;font-weight:700;color:#ffffff;">'+b.phone+'</div></div></div>':'')
+    +(b.notes?'<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #1e3024;"><div style="font-size:0.95rem;width:20px;text-align:center;flex-shrink:0;margin-top:2px;">📝</div><div><div style="font-size:0.6rem;font-weight:700;color:#5a8a64;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Notes</div><div style="font-size:0.83rem;font-weight:700;color:#ffffff;">'+b.notes+'</div></div></div>':'');
+  openSheet('detail-sheet');
+}
+
+function cancelBooking(){
+  if(!curDetailId)return;
+  if(confirm('Cancel this booking? This cannot be undone.')){
+    db('bookings?id=eq.'+curDetailId,{method:'PATCH',body:JSON.stringify({status:'cancelled'})}).catch(function(){});
+    bookings=bookings.filter(function(b){return b.id!==curDetailId;});
+    closeSheet('detail-sheet'); renderAll();
+  }
+}
+
+// ── ADD BOOKING ──
+function quickAdd(date,time){
+  document.getElementById('a-date').value=date;
+  populateTimes('a-time');
+  setTimeout(function(){
+    var sel=document.getElementById('a-time');
+    for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===time){sel.selectedIndex=i;break;}}
+  },100);
+  openSheet('add-sheet');
+}
+
+function saveBooking(){
+  var name=document.getElementById('a-name').value.trim();
+  var email=document.getElementById('a-email').value.trim();
+  var phone=document.getElementById('a-phone').value.trim();
+  var date=document.getElementById('a-date').value;
+  var time=document.getElementById('a-time').value;
+  var type=document.getElementById('a-type').value;
+  var notes=document.getElementById('a-notes').value.trim();
+  if(!name||!date||!time){alert('Please fill in name, date and time.');return;}
+  var isFree=type.indexOf('Free')>-1||type.indexOf('CARSON')>-1;
+  var btn=document.querySelector('#add-sheet .mbtn.primary');
+  if(btn){btn.textContent='Saving…';btn.disabled=true;}
+  db('bookings',{method:'POST',body:JSON.stringify({
+    instructor_id:instructorId,student_name:name,student_email:email,student_phone:phone||null,
+    session_type:type,session_date:date,session_time:time,notes:notes||null,
+    is_free:isFree,status:'confirmed',price:isFree?0:instructorRate
+  })})
+  .then(function(r){return r.json();})
+  .then(function(rows){
+    var b=rows&&rows[0]?rows[0]:null;
+    bookings.push({id:b?b.id:Date.now(),date:date,time:time,name:name,email:email,phone:phone,type:type,notes:notes,status:'confirmed',free:isFree,price:isFree?0:instructorRate});
+    ['a-name','a-email','a-phone','a-notes'].forEach(function(id){document.getElementById(id).value='';});
+    closeSheet('add-sheet');
+    if(btn){btn.textContent='Add to Schedule';btn.disabled=false;}
+    renderAll();
+  }).catch(function(){
+    bookings.push({id:Date.now(),date:date,time:time,name:name,email:email,phone:phone,type:type,notes:notes,status:'confirmed',free:isFree});
+    closeSheet('add-sheet');
+    if(btn){btn.textContent='Add to Schedule';btn.disabled=false;}
+    renderAll();
+  });
+}
+
+// ── BLOCK ──
+function saveBlock(){
+  var date=document.getElementById('b-date').value;
+  var start=document.getElementById('b-start').value;
+  var end=document.getElementById('b-end').value;
+  var reason=document.getElementById('b-reason').value;
+  if(!date||!start){alert('Please fill in date and start time.');return;}
+  db('blocked_times',{method:'POST',body:JSON.stringify({instructor_id:instructorId,block_date:date,start_time:start,end_time:end,reason:reason})})
+    .then(function(r){return r.json();})
+    .then(function(rows){
+      blocked.push({id:rows&&rows[0]?rows[0].id:Date.now(),date:date,time:start,endTime:end,reason:reason});
+      closeSheet('block-sheet'); renderAll();
+    }).catch(function(){
+      blocked.push({date:date,time:start,endTime:end,reason:reason});
+      closeSheet('block-sheet'); renderAll();
+    });
+}
+
+// ── AVAILABILITY ──
+function openSheet_avail(){
+  var DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var DABBR=['S','M','T','W','T','F','S'];
+  var html='';
+  DAYS.forEach(function(d,i){
+    html+='<div onclick="toggleAvDay('+i+')" style="background:'+(availability.days[i]?'#1a5c2a':'#1e3024')+';border:1.5px solid '+(availability.days[i]?'#1a5c2a':'#2a4a32')+';border-radius:7px;padding:8px 3px;text-align:center;cursor:pointer;">'
+      +'<div style="font-size:0.52rem;font-weight:700;color:'+(availability.days[i]?'rgba(255,255,255,0.65)':'#3a5a42')+';text-transform:uppercase;">'+d+'</div>'
+      +'<div style="font-size:0.92rem;font-weight:800;color:#ffffff;">'+DABBR[i]+'</div></div>';
+  });
+  document.getElementById('avail-days').innerHTML=html;
+  var TSLOTS=[{l:'7:00 AM',k:'7:00 AM'},{l:'8:00 AM',k:'8:00 AM'},{l:'9:00 AM',k:'9:00 AM'},{l:'10:00 AM',k:'10:00 AM'},{l:'11:00 AM',k:'11:00 AM'},{l:'12:00 PM',k:'12:00 PM'},{l:'1:00 PM',k:'1:00 PM'},{l:'2:00 PM',k:'2:00 PM'},{l:'3:00 PM',k:'3:00 PM'},{l:'4:00 PM',k:'4:00 PM'},{l:'5:00 PM',k:'5:00 PM'}];
+  html='';
+  TSLOTS.forEach(function(t){
+    var on=availability.times[t.k];
+    html+='<div style="background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:10px 13px;display:flex;align-items:center;justify-content:space-between;">'
+      +'<div><div style="font-size:0.82rem;font-weight:700;color:#ffffff;">'+t.l+'</div>'
+      +'<div style="font-size:0.62rem;font-weight:600;color:#5a8a64;margin-top:1px;">'+(on?'Available':'Not available')+'</div></div>'
+      +'<button onclick="toggleAvTime(\''+t.k+'\')" style="width:40px;height:22px;border-radius:11px;border:none;cursor:pointer;position:relative;background:'+(on?'#1a5c2a':'#2a4a32')+';flex-shrink:0;">'
+      +'<div style="position:absolute;top:2px;width:18px;height:18px;border-radius:50%;background:#ffffff;transition:left 0.2s;left:'+(on?'20':'2')+'px;box-shadow:0 1px 3px rgba(0,0,0,0.3);"></div>'
+      +'</button></div>';
+  });
+  document.getElementById('avail-times').innerHTML=html;
+}
+
+function toggleAvDay(i){availability.days[i]=!availability.days[i];openSheet_avail();}
+function toggleAvTime(k){availability.times[k]=!availability.times[k];openSheet_avail();}
+
+function saveAvailability(){
+  var dObj={};availability.days.forEach(function(v,i){dObj[String(i)]=v;});
+  db('availability?instructor_id=eq.'+instructorId,{method:'PATCH',body:JSON.stringify({days:dObj,times:availability.times})})
+    .then(function(){alert('Availability saved!');closeSheet('avail-sheet');renderAll();})
+    .catch(function(){alert('Saved locally.');closeSheet('avail-sheet');renderAll();});
+}
+
+// ── VIEW SWITCH ──
+function switchView(v){
+  curView=v;
+  ['today','schedule','profile'].forEach(function(n){
+    document.getElementById('view-'+n).classList.remove('active');
+    var tb=document.getElementById('tb-'+n);
+    if(tb){
+      tb.classList.remove('active');
+      tb.querySelector('.tbar-lbl').style.color='#5a8a64';
+    }
+  });
+  document.getElementById('view-'+v).classList.add('active');
+  var atb=document.getElementById('tb-'+v);
+  if(atb){atb.classList.add('active');atb.querySelector('.tbar-lbl').style.color='#c9a55a';}
+  if(v==='schedule')renderWeekBar();
+  if(v==='profile'){document.getElementById('pc-name').textContent=instructorName;document.getElementById('pc-avatar').textContent=instructorName.split(' ').map(function(w){return w[0];}).join('').substring(0,2).toUpperCase();}
+}
+
+// ── PROFILE LINK ──
+function shareProfileLink(){
+  var url='https://cadi-nine.vercel.app/profile.html?id='+instructorId;
+  if(navigator.share){navigator.share({title:'Book a golf lesson with '+instructorName,text:'Book your lesson online — it only takes a minute.',url:url});}
+  else{copyProfileLink();}
+}
+function copyProfileLink(){
+  var url='https://cadi-nine.vercel.app/profile.html?id='+instructorId;
+  navigator.clipboard.writeText(url).then(function(){alert('Link copied!\n'+url);}).catch(function(){alert('Your link:\n'+url);});
+}
+function viewMyProfile(){window.location.href='/profile.html?id='+instructorId;}
+function signOut(){if(confirm('Sign out?')){localStorage.removeItem('cadi_instructor');window.location.href='/instructor-login.html';}}
+
+// ── SHEETS ──
+function openSheet(id){
+  document.getElementById(id).classList.add('open');
+  if(id==='avail-sheet')openSheet_avail();
+}
+function closeSheet(id){document.getElementById(id).classList.remove('open');}
+function closeOuter(e,id){if(e.target===document.getElementById(id))closeSheet(id);}
+
+function populateTimes(id){
+  document.getElementById(id).innerHTML=TIMES.map(function(t){return'<option value="'+t+'">'+t+'</option>';}).join('');
+}
+
+// ── INIT ──
+(function(){
+  var today=new Date();
+  var ds=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+  document.getElementById('b-date').value=ds;
+  document.getElementById('a-date').value=ds;
+  populateTimes('b-start');populateTimes('b-end');populateTimes('a-time');
+})();
+
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
+
+renderAll();
+loadData();
+</script>
+</body>
+</html>
