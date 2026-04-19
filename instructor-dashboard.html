@@ -260,6 +260,15 @@ button,input,select,textarea{font-family:'DM Sans',sans-serif;}
     </div>
   </div>
 
+  <!-- Pending Requests -->
+
+  <div id="pending-section" style="display:none;">
+    <div class="sec-hdr">
+      <div class="sec-title" style="font-size:0.65rem;font-weight:800;color:#c9a55a;letter-spacing:0.12em;text-transform:uppercase;">⏰ Pending Requests <span id="pending-count" style="background:#c9a55a;color:#0e1a12;padding:2px 7px;border-radius:10px;font-size:0.58rem;margin-left:4px;">0</span></div>
+    </div>
+    <div id="pending-list"></div>
+  </div>
+
   <!-- Today's lessons -->
 
   <div class="sec-hdr">
@@ -434,8 +443,11 @@ button,input,select,textarea{font-family:'DM Sans',sans-serif;}
     <button onclick="saveNotes()" style="background:#1e3024;color:#7a9a84;border:1.5px solid #2a4a32;border-radius:8px;padding:11px;font-size:0.78rem;font-weight:700;cursor:pointer;">💾 Save Notes</button>
     <button onclick="previewRecap()" style="background:#1e3024;color:#c9a55a;border:1.5px solid rgba(201,165,90,0.3);border-radius:8px;padding:11px;font-size:0.78rem;font-weight:700;cursor:pointer;">👁 Preview Recap</button>
   </div>
-  <button onclick="sendRecap()" style="width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:9px;padding:13px;font-size:0.88rem;font-weight:800;cursor:pointer;margin-bottom:8px;">⬆ Send Recap to Student</button>
-  <div style="font-size:0.65rem;font-weight:500;color:#3a5a42;text-align:center;line-height:1.6;">Recap is sent to the student's email. Private notes stay on your dashboard only.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+    <button onclick="sendRecapEmail()" style="background:#1e3024;color:#ffffff;border:1.5px solid #2a4a32;border-radius:9px;padding:13px;font-size:0.82rem;font-weight:800;cursor:pointer;">📧 Email Recap</button>
+    <button onclick="sendRecapText()" style="background:#c9a55a;color:#0e1a12;border:none;border-radius:9px;padding:13px;font-size:0.82rem;font-weight:800;cursor:pointer;">💬 Text Recap</button>
+  </div>
+  <div style="font-size:0.65rem;font-weight:500;color:#3a5a42;text-align:center;line-height:1.6;">Text opens your Messages app — you can attach a swing video before sending.</div>
 </div>
 
 <div style="margin-top:16px;padding-top:14px;border-top:1px solid #1e3024;">
@@ -630,11 +642,95 @@ function loadData(){
 function renderAll(){
   renderGreeting();
   renderStats();
+  renderPendingList();
   renderTodayList();
   renderUpcomingList();
   renderProfileLink();
   renderWeekBar();
   renderDayView();
+}
+
+function renderPendingList(){
+  var pending = bookings.filter(function(b){return b.status==='pending';});
+  var section = document.getElementById('pending-section');
+  var list = document.getElementById('pending-list');
+  if (pending.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+  section.style.display = 'block';
+  document.getElementById('pending-count').textContent = pending.length;
+  list.innerHTML = pending.map(function(b){
+    var d = new Date(b.date+'T00:00:00');
+    var dateLabel = DAYS_SHORT[d.getDay()]+' '+MONTHS_SHORT[d.getMonth()]+' '+d.getDate();
+    return '<div style="background:#162a1e;border:1.5px solid rgba(201,165,90,0.4);border-radius:11px;padding:13px 14px;margin-bottom:8px;">'
+      +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">'
+      +'<div style="font-size:0.88rem;font-weight:800;color:#ffffff;">'+b.name+'</div>'
+      +(b.free?'<span style="font-size:0.58rem;font-weight:800;color:#c9a55a;background:rgba(201,165,90,0.12);border:1px solid rgba(201,165,90,0.3);border-radius:4px;padding:2px 7px;">FREE</span>'
+      :'<div style="font-size:0.82rem;font-weight:800;color:#c9a55a;">$'+(b.price||instructorRate)+'</div>')
+      +'</div>'
+      +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">'
+      +'<div style="font-size:0.72rem;font-weight:700;color:#7a9a84;">'+dateLabel+' · '+b.time+'</div>'
+      +'<div style="font-size:0.68rem;font-weight:600;color:#5a8a64;background:#1e3024;border-radius:4px;padding:2px 8px;">'+b.type+'</div>'
+      +'</div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">'
+      +'<button onclick="confirmBooking(\''+b.id+'\')" style="background:#1a5c2a;color:#ffffff;border:none;border-radius:7px;padding:9px;font-size:0.72rem;font-weight:800;cursor:pointer;">✓ Confirm</button>'
+      +'<button onclick="textConfirmation(\''+b.id+'\')" style="background:#c9a55a;color:#0e1a12;border:none;border-radius:7px;padding:9px;font-size:0.72rem;font-weight:800;cursor:pointer;">💬 Confirm + Text</button>'
+      +'<button onclick="declineBooking(\''+b.id+'\')" style="background:#1a0e0e;color:#e05050;border:1.5px solid #3a1a1a;border-radius:7px;padding:9px;font-size:0.72rem;font-weight:800;cursor:pointer;">Decline</button>'
+      +'</div></div>';
+  }).join('');
+}
+
+function confirmBooking(id){
+  db('bookings?id=eq.'+id,{method:'PATCH',body:JSON.stringify({status:'confirmed'})})
+    .then(function(){
+      var b = bookings.find(function(x){return x.id===id;});
+      if (b) b.status = 'confirmed';
+      renderAll();
+    }).catch(function(){
+      var b = bookings.find(function(x){return x.id===id;});
+      if (b) b.status = 'confirmed';
+      renderAll();
+    });
+}
+
+function textConfirmation(id){
+  var b = bookings.find(function(x){return x.id===id;});
+  if (!b) return;
+  if (!b.phone) {
+    if (confirm('No phone number. Just confirm without text?')) confirmBooking(id);
+    return;
+  }
+  // Confirm in Supabase first
+  db('bookings?id=eq.'+id,{method:'PATCH',body:JSON.stringify({status:'confirmed'})}).catch(function(){});
+  b.status = 'confirmed';
+  // Build confirmation text
+  var d = new Date(b.date+'T00:00:00');
+  var dateLabel = DAYS_FULL[d.getDay()]+', '+MONTHS[d.getMonth()]+' '+d.getDate();
+  var msg = 'Hi '+b.name.split(' ')[0]+'! Your lesson with '+instructorName+' is confirmed for '+dateLabel+' at '+b.time+'. Looking forward to it — see you on the course! ⛳';
+  var phone = b.phone.replace(/[^0-9+]/g,'');
+  var smsUrl = 'sms:'+phone+'&body='+encodeURIComponent(msg);
+  window.open(smsUrl);
+  renderAll();
+}
+
+function declineBooking(id){
+  var b = bookings.find(function(x){return x.id===id;});
+  if (!b) return;
+  if (!confirm('Decline '+b.name+'\'s request? They\'ll need to rebook.')) return;
+  db('bookings?id=eq.'+id,{method:'PATCH',body:JSON.stringify({status:'cancelled'})}).catch(function(){});
+  bookings = bookings.filter(function(x){return x.id!==id;});
+  renderAll();
+  // Offer to text them
+  if (b.phone) {
+    setTimeout(function(){
+      if (confirm('Text '+b.name.split(' ')[0]+' to let them know?')) {
+        var msg = 'Hi '+b.name.split(' ')[0]+', unfortunately I can\'t make that time work. Please try booking another slot at cadi.golf — happy to get you on the schedule! — '+instructorName;
+        var phone = b.phone.replace(/[^0-9+]/g,'');
+        window.open('sms:'+phone+'&body='+encodeURIComponent(msg));
+      }
+    }, 300);
+  }
 }
 
 function renderGreeting(){
@@ -672,7 +768,7 @@ function renderStats(){
 
 function renderTodayList(){
   var todayStr=dateStr(getToday());
-  var todayB=bookings.filter(function(b){return b.date===todayStr;});
+  var todayB=bookings.filter(function(b){return b.date===todayStr && b.status!=='pending';});
   var el=document.getElementById('today-list');
   if(todayB.length===0){
     el.innerHTML='<div class="empty" style="text-align:center;padding:24px 16px;background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;">'
@@ -687,7 +783,7 @@ function renderTodayList(){
 
 function renderUpcomingList(){
   var todayStr=dateStr(getToday());
-  var upcoming=bookings.filter(function(b){return b.date>todayStr;}).slice(0,5);
+  var upcoming=bookings.filter(function(b){return b.date>todayStr && b.status!=='pending';}).slice(0,5);
   var el=document.getElementById('upcoming-list');
   if(upcoming.length===0){
     el.innerHTML='<div style="text-align:center;padding:16px;font-size:0.75rem;font-weight:600;color:#3a5a42;">No upcoming lessons this week</div>';
@@ -929,35 +1025,64 @@ function previewRecap(){
   document.getElementById('recap-preview').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-function sendRecap(){
+function buildRecapText(b){
+  var focus   = document.getElementById('note-focus').value.trim();
+  var progress= document.getElementById('note-progress').value.trim();
+  var homework= document.getElementById('note-homework').value.trim();
+  var recap='Hi '+b.name.split(' ')[0]+'!\n\nGreat lesson today. Here\'s your recap:\n\n';
+  if(focus)   recap+='📍 What we focused on:\n'+focus+'\n\n';
+  if(progress)recap+='✅ What\'s improving:\n'+progress+'\n\n';
+  if(homework)recap+='📋 Practice before next time:\n'+homework+'\n\n';
+  recap+='See you on the course!\n— '+instructorName;
+  return recap;
+}
+
+function sendRecapEmail(){
   var b=bookings.find(function(x){return x.id===curDetailId;});
-  if(!b){return;}
+  if(!b)return;
   var focus   = document.getElementById('note-focus').value.trim();
   var progress= document.getElementById('note-progress').value.trim();
   var homework= document.getElementById('note-homework').value.trim();
   if(!focus&&!progress&&!homework){alert('Add notes before sending a recap.');return;}
   if(!b.email){alert('No email address for this student.');return;}
 
-  // Build recap
-  var d=new Date(b.date+'T00:00:00');
-  var recap='Hi '+b.name.split(' ')[0]+'!\n\nGreat lesson today. Here\'s your recap:\n\n';
-  if(focus)   recap+='📍 What we focused on:\n'+focus+'\n\n';
-  if(progress)recap+='✅ What\'s improving:\n'+progress+'\n\n';
-  if(homework)recap+='📋 Practice before next time:\n'+homework+'\n\n';
-  recap+='See you on the course!\n— '+instructorName;
-
-  // Save notes first
   saveNotes();
+  var d=new Date(b.date+'T00:00:00');
+  var recap=buildRecapText(b);
+  var subject=encodeURIComponent('Your lesson recap — '+DAYS_SHORT[d.getDay()]+' with '+instructorName);
+  var body=encodeURIComponent(recap);
+  window.open('mailto:'+b.email+'?subject='+subject+'&body='+body);
 
-  // Send via mailto as fallback (EmailJS/Twilio can replace this later)
-  var subject = encodeURIComponent('Your lesson recap — '+DAYS_SHORT[d.getDay()]+' with '+instructorName);
-  var body    = encodeURIComponent(recap);
-  var mailto  = 'mailto:'+b.email+'?subject='+subject+'&body='+body;
-  window.open(mailto);
+  var btn=document.querySelector('#detail-sheet button[onclick="sendRecapEmail()"]');
+  if(btn){var orig=btn.textContent;btn.textContent='✓ Email Ready';btn.style.background='#4ade80';btn.style.color='#0e1a12';
+    setTimeout(function(){btn.textContent=orig;btn.style.background='#1e3024';btn.style.color='#ffffff';},3000);}
+}
 
-  var btn=document.querySelector('#detail-sheet button[onclick="sendRecap()"]');
-  if(btn){btn.textContent='✓ Recap Sent!';btn.style.background='#4ade80';btn.style.color='#0e1a12';
-    setTimeout(function(){btn.textContent='⬆ Send Recap to Student';btn.style.background='#c9a55a';btn.style.color='#0e1a12';},3000);}
+function sendRecapText(){
+  var b=bookings.find(function(x){return x.id===curDetailId;});
+  if(!b)return;
+  var focus   = document.getElementById('note-focus').value.trim();
+  var progress= document.getElementById('note-progress').value.trim();
+  var homework= document.getElementById('note-homework').value.trim();
+  if(!focus&&!progress&&!homework){alert('Add notes before sending a recap.');return;}
+  if(!b.phone){
+    var askEmail = confirm('No phone number for this student. Send via email instead?');
+    if(askEmail) sendRecapEmail();
+    return;
+  }
+
+  saveNotes();
+  var recap=buildRecapText(b);
+  // Clean phone number - strip non-digits
+  var phone = b.phone.replace(/[^0-9+]/g,'');
+  // sms: link opens Messages app with pre-filled body
+  // iOS uses & for body parameter, Android uses ? - we use & which works in most cases
+  var smsUrl = 'sms:'+phone+'&body='+encodeURIComponent(recap);
+  window.open(smsUrl);
+
+  var btn=document.querySelector('#detail-sheet button[onclick="sendRecapText()"]');
+  if(btn){var orig=btn.textContent;btn.textContent='✓ Text Ready';btn.style.background='#4ade80';btn.style.color='#0e1a12';
+    setTimeout(function(){btn.textContent=orig;btn.style.background='#c9a55a';btn.style.color='#0e1a12';},3000);}
 }
 
 function loadNotesForBooking(b){
