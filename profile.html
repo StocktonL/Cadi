@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -22,7 +23,7 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;}
 /* LOADING */
 .loading-screen{position:fixed;inset:0;background:#0e1a12;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;}
 .loading-screen.hidden{display:none;}
-.loading-logo{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#ffffff;margin-bottom:16px;}
+.loading-logo{font-family:‘Playfair Display’,serif;font-size:2rem;font-weight:800;color:#ffffff;margin-bottom:16px;}
 .loading-sub{font-size:0.82rem;font-weight:600;color:#7a9a84;}
 .loading-dot{display:inline-block;animation:pulse 1.2s infinite;}
 @keyframes pulse{0%,100%{opacity:0.3;}50%{opacity:1;}}
@@ -30,25 +31,25 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;}
 /* ERROR */
 .error-screen{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:40px 24px;background:#0e1a12;}
 .error-screen.show{display:flex;}
-.error-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#ffffff;margin-bottom:8px;}
+.error-title{font-family:‘Playfair Display’,serif;font-size:1.8rem;font-weight:800;color:#ffffff;margin-bottom:8px;}
 .error-sub{font-size:0.85rem;font-weight:500;color:#7a9a84;margin-bottom:24px;line-height:1.7;}
 .error-btn{background:#c9a55a;color:#0e1a12;border:none;border-radius:10px;padding:13px 28px;font-size:0.9rem;font-weight:800;cursor:pointer;}
 
 /* HERO */
 .hero{background:#0e1a12;padding-bottom:28px;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(201,165,90,0.07) 0%,transparent 70%);}
-.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#c9a55a,transparent);}
+.hero::before{content:’’;position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(201,165,90,0.07) 0%,transparent 70%);}
+.hero::after{content:’’;position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#c9a55a,transparent);}
 .topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;}
 .brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
 .brand-mark{width:28px;height:28px;background:#c9a55a;border-radius:6px;display:flex;align-items:center;justify-content:center;}
-.brand-text{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:#ffffff;}
+.brand-text{font-family:‘Playfair Display’,serif;font-size:1.1rem;font-weight:800;color:#ffffff;}
 .share-btn{background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);color:#ffffff;border-radius:7px;padding:7px 13px;font-size:0.72rem;font-weight:700;cursor:pointer;}
 .hero-body{padding:0 20px;}
 .avatar-row{display:flex;align-items:flex-end;gap:14px;margin-bottom:14px;}
-.avatar{width:82px;height:82px;border-radius:50%;border:3px solid rgba(201,165,90,0.45);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#ffffff;flex-shrink:0;}
+.avatar{width:82px;height:82px;border-radius:50%;border:3px solid rgba(201,165,90,0.45);display:flex;align-items:center;justify-content:center;font-family:‘Playfair Display’,serif;font-size:1.8rem;font-weight:800;color:#ffffff;flex-shrink:0;}
 .name-block{flex:1;padding-bottom:2px;}
 .eyebrow{font-size:0.6rem;font-weight:700;color:#c9a55a;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:4px;}
-.hero-name{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#ffffff;line-height:1.1;margin-bottom:4px;}
+.hero-name{font-family:‘Playfair Display’,serif;font-size:1.6rem;font-weight:800;color:#ffffff;line-height:1.1;margin-bottom:4px;}
 .hero-title{font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.65);line-height:1.5;}
 .hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
 .badge{display:flex;align-items:center;gap:5px;border-radius:5px;padding:4px 10px;font-size:0.62rem;font-weight:800;letter-spacing:0.06em;}
@@ -58,7 +59,7 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;}
 .stat{padding:10px 6px;text-align:center;border-right:1px solid rgba(255,255,255,0.07);}
 .stat:last-child{border-right:none;}
 .stat-l{font-size:0.55rem;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;}
-.stat-v{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#ffffff;}
+.stat-v{font-family:‘Playfair Display’,serif;font-size:1rem;font-weight:700;color:#ffffff;}
 .cta-row{display:flex;gap:9px;}
 .btn-primary{flex:1;background:#c9a55a;color:#0e1a12;border:none;border-radius:10px;padding:14px;font-size:0.92rem;font-weight:800;cursor:pointer;}
 .btn-secondary{background:rgba(255,255,255,0.1);color:#ffffff;border:1.5px solid rgba(255,255,255,0.2);border-radius:10px;padding:14px 16px;font-size:0.82rem;font-weight:700;cursor:pointer;}
@@ -79,7 +80,7 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;}
 /* PRICING */
 .price-card{background:#0e1a12;border-radius:14px;padding:20px;margin-bottom:12px;}
 .price-eyebrow{font-size:0.6rem;font-weight:700;color:#c9a55a;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:6px;}
-.price-amount{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:800;color:#ffffff;line-height:1;margin-bottom:4px;}
+.price-amount{font-family:‘Playfair Display’,serif;font-size:2.6rem;font-weight:800;color:#ffffff;line-height:1;margin-bottom:4px;}
 .price-per{font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:14px;}
 .price-features{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
 .pf{display:flex;align-items:center;gap:8px;font-size:0.8rem;font-weight:500;color:rgba(255,255,255,0.8);}
@@ -88,7 +89,7 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;}
 .pkg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .pkg{background:#ffffff;border:1.5px solid #c8dac8;border-radius:12px;padding:14px;text-align:center;}
 .pkg.featured{background:#e8f5ec;border-color:#1a5c2a;}
-.pkg-sessions{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;color:#1a5c2a;}
+.pkg-sessions{font-family:‘Playfair Display’,serif;font-size:1.5rem;font-weight:800;color:#1a5c2a;}
 .pkg-lbl{font-size:0.6rem;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;}
 .pkg-price{font-size:0.95rem;font-weight:800;color:#0e1a12;margin-bottom:2px;}
 .pkg-save{font-size:0.65rem;font-weight:700;color:#1a5c2a;background:#e8f5ec;border-radius:4px;padding:2px 7px;display:inline-block;margin-bottom:6px;}
@@ -98,7 +99,7 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;}
 
 /* STICKY */
 .sticky{position:fixed;bottom:0;left:0;right:0;background:#ffffff;border-top:1.5px solid #c8dac8;padding:12px 20px;padding-bottom:calc(12px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;z-index:50;}
-.sticky-rate{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#0e1a12;}
+.sticky-rate{font-family:‘Playfair Display’,serif;font-size:1.3rem;font-weight:800;color:#0e1a12;}
 .sticky-sub{font-size:0.65rem;font-weight:600;color:#475569;}
 .sticky-btn{background:#1a5c2a;color:#ffffff;border:none;border-radius:10px;padding:13px 24px;font-size:0.9rem;font-weight:800;cursor:pointer;}
 .manage-btn{display:none;background:#162a1e;color:#7a9a84;border:1.5px solid #2a4a32;border-radius:10px;padding:13px 14px;font-size:0.82rem;font-weight:700;cursor:pointer;}
@@ -108,7 +109,7 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;}
 .overlay.open{display:flex;}
 .sheet{background:#ffffff;border-radius:20px 20px 0 0;width:100%;max-height:90vh;overflow-y:auto;padding:20px 20px 44px;}
 .sheet-handle{width:36px;height:4px;background:#cbd5e1;border-radius:2px;margin:0 auto 18px;}
-.sheet-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:#0e1a12;margin-bottom:4px;}
+.sheet-title{font-family:‘Playfair Display’,serif;font-size:1.2rem;font-weight:800;color:#0e1a12;margin-bottom:4px;}
 .sheet-sub{font-size:0.75rem;font-weight:600;color:#475569;margin-bottom:18px;}
 .sheet-close{float:right;background:none;border:none;color:#475569;font-size:1.1rem;cursor:pointer;margin-top:-2px;}
 .flbl{font-size:0.65rem;font-weight:800;color:#0e1a12;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px;}
@@ -136,10 +137,10 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;}
 .price-summary{background:#0e1a12;border-radius:10px;padding:13px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;}
 .ps-label{font-size:0.62rem;font-weight:700;color:rgba(255,255,255,0.45);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;}
 .ps-original{font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.35);text-decoration:line-through;display:none;}
-.ps-final{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#ffffff;}
+.ps-final{font-family:‘Playfair Display’,serif;font-size:1.6rem;font-weight:800;color:#ffffff;}
 .ps-save{background:rgba(201,165,90,0.2);border:1px solid rgba(201,165,90,0.35);border-radius:7px;padding:8px 12px;text-align:center;display:none;}
 .ps-save-lbl{font-size:0.6rem;font-weight:700;color:#c9a55a;letter-spacing:0.08em;}
-.ps-save-amt{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:#c9a55a;}
+.ps-save-amt{font-family:‘Playfair Display’,serif;font-size:1.1rem;font-weight:800;color:#c9a55a;}
 .confirm-btn{width:100%;background:#1a5c2a;color:#ffffff;border:none;border-radius:10px;padding:14px;font-size:0.92rem;font-weight:800;cursor:pointer;}
 .confirm-btn:disabled{background:#8aab8e;cursor:not-allowed;opacity:0.6;}
 .no-pay-note{font-size:0.65rem;font-weight:500;color:#475569;text-align:center;margin-top:10px;line-height:1.6;}
@@ -149,26 +150,29 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;}
 .success-screen.open{display:flex;}
 .s-icon{width:70px;height:70px;border-radius:50%;background:rgba(201,165,90,0.15);border:2px solid #c9a55a;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:18px;}
 .s-eyebrow{font-size:0.62rem;font-weight:700;color:#c9a55a;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;}
-.s-title{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:800;color:#ffffff;margin-bottom:10px;}
+.s-title{font-family:‘Playfair Display’,serif;font-size:1.9rem;font-weight:800;color:#ffffff;margin-bottom:10px;}
 .s-detail{font-size:0.85rem;font-weight:500;color:rgba(255,255,255,0.65);line-height:1.75;margin-bottom:24px;}
 .s-code-card{background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,165,90,0.3);border-radius:14px;padding:18px;width:100%;max-width:300px;margin-bottom:20px;}
 .s-code-lbl{font-size:0.6rem;font-weight:700;color:#c9a55a;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:6px;}
-.s-code-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#ffffff;letter-spacing:0.12em;margin-bottom:6px;}
+.s-code-val{font-family:‘Playfair Display’,serif;font-size:2rem;font-weight:800;color:#ffffff;letter-spacing:0.12em;margin-bottom:6px;}
 .s-code-desc{font-size:0.7rem;font-weight:500;color:rgba(255,255,255,0.55);margin-bottom:14px;line-height:1.6;}
 .s-share{width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:8px;padding:11px;font-size:0.85rem;font-weight:800;cursor:pointer;margin-bottom:8px;}
 .s-copy{width:100%;background:rgba(255,255,255,0.08);color:#ffffff;border:1.5px solid rgba(255,255,255,0.15);border-radius:8px;padding:10px;font-size:0.8rem;font-weight:700;cursor:pointer;}
 .s-back{margin-top:16px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:0.82rem;font-weight:600;cursor:pointer;text-decoration:underline;}
 </style>
+
 </head>
 <body style="background:#f0f2f0;">
 
 <!-- LOADING -->
+
 <div class="loading-screen" id="loading">
   <div class="loading-logo">Cadi</div>
   <div class="loading-sub">Loading profile<span class="loading-dot">...</span></div>
 </div>
 
 <!-- ERROR -->
+
 <div class="error-screen" id="error-screen">
   <div style="font-size:2rem;margin-bottom:16px;">⛳</div>
   <div class="error-title">Profile not found.</div>
@@ -177,6 +181,7 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;}
 </div>
 
 <!-- PROFILE (populated by JS) -->
+
 <div id="profile-page" style="display:none;">
 
   <div class="hero">
@@ -217,40 +222,44 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;}
     <div class="sec"><span class="sec-lbl">About</span><div class="sec-line"></div></div>
     <p class="bio" id="p-bio">Loading…</p>
 
-    <div class="sec"><span class="sec-lbl">Specialties</span><div class="sec-line"></div></div>
-    <div class="chips" id="p-chips"></div>
+```
+<div class="sec"><span class="sec-lbl">Specialties</span><div class="sec-line"></div></div>
+<div class="chips" id="p-chips"></div>
 
-    <div id="achs-section">
-      <div class="sec"><span class="sec-lbl">Career Highlights</span><div class="sec-line"></div></div>
-      <div class="achs" id="p-achs"></div>
-    </div>
+<div id="achs-section">
+  <div class="sec"><span class="sec-lbl">Career Highlights</span><div class="sec-line"></div></div>
+  <div class="achs" id="p-achs"></div>
+</div>
 
-    <div class="sec"><span class="sec-lbl">Pricing</span><div class="sec-line"></div></div>
-    <div class="price-card">
-      <div class="price-eyebrow">Single Session</div>
-      <div class="price-amount" id="p-rate">$—</div>
-      <div class="price-per" id="p-rate-sub">per 60-minute lesson</div>
-      <div class="price-features">
-        <div class="pf"><span class="pf-check">✓</span>One-on-one instruction</div>
-        <div class="pf"><span class="pf-check">✓</span>Tailored to your game</div>
-        <div class="pf"><span class="pf-check">✓</span>Free cancellation 24hrs before</div>
-      </div>
-      <button class="price-cta" onclick="openBooking()" id="price-cta-btn">Book Now</button>
-    </div>
+<div class="sec"><span class="sec-lbl">Pricing</span><div class="sec-line"></div></div>
+<div class="price-card">
+  <div class="price-eyebrow">Single Session</div>
+  <div class="price-amount" id="p-rate">$—</div>
+  <div class="price-per" id="p-rate-sub">per 60-minute lesson</div>
+  <div class="price-features">
+    <div class="pf"><span class="pf-check">✓</span>One-on-one instruction</div>
+    <div class="pf"><span class="pf-check">✓</span>Tailored to your game</div>
+    <div class="pf"><span class="pf-check">✓</span>Free cancellation 24hrs before</div>
+  </div>
+  <button class="price-cta" onclick="openBooking()" id="price-cta-btn">Book Now</button>
+</div>
 
-    <div class="sec"><span class="sec-lbl">Lesson Packages</span><div class="sec-line"></div></div>
-    <div class="pkg-grid" id="p-packages"></div>
+<div class="sec"><span class="sec-lbl">Lesson Packages</span><div class="sec-line"></div></div>
+<div class="pkg-grid" id="p-packages"></div>
 
-    <div style="margin-top:28px;padding-top:20px;border-top:1.5px solid #c8dac8;text-align:center;">
-      <div style="font-size:0.65rem;font-weight:600;color:#475569;margin-bottom:6px;">Powered by</div>
-      <div style="display:inline-flex;align-items:center;gap:6px;">
-        <div style="width:18px;height:18px;background:#c9a55a;border-radius:4px;display:flex;align-items:center;justify-content:center;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/></svg></div>
-        <span style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:800;color:#0e1a12;">Cadi</span>
-      </div>
-    </div>
+<div style="margin-top:28px;padding-top:20px;border-top:1.5px solid #c8dac8;text-align:center;">
+  <div style="font-size:0.65rem;font-weight:600;color:#475569;margin-bottom:6px;">Powered by</div>
+  <div style="display:inline-flex;align-items:center;gap:6px;">
+    <div style="width:18px;height:18px;background:#c9a55a;border-radius:4px;display:flex;align-items:center;justify-content:center;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/></svg></div>
+    <span style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:800;color:#0e1a12;">Cadi</span>
+  </div>
+</div>
+```
+
   </div>
 
   <!-- STICKY -->
+
   <div class="sticky">
     <div>
       <div class="sticky-rate" id="sticky-rate">$—</div>
@@ -263,6 +272,7 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;}
   </div>
 
   <!-- BOOKING SHEET -->
+
   <div class="overlay" id="booking-overlay" onclick="closeBookingOuter(event)">
     <div class="sheet">
       <div class="sheet-handle"></div>
@@ -270,60 +280,67 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;}
       <div class="sheet-title">Request a Lesson</div>
       <div class="sheet-sub" id="sheet-sub">with your instructor · Cadi</div>
 
-      <div class="flbl">Your Name</div>
-      <input class="finput" id="f-name" placeholder="First and last name" type="text" oninput="checkReady()"/>
-      <div class="flbl">Email</div>
-      <input class="finput" id="f-email" placeholder="your@email.com" type="email" oninput="checkReady()"/>
-      <div class="flbl">Phone <span style="font-size:0.6rem;text-transform:none;letter-spacing:0;font-weight:400;color:#475569;">optional</span></div>
-      <input class="finput" id="f-phone" placeholder="(801) 555-0000" type="tel"/>
+```
+  <div class="flbl">Your Name</div>
+  <input class="finput" id="f-name" placeholder="First and last name" type="text" oninput="checkReady()"/>
+  <div class="flbl">Email</div>
+  <input class="finput" id="f-email" placeholder="your@email.com" type="email" oninput="checkReady()"/>
+  <div class="flbl">Phone <span style="font-size:0.6rem;text-transform:none;letter-spacing:0;font-weight:400;color:#475569;">optional</span></div>
+  <input class="finput" id="f-phone" placeholder="(801) 555-0000" type="tel"/>
 
-      <div class="flbl">Session Type</div>
-      <div class="session-grid" id="session-grid"></div>
+  <div class="flbl">Session Type</div>
+  <div class="session-grid" id="session-grid"></div>
 
-      <div class="flbl">Preferred Time</div>
-      <div class="time-grid" id="time-grid"></div>
+  <div class="flbl">Preferred Date</div>
+  <div id="date-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:14px;"></div>
 
-      <div class="flbl">Skill Level</div>
-      <select class="fselect" id="f-skill">
-        <option value="">Select your level…</option>
-        <option>Complete Beginner</option>
-        <option>Casual (100+ score)</option>
-        <option>Intermediate (85–100)</option>
-        <option>Advanced (70–85)</option>
-        <option>Competitive (under 70)</option>
-      </select>
+  <div class="flbl">Preferred Time</div>
+  <div class="time-grid" id="time-grid"></div>
 
-      <div class="flbl">What do you want to work on? <span style="font-size:0.6rem;text-transform:none;letter-spacing:0;font-weight:400;color:#475569;">optional</span></div>
-      <input class="finput" id="f-notes" placeholder="e.g. driving accuracy, putting, full swing…" type="text"/>
+  <div class="flbl">Skill Level</div>
+  <select class="fselect" id="f-skill">
+    <option value="">Select your level…</option>
+    <option>Complete Beginner</option>
+    <option>Casual (100+ score)</option>
+    <option>Intermediate (85–100)</option>
+    <option>Advanced (70–85)</option>
+    <option>Competitive (under 70)</option>
+  </select>
 
-      <div class="ref-box">
-        <div class="ref-title">🎁 Promo or referral code?</div>
-        <div class="ref-hint" id="ref-hint">Enter a code for a discount</div>
-        <div class="ref-row">
-          <input class="ref-input" id="ref-input" placeholder="ENTER CODE" type="text" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')"/>
-          <button class="ref-apply" id="ref-apply-btn" onclick="applyCode()">Apply</button>
-        </div>
-        <div class="ref-msg" id="ref-msg"></div>
-      </div>
+  <div class="flbl">What do you want to work on? <span style="font-size:0.6rem;text-transform:none;letter-spacing:0;font-weight:400;color:#475569;">optional</span></div>
+  <input class="finput" id="f-notes" placeholder="e.g. driving accuracy, putting, full swing…" type="text"/>
 
-      <div class="price-summary">
-        <div>
-          <div class="ps-label">Total</div>
-          <div class="ps-original" id="ps-original"></div>
-          <div class="ps-final" id="ps-final">$—</div>
-        </div>
-        <div class="ps-save" id="ps-save">
-          <div class="ps-save-lbl">YOU SAVE</div>
-          <div class="ps-save-amt" id="ps-save-amt"></div>
-        </div>
-      </div>
+  <div class="ref-box">
+    <div class="ref-title">🎁 Promo or referral code?</div>
+    <div class="ref-hint" id="ref-hint">Enter a code for a discount</div>
+    <div class="ref-row">
+      <input class="ref-input" id="ref-input" placeholder="ENTER CODE" type="text" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')"/>
+      <button class="ref-apply" id="ref-apply-btn" onclick="applyCode()">Apply</button>
+    </div>
+    <div class="ref-msg" id="ref-msg"></div>
+  </div>
 
-      <button class="confirm-btn" id="confirm-btn" disabled onclick="submitBooking()">Send Request →</button>
-      <p class="no-pay-note">No payment required today. Your instructor will confirm within 24 hours.</p>
+  <div class="price-summary">
+    <div>
+      <div class="ps-label">Total</div>
+      <div class="ps-original" id="ps-original"></div>
+      <div class="ps-final" id="ps-final">$—</div>
+    </div>
+    <div class="ps-save" id="ps-save">
+      <div class="ps-save-lbl">YOU SAVE</div>
+      <div class="ps-save-amt" id="ps-save-amt"></div>
     </div>
   </div>
 
+  <button class="confirm-btn" id="confirm-btn" disabled onclick="submitBooking()">Send Request →</button>
+  <p class="no-pay-note">No payment required today. Your instructor will confirm within 24 hours.</p>
+</div>
+```
+
+  </div>
+
   <!-- SUCCESS -->
+
   <div class="success-screen" id="success-screen">
     <div class="s-icon">⛳</div>
     <div class="s-eyebrow">Request Sent</div>
@@ -356,11 +373,12 @@ var instructor = null;
 var selSession = '';
 var selPrice   = 0;
 var selTime    = null;
+var selDate    = null;
 var refCode    = '';
 var refDiscount = 0;
 var refFree    = false;
 
-var TIMES = ['8:00 AM','8:30 AM','9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM'];
+var TIMES = ['7:00 AM','7:30 AM','8:00 AM','8:30 AM','9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM','12:30 PM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM','4:00 PM','4:30 PM','5:00 PM','5:30 PM','6:00 PM','6:30 PM','7:00 PM','7:30 PM','8:00 PM','8:30 PM','9:00 PM'];
 
 var FALLBACK_CODES = {
   'CARSON': {discount:250, owner_name:'Carson Lundell', is_free_lesson:true},
@@ -560,17 +578,74 @@ function buildSessionGrid(rate) {
   selPrice = rate;
 }
 
+function buildDateGrid() {
+  var html = '';
+  var today = new Date();
+  var DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  // Show next 14 days
+  for (var i = 0; i < 14; i++) {
+    var d = new Date(today);
+    d.setDate(today.getDate() + i);
+    var ds = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    var isToday = i === 0;
+    var isSelected = selDate === ds;
+    html += '<div data-date="'+ds+'" onclick="selectDate(this,\''+ds+'\')" style="background:'
+      +(isSelected?'#1a5c2a':'#f0f2f0')
+      +';border:1.5px solid '+(isSelected?'#1a5c2a':'#c8dac8')
+      +';border-radius:8px;padding:8px 3px;text-align:center;cursor:pointer;transition:all 0.15s;">'
+      +'<div style="font-size:0.52rem;font-weight:700;color:'+(isSelected?'rgba(255,255,255,0.75)':'#475569')+';text-transform:uppercase;">'
+      +(isToday?'Today':DAYS[d.getDay()])+'</div>'
+      +'<div style="font-family:\'Playfair Display\',serif;font-size:1rem;font-weight:800;color:'+(isSelected?'#ffffff':'#0e1a12')+';margin-top:1px;">'+d.getDate()+'</div>'
+      +'<div style="font-size:0.55rem;font-weight:600;color:'+(isSelected?'rgba(255,255,255,0.6)':'#475569')+';">'+MONTHS[d.getMonth()]+'</div>'
+      +'</div>';
+  }
+  // Style the grid to scroll horizontally
+  var grid = document.getElementById('date-grid');
+  grid.style.gridTemplateColumns = 'repeat(14, minmax(54px, 1fr))';
+  grid.style.overflowX = 'auto';
+  grid.style.gridAutoFlow = 'column';
+  grid.style.gridAutoColumns = 'minmax(54px, 1fr)';
+  grid.style.display = 'flex';
+  grid.style.gap = '5px';
+  grid.style.paddingBottom = '4px';
+  grid.innerHTML = html;
+  // Set grid children widths
+  Array.from(grid.children).forEach(function(c){ c.style.minWidth = '54px'; c.style.flexShrink = '0'; });
+}
+
+function selectDate(el, dateStr) {
+  document.querySelectorAll('#date-grid > div').forEach(function(d){
+    d.style.background = '#f0f2f0';
+    d.style.borderColor = '#c8dac8';
+    d.querySelectorAll('div').forEach(function(inner, idx){
+      if (idx === 0) inner.style.color = '#475569';
+      else if (idx === 1) inner.style.color = '#0e1a12';
+      else inner.style.color = '#475569';
+    });
+  });
+  el.style.background = '#1a5c2a';
+  el.style.borderColor = '#1a5c2a';
+  el.querySelectorAll('div').forEach(function(inner, idx){
+    if (idx === 0) inner.style.color = 'rgba(255,255,255,0.75)';
+    else if (idx === 1) inner.style.color = '#ffffff';
+    else inner.style.color = 'rgba(255,255,255,0.6)';
+  });
+  selDate = dateStr;
+  selTime = null; // Reset time when date changes
+  buildTimeGrid();
+  checkReady();
+}
+
 function buildTimeGrid() {
   var html = '';
   TIMES.forEach(function(t){
     html += '<div class="tslot" data-time="'+t+'" onclick="selectTime(this)">'+t+'</div>';
   });
   document.getElementById('time-grid').innerHTML = html;
-  // Mark taken slots
-  if (!instructor) return;
-  var today = new Date();
-  var ds = today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
-  db('bookings?instructor_id=eq.'+instructor.instructor_id+'&session_date=gte.'+ds+'&status=eq.confirmed&select=session_time')
+  if (!instructor || !selDate) return;
+  // Mark taken slots based on selected date
+  db('bookings?instructor_id=eq.'+instructor.instructor_id+'&session_date=eq.'+selDate+'&status=eq.confirmed&select=session_time')
     .then(function(r){return r.json();})
     .then(function(rows){
       if(!Array.isArray(rows))return;
@@ -582,7 +657,16 @@ function buildTimeGrid() {
     }).catch(function(){});
 }
 
-function openBooking() { buildTimeGrid(); document.getElementById('booking-overlay').classList.add('open'); document.body.style.overflow='hidden'; }
+function openBooking() {
+  // Set default date to today
+  var today = new Date();
+  selDate = today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+  selTime = null;
+  buildDateGrid();
+  buildTimeGrid();
+  document.getElementById('booking-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
 function openBookingWithPkg(name, price) {
   openBooking();
   setTimeout(function(){
@@ -666,7 +750,7 @@ function handleCode(code,data,msg){
 function checkReady(){
   var name=document.getElementById('f-name').value.trim();
   var email=document.getElementById('f-email').value.trim();
-  document.getElementById('confirm-btn').disabled=!(name.length>1&&email.indexOf('@')>0&&selTime);
+  document.getElementById('confirm-btn').disabled=!(name.length>1&&email.indexOf('@')>0&&selDate&&selTime);
 }
 
 // ── SUBMIT ──
@@ -679,14 +763,12 @@ function submitBooking(){
   var finalPrice=refFree?0:Math.max(0,selPrice-refDiscount);
   var myCode=name.split(' ')[0].toUpperCase().replace(/[^A-Z]/g,'').substring(0,6)+[15,20,20,25][Math.floor(Math.random()*4)];
   var btn=document.getElementById('confirm-btn');
-  btn.disabled=true;btn.textContent='Sending…';
-  var today=new Date();
-  var ds=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+  btn.disabled=true;btn.textContent='Sending request…';
   db('bookings',{method:'POST',body:JSON.stringify({
     instructor_id:instructor.instructor_id,student_name:name,student_email:email,
-    student_phone:phone||null,session_type:selSession,session_date:ds,session_time:selTime,
+    student_phone:phone||null,session_type:selSession,session_date:selDate,session_time:selTime,
     skill_level:skill||null,notes:notes||null,referral_code:refCode||null,
-    is_free:refFree,status:'confirmed',price:finalPrice
+    is_free:refFree,status:'pending',price:finalPrice
   })})
   .then(function(r){return r.json();})
   .then(function(){
@@ -699,11 +781,15 @@ function submitBooking(){
 
 function showSuccess(name,email,price,myCode){
   document.getElementById('s-code').textContent=myCode;
-  document.getElementById('s-title').textContent="You're on the tee, "+name.split(' ')[0]+'.';
+  document.getElementById('s-title').textContent="Request sent, "+name.split(' ')[0]+"!";
+  var dateObj = new Date(selDate+'T00:00:00');
+  var DAYS_FULL = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MONTHS_FULL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var dateLabel = DAYS_FULL[dateObj.getDay()] + ', ' + MONTHS_FULL[dateObj.getMonth()] + ' ' + dateObj.getDate();
   document.getElementById('s-detail').innerHTML=
-    (refFree?'<strong style="color:#4ade80">🎉 Free intro lesson requested!</strong><br>':'')+
-    'Your request for <strong>'+selTime+'</strong> has been sent.<br>'+
-    'Your instructor will confirm within 24 hours at <strong>'+email+'</strong>.<br><br>'+
+    (refFree?'<strong style="color:#4ade80">🎉 Free intro lesson requested!</strong><br><br>':'')+
+    'Your request for <strong>'+dateLabel+' at '+selTime+'</strong> has been sent to your instructor.<br><br>'+
+    'You\'ll get a confirmation text or email at <strong>'+email+'</strong> once they approve — usually within 24 hours.<br><br>'+
     'No payment until your lesson is confirmed.';
   closeBooking();
   document.getElementById('success-screen').classList.add('open');
@@ -747,5 +833,6 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 // ── INIT ──
 loadInstructor();
 </script>
+
 </body>
 </html>
