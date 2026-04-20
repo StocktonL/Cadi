@@ -207,7 +207,7 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;}
       </div>
       <div class="stats" id="p-stats">
         <div class="stat"><div class="stat-l">HCP</div><div class="stat-v" id="st-hcp">—</div></div>
-        <div class="stat"><div class="stat-l">School</div><div class="stat-v" id="st-school">—</div></div>
+        <div class="stat"><div class="stat-l">Teaching</div><div class="stat-v" id="st-years">—</div></div>
         <div class="stat"><div class="stat-l">Rate</div><div class="stat-v" id="st-rate">—</div></div>
         <div class="stat"><div class="stat-l">City</div><div class="stat-v" id="st-city">—</div></div>
       </div>
@@ -470,7 +470,7 @@ function renderProfile(inst) {
 
   // Stats
   document.getElementById('st-hcp').textContent  = inst.handicap || '—';
-  document.getElementById('st-school').textContent = inst.school || '—';
+  document.getElementById('st-years').textContent = inst.years_teaching ? inst.years_teaching+'yr' : (inst.school || '—');
   document.getElementById('st-rate').textContent  = '$' + rate;
   document.getElementById('st-city').textContent  = city || '—';
 
@@ -845,7 +845,7 @@ function copyMyCode(){
   navigator.clipboard.writeText(code+' — '+url).then(function(){alert('Copied! Share code '+code+' with friends.');}).catch(function(){alert('Code: '+code);});
 }
 
-function goToSchedule(){window.location.href='/schedule.html';}
+function goToSchedule(){window.location.href='/instructor-dashboard.html';}
 
 // Auto-apply ?ref= from URL
 (function(){
