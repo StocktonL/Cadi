@@ -363,6 +363,13 @@ button,input,select,textarea{font-family:'DM Sans',sans-serif;}
       </div>
       <div style="color:#3a5a42;">›</div>
     </div>
+    <div class="setting-row" onclick="openSheet('buffer-sheet')" style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:10px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+      <div style="display:flex;align-items:center;gap:11px;">
+        <div style="font-size:1rem;width:22px;text-align:center;">⏱️</div>
+        <div><div style="font-size:0.85rem;font-weight:700;color:#ffffff;">Buffer Between Lessons</div><div style="font-size:0.65rem;font-weight:500;color:#5a8a64;margin-top:1px;" id="buffer-current">Currently: No buffer</div></div>
+      </div>
+      <div style="color:#3a5a42;">›</div>
+    </div>
     <div class="setting-row" onclick="shareProfileLink()" style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:10px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
       <div style="display:flex;align-items:center;gap:11px;">
         <div style="font-size:1rem;width:22px;text-align:center;">🔗</div>
@@ -478,17 +485,45 @@ button,input,select,textarea{font-family:'DM Sans',sans-serif;}
     <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Time</div>
     <select class="fselect" id="a-time" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;appearance:none;"></select>
     <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Session Type</div>
-    <select class="fselect" id="a-type" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;appearance:none;">
+    <select class="fselect" id="a-type" onchange="onSessionTypeChange()" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;appearance:none;">
       <option value="Single Lesson">Single Lesson · 60 min</option>
       <option value="Free Intro">Free Intro (CARSON code) · 30 min</option>
       <option value="3-Pack">3-Pack</option>
       <option value="6-Pack">6-Pack</option>
       <option value="10-Pack">10-Pack</option>
     </select>
-    <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Notes</div>
-    <textarea class="ftextarea" id="a-notes" placeholder="Skill level, what they want to work on…" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.85rem;color:#ffffff;outline:none;resize:none;height:76px;line-height:1.6;margin-bottom:12px;"></textarea>
-    <button class="mbtn primary" onclick="saveBooking()" style="width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;margin-bottom:8px;">Add to Schedule</button>
-    <button class="mbtn ghost" onclick="closeSheet('add-sheet')" style="width:100%;background:#1e3024;color:#5a8a64;border:1.5px solid #2a4a32;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;">Cancel</button>
+
+```
+<!-- Recurring lessons -->
+<div id="recurring-block" style="background:#0e1a12;border:1.5px solid #2a4a32;border-radius:9px;padding:12px;margin-bottom:12px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+    <div>
+      <div style="font-size:0.82rem;font-weight:700;color:#ffffff;">🔁 Recurring Weekly</div>
+      <div style="font-size:0.65rem;font-weight:500;color:#5a8a64;margin-top:1px;">Book the same time every week</div>
+    </div>
+    <button type="button" id="recurring-toggle" onclick="toggleRecurring()" style="width:40px;height:22px;border-radius:11px;border:none;cursor:pointer;position:relative;background:#2a4a32;flex-shrink:0;">
+      <div id="recurring-knob" style="position:absolute;top:2px;width:18px;height:18px;border-radius:50%;background:#ffffff;transition:left 0.2s;left:2px;box-shadow:0 1px 3px rgba(0,0,0,0.3);"></div>
+    </button>
+  </div>
+  <div id="recurring-weeks-wrap" style="display:none;margin-top:8px;">
+    <div class="flbl" style="font-size:0.6rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">How many weeks?</div>
+    <select class="fselect" id="a-recurring-weeks" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:10px 13px;font-size:0.85rem;font-weight:600;color:#ffffff;outline:none;appearance:none;">
+      <option value="3">3 weeks</option>
+      <option value="4">4 weeks</option>
+      <option value="6" selected>6 weeks</option>
+      <option value="8">8 weeks</option>
+      <option value="10">10 weeks</option>
+      <option value="12">12 weeks</option>
+    </select>
+  </div>
+</div>
+
+<div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Notes</div>
+<textarea class="ftextarea" id="a-notes" placeholder="Skill level, what they want to work on…" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.85rem;color:#ffffff;outline:none;resize:none;height:76px;line-height:1.6;margin-bottom:12px;"></textarea>
+<button class="mbtn primary" onclick="saveBooking()" style="width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;margin-bottom:8px;">Add to Schedule</button>
+<button class="mbtn ghost" onclick="closeSheet('add-sheet')" style="width:100%;background:#1e3024;color:#5a8a64;border:1.5px solid #2a4a32;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;">Cancel</button>
+```
+
   </div>
 </div>
 
@@ -533,6 +568,37 @@ button,input,select,textarea{font-family:'DM Sans',sans-serif;}
   </div>
 </div>
 
+<!-- BUFFER SHEET -->
+
+<div class="overlay" id="buffer-sheet" onclick="closeOuter(event,'buffer-sheet')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" onclick="closeSheet('buffer-sheet')" style="float:right;background:none;border:none;color:#5a8a64;font-size:1.1rem;cursor:pointer;">✕</button>
+    <div class="sheet-title" style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#ffffff;margin-bottom:4px;">Buffer Between Lessons</div>
+    <div class="sheet-sub" style="font-size:0.72rem;font-weight:600;color:#5a8a64;margin-bottom:18px;">Students can't book times that would violate your buffer</div>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px;">
+      <div class="buffer-opt" data-buffer="0" onclick="setBufferOption(0)" style="background:#1e3024;border:1.5px solid #2a4a32;border-radius:10px;padding:14px;cursor:pointer;">
+        <div style="font-size:0.88rem;font-weight:700;color:#ffffff;">No Buffer</div>
+        <div style="font-size:0.68rem;font-weight:500;color:#5a8a64;margin-top:2px;">Back-to-back bookings allowed</div>
+      </div>
+      <div class="buffer-opt" data-buffer="15" onclick="setBufferOption(15)" style="background:#1e3024;border:1.5px solid #2a4a32;border-radius:10px;padding:14px;cursor:pointer;">
+        <div style="font-size:0.88rem;font-weight:700;color:#ffffff;">15 Minutes</div>
+        <div style="font-size:0.68rem;font-weight:500;color:#5a8a64;margin-top:2px;">Quick break between sessions</div>
+      </div>
+      <div class="buffer-opt" data-buffer="30" onclick="setBufferOption(30)" style="background:#1e3024;border:1.5px solid #2a4a32;border-radius:10px;padding:14px;cursor:pointer;">
+        <div style="font-size:0.88rem;font-weight:700;color:#ffffff;">30 Minutes</div>
+        <div style="font-size:0.68rem;font-weight:500;color:#5a8a64;margin-top:2px;">Recommended for most instructors</div>
+      </div>
+      <div class="buffer-opt" data-buffer="60" onclick="setBufferOption(60)" style="background:#1e3024;border:1.5px solid #2a4a32;border-radius:10px;padding:14px;cursor:pointer;">
+        <div style="font-size:0.88rem;font-weight:700;color:#ffffff;">60 Minutes</div>
+        <div style="font-size:0.68rem;font-weight:500;color:#5a8a64;margin-top:2px;">Full hour for travel, prep, or rest</div>
+      </div>
+    </div>
+    <button class="mbtn primary" onclick="saveBuffer()" style="width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;margin-bottom:8px;">Save Buffer</button>
+    <button class="mbtn ghost" onclick="closeSheet('buffer-sheet')" style="width:100%;background:#1e3024;color:#5a8a64;border:1.5px solid #2a4a32;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;">Cancel</button>
+  </div>
+</div>
+
 <script>
 var SUPA_URL = 'https://tyrtonoxcakzoggbrqus.supabase.co';
 var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR5cnRvbm94Y2Frem9nZ2JycXVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2MTA0MzgsImV4cCI6MjA5MTE4NjQzOH0.qjD6DWnywjbLKU0F7WrYSHUhEXDJfQI7ZSJb2O6qYyM';
@@ -548,6 +614,8 @@ var session = null;
 var instructorId = '';
 var instructorName = '';
 var instructorRate = 150;
+var instructorBuffer = 0;
+var selBuffer = 0;
 
 (function(){
   var s = localStorage.getItem('cadi_instructor');
@@ -564,13 +632,16 @@ var instructorRate = 150;
     document.getElementById('pc-avatar').textContent = initials;
     document.getElementById('pc-name').textContent = instructorName;
     // Load instructor rate from Supabase
-    db('instructors?instructor_id=eq.'+encodeURIComponent(instructorId)+'&select=rate,title,course')
+    db('instructors?instructor_id=eq.'+encodeURIComponent(instructorId)+'&select=rate,title,course,buffer_minutes')
       .then(function(r){return r.json();})
       .then(function(rows){
         if(Array.isArray(rows)&&rows.length>0){
           instructorRate = rows[0].rate || 150;
+          instructorBuffer = rows[0].buffer_minutes || 0;
+          selBuffer = instructorBuffer;
           document.getElementById('pc-title').textContent = (rows[0].title||'Golf Instructor') + ' · ' + (rows[0].course||'');
           document.getElementById('pcs-rate').textContent = '$' + instructorRate;
+          updateBufferDisplay();
         }
       }).catch(function(){});
   } catch(e) { window.location.href = '/instructor-login.html'; }
@@ -613,7 +684,7 @@ function loadData(){
   db('bookings?instructor_id=eq.'+instructorId+'&session_date=gte.'+minD+'&session_date=lte.'+maxD+'&status=neq.cancelled&select=*&order=session_time.asc')
     .then(function(r){return r.json();})
     .then(function(rows){
-      bookings=Array.isArray(rows)?rows.map(function(b){return{id:b.id,date:b.session_date,time:b.session_time,name:b.student_name,email:b.student_email,phone:b.student_phone||'',type:b.session_type,notes:b.notes||'',status:b.status,free:b.is_free,price:b.price};}):[]; renderAll();
+      bookings=Array.isArray(rows)?rows.map(function(b){return{id:b.id,date:b.session_date,time:b.session_time,name:b.student_name,email:b.student_email,phone:b.student_phone||'',type:b.session_type,notes:b.notes||'',status:b.status,free:b.is_free,price:b.price,packageTotal:b.package_total||1,packageSession:b.package_session||1,recurringId:b.recurring_id||null};}):[]; renderAll();
     }).catch(function(){renderAll();});
   db('blocked_times?instructor_id=eq.'+instructorId+'&block_date=gte.'+minD+'&block_date=lte.'+maxD+'&select=*')
     .then(function(r){return r.json();})
@@ -795,15 +866,19 @@ function renderUpcomingList(){
 function bookingCardHTML(b){
   var d=new Date(b.date+'T00:00:00');
   var dateLabel=DAYS_SHORT[d.getDay()]+' '+MONTHS_SHORT[d.getMonth()]+' '+d.getDate();
+  var pkgBadge = (b.packageTotal && b.packageTotal > 1)
+    ? '<span style="font-size:0.58rem;font-weight:800;color:#a0c4aa;background:#1e3024;border:1px solid #2a4a32;border-radius:4px;padding:2px 6px;margin-left:4px;">Session '+b.packageSession+' of '+b.packageTotal+'</span>'
+    : '';
   return '<div onclick="openDetail(\''+b.id+'\')" style="background:#162a1e;border:1.5px solid '+(b.free?'rgba(201,165,90,0.35)':'#2a4a32')+';border-radius:11px;padding:13px 14px;margin-bottom:8px;cursor:pointer;">'
     +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">'
     +'<div style="font-size:0.88rem;font-weight:800;color:#ffffff;">'+b.name+'</div>'
     +(b.free?'<span style="font-size:0.6rem;font-weight:800;color:#c9a55a;background:rgba(201,165,90,0.12);border:1px solid rgba(201,165,90,0.3);border-radius:4px;padding:2px 7px;">FREE</span>'
     :'<div style="font-size:0.82rem;font-weight:800;color:#4ade80;">$'+(b.price||instructorRate)+'</div>')
     +'</div>'
-    +'<div style="display:flex;align-items:center;gap:8px;">'
+    +'<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">'
     +'<div style="font-size:0.72rem;font-weight:700;color:#7a9a84;">'+dateLabel+' · '+b.time+'</div>'
     +'<div style="font-size:0.68rem;font-weight:600;color:#5a8a64;background:#1e3024;border-radius:4px;padding:2px 8px;">'+b.type+'</div>'
+    + pkgBadge
     +'</div></div>';
 }
 
@@ -857,10 +932,13 @@ function renderDayView(){
     html+='<div style="display:flex;gap:8px;margin-bottom:5px;">'
       +'<div style="width:50px;flex-shrink:0;padding-top:12px;text-align:right;"><div style="font-size:0.62rem;font-weight:700;color:#3a5a42;">'+t+'</div></div>';
     if(bk){
+      var pkgLabel = (bk.packageTotal && bk.packageTotal > 1)
+        ? '<span style="font-size:0.58rem;font-weight:700;color:#a0c4aa;margin-left:5px;">· '+bk.packageSession+'/'+bk.packageTotal+'</span>'
+        : '';
       html+='<div onclick="openDetail(\''+bk.id+'\')" style="flex:1;min-height:46px;border-radius:9px;border:1.5px solid #1a5c2a;background:#162a1e;cursor:pointer;overflow:hidden;">'
         +'<div style="padding:9px 11px;">'
         +'<div style="font-size:0.8rem;font-weight:800;color:#4ade80;">'+bk.name+(bk.free?'<span style="font-size:0.58rem;font-weight:800;color:#c9a55a;margin-left:5px;">FREE</span>':'')+'</div>'
-        +'<div style="font-size:0.65rem;font-weight:600;color:#5a8a64;margin-top:2px;">'+bk.type+'</div>'
+        +'<div style="font-size:0.65rem;font-weight:600;color:#5a8a64;margin-top:2px;">'+bk.type+pkgLabel+'</div>'
         +'</div></div>';
     } else if(bl){
       html+='<div style="flex:1;min-height:46px;border-radius:9px;border:1.5px solid #3a1a1a;background:#1a0e0e;overflow:hidden;">'
@@ -1128,23 +1206,81 @@ function saveBooking(){
   var isFree=type.indexOf('Free')>-1||type.indexOf('CARSON')>-1;
   var btn=document.querySelector('#add-sheet .mbtn.primary');
   if(btn){btn.textContent='Saving…';btn.disabled=true;}
-  db('bookings',{method:'POST',body:JSON.stringify({
-    instructor_id:instructorId,student_name:name,student_email:email,student_phone:phone||null,
-    session_type:type,session_date:date,session_time:time,notes:notes||null,
-    is_free:isFree,status:'confirmed',price:isFree?0:instructorRate
-  })})
-  .then(function(r){return r.json();})
-  .then(function(rows){
-    var b=rows&&rows[0]?rows[0]:null;
-    bookings.push({id:b?b.id:Date.now(),date:date,time:time,name:name,email:email,phone:phone,type:type,notes:notes,status:'confirmed',free:isFree,price:isFree?0:instructorRate});
+
+  // Determine package size
+  var packageTotal = 1;
+  if(type.indexOf('3-Pack')>-1) packageTotal = 3;
+  else if(type.indexOf('6-Pack')>-1) packageTotal = 6;
+  else if(type.indexOf('10-Pack')>-1) packageTotal = 10;
+
+  // Determine if recurring
+  var isRecurring = recurringOn;
+  var weeks = isRecurring ? parseInt(document.getElementById('a-recurring-weeks').value) : 1;
+  // If it's a pack, use pack size. If recurring, use weeks. Otherwise 1 session.
+  var totalSessions = isRecurring ? weeks : (packageTotal > 1 ? packageTotal : 1);
+  var recurringId = (isRecurring || packageTotal > 1) ? ('rec_' + Date.now() + '_' + Math.random().toString(36).substring(2,7)) : null;
+
+  // Build array of bookings to create
+  var startDate = new Date(date+'T00:00:00');
+  var toCreate = [];
+  for (var i = 0; i < totalSessions; i++) {
+    var d = new Date(startDate);
+    if (isRecurring) d.setDate(startDate.getDate() + (i * 7));
+    else if (i > 0) d.setDate(startDate.getDate() + (i * 7)); // Packs space weekly too by default
+    var ds = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    toCreate.push({
+      instructor_id: instructorId,
+      student_name: name,
+      student_email: email,
+      student_phone: phone || null,
+      session_type: type,
+      session_date: ds,
+      session_time: time,
+      notes: notes || null,
+      is_free: isFree,
+      status: 'confirmed',
+      price: isFree ? 0 : instructorRate,
+      package_total: totalSessions,
+      package_session: i + 1,
+      recurring_id: recurringId
+    });
+  }
+
+  // Save all bookings
+  Promise.all(toCreate.map(function(bk){
+    return db('bookings',{method:'POST',body:JSON.stringify(bk)})
+      .then(function(r){return r.json();})
+      .catch(function(){return null;});
+  }))
+  .then(function(results){
+    results.forEach(function(rows, idx){
+      var b = (rows && rows[0]) ? rows[0] : null;
+      var bk = toCreate[idx];
+      bookings.push({
+        id: b ? b.id : Date.now()+idx,
+        date: bk.session_date,
+        time: bk.session_time,
+        name: bk.student_name,
+        email: bk.student_email,
+        phone: bk.student_phone || '',
+        type: bk.session_type,
+        notes: bk.notes || '',
+        status: 'confirmed',
+        free: bk.is_free,
+        price: bk.price,
+        packageTotal: bk.package_total,
+        packageSession: bk.package_session,
+        recurringId: bk.recurring_id
+      });
+    });
     ['a-name','a-email','a-phone','a-notes'].forEach(function(id){document.getElementById(id).value='';});
+    // Reset recurring toggle
+    if (recurringOn) toggleRecurring();
     closeSheet('add-sheet');
     if(btn){btn.textContent='Add to Schedule';btn.disabled=false;}
-    renderAll();
-  }).catch(function(){
-    bookings.push({id:Date.now(),date:date,time:time,name:name,email:email,phone:phone,type:type,notes:notes,status:'confirmed',free:isFree});
-    closeSheet('add-sheet');
-    if(btn){btn.textContent='Add to Schedule';btn.disabled=false;}
+    if(totalSessions > 1){
+      alert('✓ Created ' + totalSessions + ' sessions for ' + name + (isRecurring ? ' (weekly recurring)' : ' (package)'));
+    }
     renderAll();
   });
 }
@@ -1232,6 +1368,68 @@ function copyProfileLink(){
 }
 function viewMyProfile(){window.location.href='/profile.html?id='+instructorId;}
 function signOut(){if(confirm('Sign out?')){localStorage.removeItem('cadi_instructor');window.location.href='/instructor-login.html';}}
+
+// ── RECURRING ──
+var recurringOn = false;
+function toggleRecurring(){
+  recurringOn = !recurringOn;
+  var btn = document.getElementById('recurring-toggle');
+  var knob = document.getElementById('recurring-knob');
+  var wrap = document.getElementById('recurring-weeks-wrap');
+  if(recurringOn){
+    btn.style.background = '#1a5c2a';
+    knob.style.left = '20px';
+    wrap.style.display = 'block';
+  } else {
+    btn.style.background = '#2a4a32';
+    knob.style.left = '2px';
+    wrap.style.display = 'none';
+  }
+}
+
+function onSessionTypeChange(){
+  // If a pack type is selected, show helpful hint
+  var type = document.getElementById('a-type').value;
+  // Packs automatically create multiple sessions but user decides on recurring separately
+}
+
+// ── BUFFER ──
+function setBufferOption(min){
+  selBuffer = min;
+  document.querySelectorAll('.buffer-opt').forEach(function(el){
+    var b = parseInt(el.getAttribute('data-buffer'));
+    if(b === min){
+      el.style.background = '#1a3a0e';
+      el.style.borderColor = '#c9a55a';
+    } else {
+      el.style.background = '#1e3024';
+      el.style.borderColor = '#2a4a32';
+    }
+  });
+}
+
+function saveBuffer(){
+  instructorBuffer = selBuffer;
+  db('instructors?instructor_id=eq.'+instructorId,{method:'PATCH',body:JSON.stringify({buffer_minutes:selBuffer})})
+    .then(function(){ closeSheet('buffer-sheet'); updateBufferDisplay(); renderAll(); })
+    .catch(function(){ closeSheet('buffer-sheet'); updateBufferDisplay(); renderAll(); });
+}
+
+function updateBufferDisplay(){
+  var el = document.getElementById('buffer-current');
+  if(!el)return;
+  if(instructorBuffer === 0) el.textContent = 'Currently: No buffer';
+  else el.textContent = 'Currently: ' + instructorBuffer + ' minutes between lessons';
+  // Pre-select current buffer in sheet
+  setBufferOption(instructorBuffer);
+}
+
+// Override openSheet to handle buffer sheet
+var _origOpenSheet = openSheet;
+openSheet = function(id){
+  _origOpenSheet(id);
+  if(id === 'buffer-sheet') updateBufferDisplay();
+};
 
 // ── SHEETS ──
 function openSheet(id){
