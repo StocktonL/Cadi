@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en" style="background:#0e1a12;">
 <head>
 <meta charset="UTF-8"/>
@@ -27,12 +28,12 @@ button,input{font-family:'DM Sans',sans-serif;}
 .header{padding:20px 0 36px;display:flex;align-items:center;justify-content:space-between;}
 .brand{display:flex;align-items:center;gap:9px;text-decoration:none;}
 .brand-mark{width:32px;height:32px;background:#c9a55a;border-radius:7px;display:flex;align-items:center;justify-content:center;}
-.brand-text{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:#ffffff;}
+.brand-text{font-family:‘Playfair Display’,serif;font-size:1.2rem;font-weight:800;color:#ffffff;}
 .back-link{font-size:0.72rem;font-weight:700;color:#a0b4a8;border:1.5px solid #2a4a32;border-radius:7px;padding:6px 12px;text-decoration:none;background:#162a1e;}
 
 /* HERO */
 .eyebrow{font-size:0.62rem;font-weight:700;color:#c9a55a;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:10px;}
-.title{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:800;color:#ffffff;line-height:1.1;margin-bottom:8px;}
+.title{font-family:‘Playfair Display’,serif;font-size:2.2rem;font-weight:800;color:#ffffff;line-height:1.1;margin-bottom:8px;}
 .subtitle{font-size:0.88rem;font-weight:500;color:#7a9a84;line-height:1.7;margin-bottom:28px;}
 
 /* BETA BANNER */
@@ -44,17 +45,17 @@ button,input{font-family:'DM Sans',sans-serif;}
 .form-card{background:#162a1e;border:1.5px solid #2a4a32;border-radius:16px;padding:22px;}
 .flbl{font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;}
 .finput{
-  width:100%;
-  background:#0e1a12;
-  border:1.5px solid #2a4a32;
-  border-radius:9px;
-  padding:13px 14px;
-  font-size:0.95rem;
-  font-weight:600;
-  color:#ffffff;
-  outline:none;
-  margin-bottom:16px;
-  transition:border-color 0.2s;
+width:100%;
+background:#0e1a12;
+border:1.5px solid #2a4a32;
+border-radius:9px;
+padding:13px 14px;
+font-size:0.95rem;
+font-weight:600;
+color:#ffffff;
+outline:none;
+margin-bottom:16px;
+transition:border-color 0.2s;
 }
 .finput::placeholder{color:#3a5a42;font-weight:400;}
 .finput:focus{border-color:#c9a55a;}
@@ -67,15 +68,15 @@ button,input{font-family:'DM Sans',sans-serif;}
 .remember-lbl{font-size:0.78rem;font-weight:600;color:#7a9a84;}
 .forgot{font-size:0.78rem;font-weight:700;color:#c9a55a;text-decoration:none;}
 .login-btn{
-  width:100%;
-  background:#c9a55a;
-  color:#0e1a12;
-  border:none;
-  border-radius:10px;
-  padding:15px;
-  font-size:0.95rem;
-  font-weight:800;
-  cursor:pointer;
+width:100%;
+background:#c9a55a;
+color:#0e1a12;
+border:none;
+border-radius:10px;
+padding:15px;
+font-size:0.95rem;
+font-weight:800;
+cursor:pointer;
 }
 .login-btn:disabled{opacity:0.35;cursor:not-allowed;}
 
@@ -92,6 +93,7 @@ button,input{font-family:'DM Sans',sans-serif;}
 .signup-text{font-size:0.82rem;font-weight:500;color:#7a9a84;}
 .signup-link{font-size:0.82rem;font-weight:800;color:#c9a55a;text-decoration:none;}
 </style>
+
 </head>
 <body style="background:#0e1a12;color:#ffffff;">
 <div class="page" style="background:#0e1a12;color:#ffffff;">
@@ -119,24 +121,27 @@ button,input{font-family:'DM Sans',sans-serif;}
   <div style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:16px;padding:22px;">
     <div class="error-box" id="err">Incorrect email or password. Please try again.</div>
 
-    <div style="font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Email</div>
-    <input class="finput" id="f-email" type="email" placeholder="your@email.com" autocomplete="email" oninput="chk()"/>
+```
+<div style="font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Email</div>
+<input class="finput" id="f-email" type="email" placeholder="your@email.com" autocomplete="email" oninput="chk()"/>
 
-    <div style="font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Password</div>
-    <div class="pw-wrap">
-      <input class="finput" id="f-pw" type="password" placeholder="••••••••" autocomplete="current-password" oninput="chk()"/>
-      <button class="pw-toggle" type="button" onclick="togglePw()">Show</button>
-    </div>
+<div style="font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Password</div>
+<div class="pw-wrap">
+  <input class="finput" id="f-pw" type="password" placeholder="••••••••" autocomplete="current-password" oninput="chk()"/>
+  <button class="pw-toggle" type="button" onclick="togglePw()">Show</button>
+</div>
 
-    <div class="remember-row">
-      <label class="remember-check">
-        <input type="checkbox" id="remember" checked/>
-        <span style="font-size:0.78rem;font-weight:600;color:#7a9a84;">Remember me</span>
-      </label>
-      <a class="forgot" href="#">Forgot password?</a>
-    </div>
+<div class="remember-row">
+  <label class="remember-check">
+    <input type="checkbox" id="remember" checked/>
+    <span style="font-size:0.78rem;font-weight:600;color:#7a9a84;">Remember me</span>
+  </label>
+  <a class="forgot" href="#" onclick="event.preventDefault();alert('Email hello@cadi.golf from your signup email and we\\'ll reset your password within 24 hours.');">Forgot password?</a>
+</div>
 
-    <button class="login-btn" id="login-btn" onclick="doLogin()" disabled>Sign In →</button>
+<button class="login-btn" id="login-btn" onclick="doLogin()" disabled>Sign In →</button>
+```
+
   </div>
 
   <div style="display:flex;align-items:center;gap:12px;margin:24px 0;">
@@ -200,5 +205,6 @@ function doLogin(){
 document.addEventListener('keydown',function(e){if(e.key==='Enter'){var b=document.getElementById('login-btn');if(!b.disabled)doLogin();}});
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
 </script>
+
 </body>
 </html>
