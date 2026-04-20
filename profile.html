@@ -637,6 +637,18 @@ function selectDate(el, dateStr) {
   checkReady();
 }
 
+// Convert '2:30 PM' to minutes from midnight
+function timeToMinutes(t){
+  var parts = t.match(/(\d+):(\d+)\s*(AM|PM)/i);
+  if(!parts) return 0;
+  var hr = parseInt(parts[1]);
+  var min = parseInt(parts[2]);
+  var ampm = parts[3].toUpperCase();
+  if(ampm === 'PM' && hr !== 12) hr += 12;
+  if(ampm === 'AM' && hr === 12) hr = 0;
+  return hr * 60 + min;
+}
+
 function buildTimeGrid() {
   var html = '';
   TIMES.forEach(function(t){
@@ -644,15 +656,33 @@ function buildTimeGrid() {
   });
   document.getElementById('time-grid').innerHTML = html;
   if (!instructor || !selDate) return;
-  // Mark taken slots based on selected date
-  db('bookings?instructor_id=eq.'+instructor.instructor_id+'&session_date=eq.'+selDate+'&status=eq.confirmed&select=session_time')
+  var buffer = (instructor.buffer_minutes || 0);
+  // Query both confirmed AND pending — both should block slots
+  db('bookings?instructor_id=eq.'+instructor.instructor_id+'&session_date=eq.'+selDate+'&status=in.(confirmed,pending)&select=session_time')
     .then(function(r){return r.json();})
     .then(function(rows){
       if(!Array.isArray(rows))return;
-      rows.forEach(function(b){
-        document.querySelectorAll('.tslot').forEach(function(s){
-          if(s.getAttribute('data-time')===b.session_time){s.classList.add('taken');s.onclick=null;}
-        });
+      // For each booked slot, mark it AND any slot within buffer minutes as taken
+      var bookedMins = rows.map(function(b){ return timeToMinutes(b.session_time); });
+      document.querySelectorAll('.tslot').forEach(function(s){
+        var slotTime = s.getAttribute('data-time');
+        var slotMins = timeToMinutes(slotTime);
+        // Exact match = taken
+        if(bookedMins.indexOf(slotMins) > -1){
+          s.classList.add('taken');
+          s.onclick = null;
+          return;
+        }
+        // Within buffer window of any booking = taken
+        if(buffer > 0){
+          var withinBuffer = bookedMins.some(function(bm){
+            return Math.abs(slotMins - bm) < (60 + buffer); // lesson runs 60 min + buffer
+          });
+          if(withinBuffer){
+            s.classList.add('taken');
+            s.onclick = null;
+          }
+        }
       });
     }).catch(function(){});
 }
