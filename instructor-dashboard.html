@@ -356,6 +356,13 @@ button,input,select,textarea{font-family:'DM Sans',sans-serif;}
   </div>
 
   <div class="settings-list">
+    <div class="setting-row" onclick="openEditProfile()" style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:10px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+      <div style="display:flex;align-items:center;gap:11px;">
+        <div style="font-size:1rem;width:22px;text-align:center;">✏️</div>
+        <div><div style="font-size:0.85rem;font-weight:700;color:#ffffff;">Edit Profile</div><div style="font-size:0.65rem;font-weight:500;color:#5a8a64;margin-top:1px;">Bio, rate, credentials, specialties</div></div>
+      </div>
+      <div style="color:#3a5a42;">›</div>
+    </div>
     <div class="setting-row" onclick="openSheet('avail-sheet')" style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:10px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
       <div style="display:flex;align-items:center;gap:11px;">
         <div style="font-size:1rem;width:22px;text-align:center;">📅</div>
@@ -596,6 +603,62 @@ button,input,select,textarea{font-family:'DM Sans',sans-serif;}
     </div>
     <button class="mbtn primary" onclick="saveBuffer()" style="width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;margin-bottom:8px;">Save Buffer</button>
     <button class="mbtn ghost" onclick="closeSheet('buffer-sheet')" style="width:100%;background:#1e3024;color:#5a8a64;border:1.5px solid #2a4a32;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;">Cancel</button>
+  </div>
+</div>
+
+<!-- EDIT PROFILE SHEET -->
+
+<div class="overlay" id="edit-profile-sheet" onclick="closeOuter(event,'edit-profile-sheet')">
+  <div class="sheet" onclick="event.stopPropagation()" style="max-height:90vh;overflow-y:auto;">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" onclick="closeSheet('edit-profile-sheet')" style="float:right;background:none;border:none;color:#5a8a64;font-size:1.1rem;cursor:pointer;">✕</button>
+    <div class="sheet-title" style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#ffffff;margin-bottom:4px;">Edit Profile</div>
+    <div class="sheet-sub" style="font-size:0.72rem;font-weight:600;color:#5a8a64;margin-bottom:18px;">This is what students see on your profile page</div>
+
+```
+<div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Title / Credentials</div>
+<input class="finput" id="ep-title" placeholder="e.g. PGA Teaching Professional" type="text" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;"/>
+
+<div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Home Course / Location</div>
+<input class="finput" id="ep-course" placeholder="e.g. Fox Hollow GC, Orem UT" type="text" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;"/>
+
+<div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">City, State</div>
+<input class="finput" id="ep-loc" placeholder="e.g. Orem, UT" type="text" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;"/>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+  <div>
+    <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Handicap</div>
+    <input class="finput" id="ep-handicap" placeholder="+2" type="text" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;"/>
+  </div>
+  <div>
+    <div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Years Teaching</div>
+    <input class="finput" id="ep-years" placeholder="8" type="number" min="0" max="80" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;"/>
+  </div>
+</div>
+
+<div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Hourly Rate ($)</div>
+<input class="finput" id="ep-rate" placeholder="150" type="number" min="0" max="1000" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;"/>
+
+<div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Primary Specialty</div>
+<select class="fselect" id="ep-spec" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.88rem;font-weight:600;color:#ffffff;outline:none;margin-bottom:12px;appearance:none;">
+  <option value="">Select…</option>
+  <option>Full Swing</option>
+  <option>Short Game</option>
+  <option>Putting</option>
+  <option>Course Management</option>
+  <option>Junior Development</option>
+  <option>Beginner Instruction</option>
+  <option>Competitive Prep</option>
+  <option>All Levels</option>
+</select>
+
+<div class="flbl" style="font-size:0.62rem;font-weight:800;color:#5a8a64;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Bio</div>
+<textarea class="ftextarea" id="ep-bio" placeholder="Tell students about your background and teaching style…" style="width:100%;background:#1e3024;border:1.5px solid #2a4a32;border-radius:8px;padding:12px 13px;font-size:0.85rem;color:#ffffff;outline:none;resize:none;height:120px;line-height:1.6;margin-bottom:16px;"></textarea>
+
+<button class="mbtn primary" onclick="saveProfile()" style="width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;margin-bottom:8px;">Save Changes</button>
+<button class="mbtn ghost" onclick="closeSheet('edit-profile-sheet')" style="width:100%;background:#1e3024;color:#5a8a64;border:1.5px solid #2a4a32;border-radius:10px;padding:13px;font-size:0.9rem;font-weight:800;cursor:pointer;">Cancel</button>
+```
+
   </div>
 </div>
 
@@ -1368,6 +1431,73 @@ function copyProfileLink(){
 }
 function viewMyProfile(){window.location.href='/profile.html?id='+instructorId;}
 function signOut(){if(confirm('Sign out?')){localStorage.removeItem('cadi_instructor');window.location.href='/instructor-login.html';}}
+
+// ── EDIT PROFILE ──
+function openEditProfile(){
+  // Fetch full instructor record, pre-fill the form
+  db('instructors?instructor_id=eq.'+encodeURIComponent(instructorId)+'&select=*')
+    .then(function(r){return r.json();})
+    .then(function(rows){
+      if(Array.isArray(rows)&&rows.length>0){
+        var inst = rows[0];
+        document.getElementById('ep-title').value = inst.title || '';
+        document.getElementById('ep-course').value = inst.course || '';
+        document.getElementById('ep-loc').value = inst.location || '';
+        document.getElementById('ep-handicap').value = inst.handicap || '';
+        document.getElementById('ep-years').value = inst.years_teaching || '';
+        document.getElementById('ep-rate').value = inst.rate || 150;
+        document.getElementById('ep-spec').value = inst.specialty || '';
+        document.getElementById('ep-bio').value = inst.bio || '';
+      }
+      openSheet('edit-profile-sheet');
+    })
+    .catch(function(){
+      openSheet('edit-profile-sheet');
+    });
+}
+
+function saveProfile(){
+  var title = document.getElementById('ep-title').value.trim();
+  var course = document.getElementById('ep-course').value.trim();
+  var loc = document.getElementById('ep-loc').value.trim();
+  var handicap = document.getElementById('ep-handicap').value.trim();
+  var years = document.getElementById('ep-years').value.trim();
+  var rate = document.getElementById('ep-rate').value.trim();
+  var spec = document.getElementById('ep-spec').value;
+  var bio = document.getElementById('ep-bio').value.trim();
+
+  var btn = document.querySelector('#edit-profile-sheet .mbtn.primary');
+  if(btn){btn.textContent='Saving…';btn.disabled=true;}
+
+  var payload = {
+    title: title || 'Golf Instructor',
+    course: course || null,
+    location: loc || null,
+    handicap: handicap || null,
+    years_teaching: years ? parseInt(years) : null,
+    rate: rate ? parseInt(rate) : 150,
+    specialty: spec || null,
+    specialties: spec ? [spec] : null,
+    bio: bio || null
+  };
+
+  db('instructors?instructor_id=eq.'+encodeURIComponent(instructorId),{method:'PATCH',body:JSON.stringify(payload)})
+    .then(function(r){return r.json();})
+    .then(function(){
+      instructorRate = payload.rate;
+      document.getElementById('pcs-rate').textContent = '$' + payload.rate;
+      document.getElementById('pc-title').textContent = payload.title + ' · ' + (course || '');
+      if(btn){btn.textContent='✓ Saved!';btn.style.background='#4ade80';}
+      setTimeout(function(){
+        closeSheet('edit-profile-sheet');
+        if(btn){btn.textContent='Save Changes';btn.style.background='#c9a55a';btn.disabled=false;}
+      }, 800);
+    })
+    .catch(function(e){
+      if(btn){btn.textContent='Save Changes';btn.disabled=false;}
+      alert('Could not save. Please try again.');
+    });
+}
 
 // ── RECURRING ──
 var recurringOn = false;
