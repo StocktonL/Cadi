@@ -1222,20 +1222,45 @@ function copyProfileLink(){
 function viewMyProfile(){window.location.href='/profile.html?id='+instructorId;}
 function signOut(){if(confirm('Sign out?')){localStorage.removeItem('cadi_instructor');window.location.href='/instructor-login.html';}}
 
+// Carson's public profile defaults — used when no Supabase row exists yet
+var CARSON_DEFAULTS = {
+  title: 'Korn Ferry Tour Professional',
+  course: 'BYU Training Facility',
+  location: 'American Fork, UT',
+  handicap: '+6.0',
+  years_teaching: '',
+  rate: 250,
+  specialty: 'Full Swing',
+  bio: 'Carson Lundell is a professional golfer from Alpine, Utah competing on the Korn Ferry Tour. A former BYU standout, Carson was one of the most decorated collegiate golfers in program history — finishing his career with a 70.76 scoring average, 7 top-10 finishes his senior season, and individual medalist honors at the NCAA West Regional. He brings the same competitive precision to his lessons that took him from Lone Peak High School to the professional tour.'
+};
+
 function openEditProfile(){
   db('instructors?instructor_id=eq.'+encodeURIComponent(instructorId)+'&select=*')
     .then(function(r){return r.json();})
     .then(function(rows){
-      if(Array.isArray(rows)&&rows.length>0){
-        var inst=rows[0];
-        document.getElementById('ep-title').value=inst.title||'';
-        document.getElementById('ep-course').value=inst.course||'';
-        document.getElementById('ep-loc').value=inst.location||'';
-        document.getElementById('ep-handicap').value=inst.handicap||'';
-        document.getElementById('ep-years').value=inst.years_teaching||'';
-        document.getElementById('ep-rate').value=inst.rate||150;
-        document.getElementById('ep-spec').value=inst.specialty||'';
-        document.getElementById('ep-bio').value=inst.bio||'';
+      var inst = (Array.isArray(rows)&&rows.length>0) ? rows[0] : null;
+
+      // If no Supabase row AND this is Carson, pre-fill with his public profile defaults
+      // For other instructors with no row, leave fields blank
+      if(!inst && instructorId === 'carson-lundell'){
+        inst = CARSON_DEFAULTS;
+      }
+
+      if(inst){
+        document.getElementById('ep-title').value = inst.title || '';
+        document.getElementById('ep-course').value = inst.course || '';
+        document.getElementById('ep-loc').value = inst.location || '';
+        document.getElementById('ep-handicap').value = inst.handicap || '';
+        document.getElementById('ep-years').value = inst.years_teaching || '';
+        document.getElementById('ep-rate').value = inst.rate || 150;
+        document.getElementById('ep-spec').value = inst.specialty || '';
+        document.getElementById('ep-bio').value = inst.bio || '';
+      } else {
+        // Brand new instructor signed up — clear fields
+        ['ep-title','ep-course','ep-loc','ep-handicap','ep-years','ep-spec','ep-bio'].forEach(function(id){
+          document.getElementById(id).value = '';
+        });
+        document.getElementById('ep-rate').value = 150;
       }
       openSheet('edit-profile-sheet');
     }).catch(function(){openSheet('edit-profile-sheet');});
