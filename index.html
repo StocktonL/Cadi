@@ -1,225 +1,200 @@
 <!DOCTYPE html>
-
-<html lang="en" style="background:#0e1a12;">
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<title>Cadi — Golf Instruction Platform</title>
-<meta name="description" content="Cadi gives golf instructors a professional booking page, real-time schedule, and referral system. Free during beta."/>
-<meta name="theme-color" content="#0e1a12"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<link rel="manifest" href="/manifest.json"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#fafaf9"/>
+<title>Cadi · The platform for independent golf instructors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body{
-  font-family:'DM Sans',sans-serif;
-  background:#0e1a12;
-  color:#ffffff;
-  -webkit-font-smoothing:antialiased;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-}
-button{font-family:'DM Sans',sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fafaf9;color:#0a0a0a;-webkit-font-smoothing:antialiased;letter-spacing:-0.01em;}
+body{max-width:430px;margin:0 auto;min-height:100vh;background:#fafaf9;}
 
-/* NAV */
-.nav{padding:18px 24px;display:flex;align-items:center;justify-content:space-between;}
-.brand{display:flex;align-items:center;gap:9px;text-decoration:none;}
-.brand-mark{width:32px;height:32px;background:#c9a55a;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.brand-text{font-family:‘Playfair Display’,serif;font-size:1.2rem;font-weight:800;color:#ffffff;}
-.signin-btn{background:#162a1e;color:#7a9a84;border:1.5px solid #2a4a32;border-radius:8px;padding:8px 16px;font-size:0.78rem;font-weight:700;cursor:pointer;}
+.sample-banner{background:#fef3c7;color:#854d0e;padding:8px 20px;font-size:0.72rem;font-weight:500;text-align:center;}
+
+/* TOP BAR — matches dashboard exactly */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid #e7e5e4;background:#fafaf9;position:sticky;top:0;z-index:10;}
+.brand{font-size:1.05rem;font-weight:700;letter-spacing:-0.02em;color:#0a0a0a;}
+.brand-dot{display:inline-block;width:6px;height:6px;background:#1a5c2a;border-radius:50%;margin-right:6px;vertical-align:middle;}
+.signin-link{font-size:0.78rem;font-weight:500;color:#0e3a1a;text-decoration:none;}
 
 /* HERO */
-.hero{flex:1;display:flex;flex-direction:column;justify-content:center;padding:40px 24px 20px;}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;}
-.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:#c9a55a;}
-.eyebrow-text{font-size:0.65rem;font-weight:700;color:#c9a55a;letter-spacing:0.2em;text-transform:uppercase;}
-.hero-title{font-family:‘Playfair Display’,serif;font-size:2.6rem;font-weight:800;color:#ffffff;line-height:1.1;margin-bottom:14px;}
-.hero-title em{font-style:italic;color:#c9a55a;}
-.hero-sub{font-size:0.92rem;font-weight:500;color:#7a9a84;line-height:1.8;margin-bottom:32px;max-width:320px;}
+.hero{padding:50px 24px 40px;text-align:center;}
+.hero-eyebrow{display:inline-block;font-size:0.66rem;font-weight:600;color:#0e3a1a;letter-spacing:0.1em;text-transform:uppercase;background:#f0f9f3;border:1px solid #d1e8d9;border-radius:100px;padding:5px 12px;margin-bottom:22px;}
+.hero-title{font-size:2.1rem;font-weight:700;line-height:1.1;letter-spacing:-0.03em;margin-bottom:14px;color:#0a0a0a;}
+.hero-title .accent{color:#1a5c2a;}
+.hero-sub{font-size:0.95rem;font-weight:400;line-height:1.55;color:#525252;margin-bottom:28px;}
+.hero-cta{display:flex;flex-direction:column;gap:8px;}
 
-/* CTA */
-.cta-stack{display:flex;flex-direction:column;gap:10px;margin-bottom:40px;}
-.cta-primary{width:100%;background:#c9a55a;color:#0e1a12;border:none;border-radius:11px;padding:16px;font-size:1rem;font-weight:800;cursor:pointer;text-align:center;text-decoration:none;display:block;}
-.cta-secondary{width:100%;background:#162a1e;color:#ffffff;border:1.5px solid #2a4a32;border-radius:11px;padding:15px;font-size:0.95rem;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;display:block;}
+/* BUTTONS — same as dashboard */
+.btn{font-family:inherit;font-size:0.92rem;font-weight:600;padding:13px 22px;border-radius:10px;border:none;cursor:pointer;transition:all 0.15s;text-decoration:none;display:inline-block;text-align:center;}
+.btn-primary{background:#0e3a1a;color:#ffffff;}
+.btn-primary:hover{background:#15522a;}
+.btn-secondary{background:#ffffff;color:#0e3a1a;border:1px solid #d6d3d1;}
+.btn-secondary:hover{background:#f5f5f4;}
+.cta-meta{font-size:0.74rem;font-weight:500;color:#737373;margin-top:14px;}
 
-/* FEATURES */
-.features{display:flex;flex-direction:column;gap:10px;margin-bottom:40px;}
-.feat{display:flex;align-items:flex-start;gap:14px;background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;}
-.feat-icon{font-size:1.2rem;flex-shrink:0;margin-top:1px;}
-.feat-title{font-size:0.85rem;font-weight:800;color:#ffffff;margin-bottom:3px;}
-.feat-desc{font-size:0.75rem;font-weight:500;color:#7a9a84;line-height:1.5;}
+/* SOCIAL PROOF */
+.proof{padding:0 24px 36px;text-align:center;border-bottom:1px solid #e7e5e4;}
+.proof-line{font-size:0.82rem;font-weight:500;color:#525252;line-height:1.6;}
+.proof-name{color:#0a0a0a;font-weight:700;}
 
-/* PROOF */
-.proof{background:#162a1e;border:1.5px solid #2a4a32;border-radius:14px;padding:18px;margin-bottom:40px;}
-.proof-quote{font-family:‘Playfair Display’,serif;font-size:1.05rem;font-weight:700;color:#ffffff;line-height:1.5;margin-bottom:12px;}
-.proof-quote em{font-style:italic;color:#c9a55a;}
-.proof-attr{display:flex;align-items:center;gap:10px;}
-.proof-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(140deg,#1a3a6b,#0d2044);border:2px solid rgba(201,165,90,0.4);display:flex;align-items:center;justify-content:center;font-family:‘Playfair Display’,serif;font-size:0.85rem;font-weight:800;color:#ffffff;flex-shrink:0;}
-.proof-name{font-size:0.8rem;font-weight:800;color:#ffffff;}
-.proof-title{font-size:0.68rem;font-weight:600;color:#7a9a84;}
+/* SECTIONS */
+.section{padding:44px 24px;border-bottom:1px solid #e7e5e4;}
+.section:last-of-type{border-bottom:none;}
+.section-eyebrow{font-size:0.66rem;font-weight:600;color:#1a5c2a;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;}
+.section-title{font-size:1.4rem;font-weight:700;letter-spacing:-0.02em;color:#0a0a0a;line-height:1.2;margin-bottom:12px;}
+.section-sub{font-size:0.88rem;font-weight:400;line-height:1.6;color:#525252;margin-bottom:24px;}
 
-/* BETA BANNER */
-.beta{background:rgba(201,165,90,0.08);border:1.5px solid rgba(201,165,90,0.25);border-radius:12px;padding:14px;margin-bottom:32px;text-align:center;}
-.beta-title{font-size:0.8rem;font-weight:800;color:#c9a55a;margin-bottom:4px;}
-.beta-desc{font-size:0.72rem;font-weight:500;color:#7a9a84;line-height:1.6;}
-.beta-code{display:inline-block;background:#0e1a12;border:1.5px solid #c9a55a;border-radius:6px;padding:4px 12px;font-size:0.85rem;font-weight:800;color:#c9a55a;letter-spacing:0.12em;margin-top:8px;}
+/* FEATURE CARDS — match dashboard cards */
+.feature-list{display:flex;flex-direction:column;gap:8px;}
+.feature-card{background:#ffffff;border:1px solid #e7e5e4;border-radius:10px;padding:16px;}
+.feature-card.lesson{border-left:3px solid #1a5c2a;}
+.feature-card.intro{border-left:3px solid #d97706;}
+.feature-card.package{border-left:3px solid #2563eb;}
+.fc-title{font-size:0.95rem;font-weight:600;color:#0a0a0a;margin-bottom:5px;letter-spacing:-0.01em;}
+.fc-sub{font-size:0.82rem;font-weight:400;color:#525252;line-height:1.55;}
 
 /* HOW IT WORKS */
-.how-title{font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px;}
-.steps{display:flex;flex-direction:column;gap:8px;margin-bottom:40px;}
-.step-row{display:flex;align-items:flex-start;gap:14px;}
-.step-num{width:28px;height:28px;border-radius:50%;background:#1a5c2a;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:800;color:#ffffff;flex-shrink:0;margin-top:1px;}
-.step-text{font-size:0.85rem;font-weight:600;color:#ffffff;line-height:1.5;padding-top:4px;}
-.step-text span{color:#7a9a84;font-weight:500;}
+.steps-list{display:flex;flex-direction:column;gap:16px;}
+.step{display:flex;align-items:flex-start;gap:12px;}
+.step-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#0e3a1a;color:#ffffff;display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:700;}
+.step-text{flex:1;font-size:0.88rem;font-weight:500;color:#0a0a0a;line-height:1.5;padding-top:3px;}
+.step-text .muted{color:#525252;font-weight:400;}
+
+/* PRICING — light card with accent border */
+.price-card{background:#ffffff;border:1px solid #1a5c2a;border-radius:12px;padding:22px;position:relative;margin-bottom:10px;}
+.price-badge{position:absolute;top:-9px;right:16px;background:#0e3a1a;color:#ffffff;padding:4px 10px;border-radius:5px;font-size:0.6rem;font-weight:700;letter-spacing:0.06em;}
+.price-label{font-size:0.66rem;font-weight:700;color:#1a5c2a;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+.price-amount{display:flex;align-items:baseline;gap:5px;margin-bottom:10px;}
+.price-num{font-size:2.3rem;font-weight:700;color:#0a0a0a;line-height:1;letter-spacing:-0.03em;}
+.price-period{font-size:0.85rem;font-weight:500;color:#737373;}
+.price-desc{font-size:0.85rem;font-weight:400;color:#525252;line-height:1.55;margin-bottom:14px;}
+.price-features{display:flex;flex-direction:column;gap:8px;}
+.pf-item{display:flex;align-items:flex-start;gap:8px;font-size:0.85rem;font-weight:500;color:#0a0a0a;line-height:1.4;}
+.pf-check{color:#1a5c2a;font-weight:700;flex-shrink:0;}
+
+.founder-note{background:#f0f9f3;border:1px solid #d1e8d9;border-radius:9px;padding:13px;margin-bottom:20px;text-align:center;}
+.fn-title{font-size:0.74rem;font-weight:700;color:#0e3a1a;margin-bottom:3px;}
+.fn-sub{font-size:0.74rem;font-weight:400;color:#525252;line-height:1.55;}
 
 /* FOOTER */
-.footer{padding:24px;border-top:1px solid #162a1e;text-align:center;}
-.footer-brand{font-family:‘Playfair Display’,serif;font-size:1rem;font-weight:800;color:#ffffff;margin-bottom:6px;}
-.footer-sub{font-size:0.7rem;font-weight:500;color:#3a5a42;}
+.footer{padding:30px 24px 50px;text-align:center;}
+.footer-brand{font-size:1rem;font-weight:700;letter-spacing:-0.02em;color:#0a0a0a;margin-bottom:6px;}
+.footer-line{font-size:0.74rem;font-weight:400;color:#737373;line-height:1.6;}
+.footer-line a{color:#0e3a1a;text-decoration:none;font-weight:500;}
 </style>
-
 </head>
-<body style="background:#0e1a12;color:#ffffff;">
+<body>
 
-<nav class="nav" style="background:#0e1a12;">
-  <a class="brand" href="/">
-    <div class="brand-mark">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/>
-      </svg>
-    </div>
-    <span class="brand-text" style="color:#ffffff;">Cadi</span>
-  </a>
-  <button class="signin-btn" onclick="window.location.href='/instructor-login.html'">Sign In</button>
-</nav>
 
-<div class="hero" style="background:#0e1a12;">
+<div class="topbar">
+  <div class="brand"><span class="brand-dot"></span>Cadi</div>
+  <a class="signin-link" href="/instructor-login.html">Sign in</a>
+</div>
 
-  <div class="eyebrow">
-    <div class="eyebrow-dot"></div>
-    <span class="eyebrow-text" style="color:#c9a55a;">Free During Beta · For Instructors</span>
+<div class="hero">
+  <div class="hero-eyebrow">Free during beta</div>
+  <h1 class="hero-title">The platform built for <span class="accent">independent</span> golf instructors.</h1>
+  <p class="hero-sub">Your professional booking page, lesson notes, student history, and referral system — all in one place. Built by a Korn Ferry Tour pro.</p>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="/instructor-signup.html">Create your free profile</a>
+    <a class="btn btn-secondary" href="#how">See how it works</a>
   </div>
+  <div class="cta-meta">Takes 10 minutes · No credit card required</div>
+</div>
 
-  <div class="hero-title" style="color:#ffffff;font-family:Playfair Display,serif;font-size:2.6rem;font-weight:800;line-height:1.1;margin-bottom:14px;">Your lessons.<br>Your <em>profile.</em><br>Your students.</div>
-  <p class="hero-sub" style="color:#7a9a84;font-size:0.92rem;font-weight:500;line-height:1.8;margin-bottom:32px;">Cadi gives independent golf instructors a professional booking page, real-time schedule management, and a referral system that fills your calendar — all in one place.</p>
+<div class="proof">
+  <div class="proof-line">Trusted by Korn Ferry Tour pro <span class="proof-name">Carson Lundell</span> and a growing community of independent instructors.</div>
+</div>
 
-  <div class="cta-stack">
-    <a class="cta-primary" href="/instructor-signup.html">Join Free as an Instructor →</a>
-    <a class="cta-secondary" href="/instructor-login.html">Sign In to My Account</a>
-  </div>
+<div class="section">
+  <div class="section-eyebrow">What's included</div>
+  <h2 class="section-title">Run your entire teaching business from one app.</h2>
+  <p class="section-sub">No more juggling Venmo, Google Calendar, text threads, and notes apps. Everything an independent instructor needs, in one place.</p>
 
-  <div class="beta" style="background:rgba(201,165,90,0.08);border:1.5px solid rgba(201,165,90,0.25);border-radius:12px;padding:14px;margin-bottom:32px;text-align:center;">
-    <div class="beta-title" style="font-size:0.8rem;font-weight:800;color:#c9a55a;margin-bottom:4px;">🎉 Beta Access — Currently Free</div>
-    <div class="beta-desc" style="font-size:0.72rem;font-weight:500;color:#7a9a84;line-height:1.6;">Cadi is free for all instructors during beta. Use your access code at signup.</div>
-    <div class="beta-code" style="display:inline-block;background:#0e1a12;border:1.5px solid #c9a55a;border-radius:6px;padding:4px 12px;font-size:0.85rem;font-weight:800;color:#c9a55a;letter-spacing:0.12em;margin-top:8px;">CADI2026</div>
-  </div>
-
-  <div class="features">
-    <div class="feat" style="display:flex;align-items:flex-start;gap:14px;background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;">
-      <div class="feat-icon">👤</div>
-      <div>
-        <div class="feat-title" style="font-size:0.85rem;font-weight:800;color:#ffffff;margin-bottom:3px;">Your Professional Profile</div>
-        <div class="feat-desc" style="font-size:0.75rem;font-weight:500;color:#7a9a84;line-height:1.5;">A clean, shareable booking page with your credentials, pricing, and availability. Share it anywhere — Instagram, text, email.</div>
-      </div>
+  <div class="feature-list">
+    <div class="feature-card lesson">
+      <div class="fc-title">Your professional profile</div>
+      <div class="fc-sub">A shareable booking page that makes you look like a Tour-level pro. Students book directly from your link.</div>
     </div>
-    <div class="feat" style="display:flex;align-items:flex-start;gap:14px;background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;">
-      <div class="feat-icon">📅</div>
-      <div>
-        <div class="feat-title" style="font-size:0.85rem;font-weight:800;color:#ffffff;margin-bottom:3px;">Real-Time Schedule</div>
-        <div class="feat-desc" style="font-size:0.75rem;font-weight:500;color:#7a9a84;line-height:1.5;">See all your bookings in one place. Block time off, add lessons manually, and manage your week from your phone.</div>
-      </div>
+    <div class="feature-card lesson">
+      <div class="fc-title">Smart scheduling</div>
+      <div class="fc-sub">Buffer protection, recurring lessons, and package tracking. Students can't double-book you and you never lose track of pack sessions.</div>
     </div>
-    <div class="feat" style="display:flex;align-items:flex-start;gap:14px;background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;">
-      <div class="feat-icon">🔗</div>
-      <div>
-        <div class="feat-title" style="font-size:0.85rem;font-weight:800;color:#ffffff;margin-bottom:3px;">Referral System Built In</div>
-        <div class="feat-desc" style="font-size:0.75rem;font-weight:500;color:#7a9a84;line-height:1.5;">Every student who books gets a personal referral code. They share it, their friends book, your calendar fills itself.</div>
-      </div>
+    <div class="feature-card lesson">
+      <div class="fc-title">Lesson notes &amp; recaps</div>
+      <div class="fc-sub">Log focus areas, progress, and homework. Send a personalized recap to every student in one tap — text or email.</div>
     </div>
-    <div class="feat" style="display:flex;align-items:flex-start;gap:14px;background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;">
-      <div class="feat-icon">⛳</div>
-      <div>
-        <div class="feat-title" style="font-size:0.85rem;font-weight:800;color:#ffffff;margin-bottom:3px;">Built for Golf, Not Generic</div>
-        <div class="feat-desc" style="font-size:0.75rem;font-weight:500;color:#7a9a84;line-height:1.5;">Lesson packages with correct pricing math, handicap display, course location, and golf-specific booking flows.</div>
-      </div>
+    <div class="feature-card package">
+      <div class="fc-title">Student history</div>
+      <div class="fc-sub">Every past lesson, every note, every recap — automatically loaded when a returning student books with you.</div>
+    </div>
+    <div class="feature-card intro">
+      <div class="fc-title">Referral system</div>
+      <div class="fc-sub">Every student gets a personal code that earns them credit. Your calendar fills automatically through word-of-mouth.</div>
     </div>
   </div>
+</div>
 
-  <div class="proof" style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:14px;padding:18px;margin-bottom:40px;">
-    <div class="proof-quote" style="font-family:Playfair Display,serif;font-size:1.05rem;font-weight:700;color:#ffffff;line-height:1.5;margin-bottom:12px;">"I built Cadi because I needed it myself. Now every instructor can have what I have — a <em>professional presence</em> without the overhead."</div>
-    <div class="proof-attr">
-      <div class="proof-avatar">CL</div>
-      <div>
-        <div class="proof-name" style="font-size:0.8rem;font-weight:800;color:#ffffff;">Carson Lundell</div>
-        <div class="proof-title" style="font-size:0.68rem;font-weight:600;color:#7a9a84;">Korn Ferry Tour Pro · Cadi Co-Founder</div>
-      </div>
-    </div>
-  </div>
+<div class="section">
+  <div class="section-eyebrow">How it works</div>
+  <h2 class="section-title">Live in 10 minutes.</h2>
 
-  <div class="how-title" style="font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px;">How it works</div>
-  <div class="steps">
-    <div class="step-row">
+  <div class="steps-list">
+    <div class="step">
       <div class="step-num">1</div>
-      <div class="step-text" style="font-size:0.85rem;font-weight:600;color:#ffffff;line-height:1.5;padding-top:4px;">Sign up with code <strong>CADI2026</strong> — <span>takes about 4 minutes</span></div>
+      <div class="step-text">Sign up with code <strong>CADI2026</strong> and build your profile — <span class="muted">credentials, bio, rate, availability</span></div>
     </div>
-    <div class="step-row">
+    <div class="step">
       <div class="step-num">2</div>
-      <div class="step-text" style="font-size:0.85rem;font-weight:600;color:#ffffff;line-height:1.5;padding-top:4px;">Your profile page goes live instantly — <span>share the link anywhere</span></div>
+      <div class="step-text">Share your booking link — <span class="muted">on Instagram, in texts, on business cards, anywhere</span></div>
     </div>
-    <div class="step-row">
+    <div class="step">
       <div class="step-num">3</div>
-      <div class="step-text" style="font-size:0.85rem;font-weight:600;color:#ffffff;line-height:1.5;padding-top:4px;">Students find you, book a lesson, and get their own referral code — <span>your calendar fills automatically</span></div>
+      <div class="step-text">Students book, you confirm, your calendar fills — <span class="muted">automatically, with built-in referrals driving more</span></div>
     </div>
   </div>
-
-  <!-- PRICING -->
-
-  <div style="font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px;margin-top:40px;">Simple Pricing</div>
-
-  <div style="background:#162a1e;border:2px solid #c9a55a;border-radius:14px;padding:22px;margin-bottom:12px;position:relative;">
-    <div style="position:absolute;top:-10px;right:16px;background:#c9a55a;color:#0e1a12;padding:3px 10px;border-radius:5px;font-size:0.58rem;font-weight:800;letter-spacing:0.1em;">FREE DURING BETA</div>
-    <div style="font-size:0.68rem;font-weight:800;color:#c9a55a;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:6px;">Solo Instructor</div>
-    <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:10px;">
-      <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:800;color:#ffffff;line-height:1;">$29</div>
-      <div style="font-size:0.78rem;font-weight:600;color:#7a9a84;">/month after beta</div>
-    </div>
-    <div style="font-size:0.78rem;font-weight:500;color:#7a9a84;line-height:1.7;margin-bottom:14px;">Everything you need to run your teaching business — your profile, schedule, bookings, student notes, and referral system. All included.</div>
-    <div style="display:flex;flex-direction:column;gap:6px;font-size:0.78rem;font-weight:500;color:#ffffff;">
-      <div>✓ Unlimited bookings</div>
-      <div>✓ Shareable professional profile page</div>
-      <div>✓ Lesson notes &amp; student history</div>
-      <div>✓ Referral codes &amp; credit tracking</div>
-      <div>✓ Buffer protection &amp; recurring lessons</div>
-      <div>✓ Package tracking</div>
-    </div>
-  </div>
-
-  <div style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:12px;padding:14px;margin-bottom:30px;text-align:center;">
-    <div style="font-size:0.75rem;font-weight:700;color:#c9a55a;margin-bottom:4px;">🎉 Founders get locked-in pricing</div>
-    <div style="font-size:0.72rem;font-weight:500;color:#7a9a84;line-height:1.6;">Beta instructors pay nothing today and get locked-in early access rates when we go paid. 30 days notice before anything changes.</div>
-  </div>
-
-  <div class="cta-stack">
-    <a class="cta-primary" href="/instructor-signup.html">Create My Free Profile →</a>
-  </div>
-
 </div>
 
-<div class="footer" style="background:#0e1a12;border-top:1px solid #162a1e;">
-  <div class="footer-brand" style="font-family:Playfair Display,serif;font-size:1rem;font-weight:800;color:#ffffff;margin-bottom:6px;">Cadi</div>
-  <div class="footer-sub" style="font-size:0.7rem;font-weight:500;color:#3a5a42;">Built for independent golf instructors · Utah & beyond</div>
+<div class="section">
+  <div class="section-eyebrow">Pricing</div>
+  <h2 class="section-title">Simple, transparent, fair.</h2>
+
+  <div class="price-card">
+    <div class="price-badge">FREE DURING BETA</div>
+    <div class="price-label">Solo Instructor</div>
+    <div class="price-amount">
+      <div class="price-num">$29</div>
+      <div class="price-period">/month after beta</div>
+    </div>
+    <div class="price-desc">Everything you need to run your teaching business — your profile, schedule, bookings, student notes, and referral system. All included.</div>
+    <div class="price-features">
+      <div class="pf-item"><span class="pf-check">✓</span><span>Unlimited bookings</span></div>
+      <div class="pf-item"><span class="pf-check">✓</span><span>Shareable professional profile page</span></div>
+      <div class="pf-item"><span class="pf-check">✓</span><span>Lesson notes &amp; student history</span></div>
+      <div class="pf-item"><span class="pf-check">✓</span><span>Referral codes &amp; credit tracking</span></div>
+      <div class="pf-item"><span class="pf-check">✓</span><span>Buffer protection &amp; recurring lessons</span></div>
+      <div class="pf-item"><span class="pf-check">✓</span><span>Package tracking</span></div>
+    </div>
+  </div>
+
+  <div class="founder-note">
+    <div class="fn-title">Founders get locked-in pricing</div>
+    <div class="fn-sub">Beta instructors pay nothing today and lock in early-access rates when we go paid. 30 days notice before anything changes.</div>
+  </div>
+
+  <a class="btn btn-primary" style="display:block;width:100%;" href="/instructor-signup.html">Create my free profile</a>
 </div>
 
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js').catch(function(){});
-  });
-}
-</script>
+<div class="footer">
+  <div class="footer-brand"><span class="brand-dot"></span>Cadi</div>
+  <div class="footer-line">Built for independent golf instructors</div>
+  <div class="footer-line" style="margin-top:6px;"><a href="mailto:hello@cadi.golf">hello@cadi.golf</a></div>
+</div>
 
 </body>
 </html>
