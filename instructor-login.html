@@ -1,209 +1,146 @@
 <!DOCTYPE html>
-
-<html lang="en" style="background:#0e1a12;">
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<title>Instructor Login · Cadi</title>
-<meta name="theme-color" content="#0e1a12"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<link rel="manifest" href="/manifest.json"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#fafaf9"/>
+<title>Cadi · Instructor Sign In</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body{
-  font-family:'DM Sans',sans-serif;
-  background:#0e1a12;
-  color:#ffffff;
-  -webkit-font-smoothing:antialiased;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-}
-button,input{font-family:'DM Sans',sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fafaf9;color:#0a0a0a;-webkit-font-smoothing:antialiased;letter-spacing:-0.01em;}
+body{max-width:430px;margin:0 auto;min-height:100vh;background:#fafaf9;display:flex;flex-direction:column;}
 
-.page{flex:1;padding:0 24px 60px;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid #e7e5e4;background:#fafaf9;}
+.brand{font-size:1.05rem;font-weight:700;letter-spacing:-0.02em;color:#0a0a0a;text-decoration:none;}
+.brand-dot{display:inline-block;width:6px;height:6px;background:#1a5c2a;border-radius:50%;margin-right:6px;vertical-align:middle;}
+.back-link{font-size:0.78rem;font-weight:500;color:#737373;text-decoration:none;}
 
-/* HEADER */
-.header{padding:20px 0 36px;display:flex;align-items:center;justify-content:space-between;}
-.brand{display:flex;align-items:center;gap:9px;text-decoration:none;}
-.brand-mark{width:32px;height:32px;background:#c9a55a;border-radius:7px;display:flex;align-items:center;justify-content:center;}
-.brand-text{font-family:‘Playfair Display’,serif;font-size:1.2rem;font-weight:800;color:#ffffff;}
-.back-link{font-size:0.72rem;font-weight:700;color:#a0b4a8;border:1.5px solid #2a4a32;border-radius:7px;padding:6px 12px;text-decoration:none;background:#162a1e;}
+.content{flex:1;padding:50px 24px 30px;}
 
-/* HERO */
-.eyebrow{font-size:0.62rem;font-weight:700;color:#c9a55a;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:10px;}
-.title{font-family:‘Playfair Display’,serif;font-size:2.2rem;font-weight:800;color:#ffffff;line-height:1.1;margin-bottom:8px;}
-.subtitle{font-size:0.88rem;font-weight:500;color:#7a9a84;line-height:1.7;margin-bottom:28px;}
+.title-wrap{margin-bottom:28px;}
+.eyebrow{display:inline-block;font-size:0.66rem;font-weight:600;color:#0e3a1a;letter-spacing:0.1em;text-transform:uppercase;background:#f0f9f3;border:1px solid #d1e8d9;border-radius:100px;padding:5px 12px;margin-bottom:14px;}
+.page-title{font-size:1.7rem;font-weight:700;letter-spacing:-0.02em;color:#0a0a0a;line-height:1.15;margin-bottom:8px;}
+.page-sub{font-size:0.92rem;font-weight:400;color:#525252;line-height:1.55;}
 
-/* BETA BANNER */
-.beta-banner{background:#162a1e;border:1.5px solid #2a4a32;border-radius:10px;padding:13px 14px;margin-bottom:24px;display:flex;align-items:center;gap:10px;}
-.beta-text{font-size:0.75rem;font-weight:600;color:#7a9a84;line-height:1.5;}
-.beta-text strong{color:#c9a55a;}
+.form-card{background:#ffffff;border:1px solid #e7e5e4;border-radius:12px;padding:22px;}
+.flbl{font-size:0.7rem;font-weight:600;color:#525252;margin-bottom:6px;margin-top:14px;}
+.flbl:first-child{margin-top:0;}
+.finput{width:100%;background:#ffffff;border:1px solid #d6d3d1;border-radius:8px;padding:12px 13px;font-size:0.92rem;font-weight:500;color:#0a0a0a;outline:none;font-family:inherit;}
+.finput:focus{border-color:#0e3a1a;}
 
-/* FORM */
-.form-card{background:#162a1e;border:1.5px solid #2a4a32;border-radius:16px;padding:22px;}
-.flbl{font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;}
-.finput{
-width:100%;
-background:#0e1a12;
-border:1.5px solid #2a4a32;
-border-radius:9px;
-padding:13px 14px;
-font-size:0.95rem;
-font-weight:600;
-color:#ffffff;
-outline:none;
-margin-bottom:16px;
-transition:border-color 0.2s;
-}
-.finput::placeholder{color:#3a5a42;font-weight:400;}
-.finput:focus{border-color:#c9a55a;}
-.pw-wrap{position:relative;margin-bottom:16px;}
-.pw-wrap .finput{margin-bottom:0;padding-right:56px;}
-.pw-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#7a9a84;cursor:pointer;font-size:0.78rem;font-weight:700;}
-.remember-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
-.remember-check{display:flex;align-items:center;gap:8px;cursor:pointer;}
-.remember-check input{width:16px;height:16px;accent-color:#c9a55a;cursor:pointer;}
-.remember-lbl{font-size:0.78rem;font-weight:600;color:#7a9a84;}
-.forgot{font-size:0.78rem;font-weight:700;color:#c9a55a;text-decoration:none;}
-.login-btn{
-width:100%;
-background:#c9a55a;
-color:#0e1a12;
-border:none;
-border-radius:10px;
-padding:15px;
-font-size:0.95rem;
-font-weight:800;
-cursor:pointer;
-}
-.login-btn:disabled{opacity:0.35;cursor:not-allowed;}
+.error{display:none;background:#fef2f2;border:1px solid #fecaca;color:#991b1b;font-size:0.78rem;font-weight:500;padding:10px 12px;border-radius:7px;margin-top:14px;line-height:1.5;}
+.error.show{display:block;}
 
-/* ERROR */
-.error-box{background:#2a1010;border:1.5px solid #5a2020;border-radius:9px;padding:12px 14px;font-size:0.82rem;font-weight:700;color:#f87171;margin-bottom:16px;display:none;}
+.btn{font-family:inherit;font-size:0.92rem;font-weight:600;padding:13px 22px;border-radius:10px;border:none;cursor:pointer;transition:all 0.15s;text-decoration:none;display:inline-block;text-align:center;width:100%;}
+.btn-primary{background:#0e3a1a;color:#ffffff;margin-top:18px;}
+.btn-primary:hover{background:#15522a;}
 
-/* DIVIDER */
-.divider{display:flex;align-items:center;gap:12px;margin:24px 0;}
-.div-line{flex:1;height:1px;background:#2a4a32;}
-.div-text{font-size:0.68rem;font-weight:700;color:#3a5a42;}
+.forgot-row{margin-top:14px;text-align:center;}
+.forgot{font-size:0.78rem;font-weight:500;color:#0e3a1a;text-decoration:none;cursor:pointer;}
 
-/* SIGNUP */
-.signup-row{text-align:center;}
-.signup-text{font-size:0.82rem;font-weight:500;color:#7a9a84;}
-.signup-link{font-size:0.82rem;font-weight:800;color:#c9a55a;text-decoration:none;}
+.divider{display:flex;align-items:center;gap:12px;margin:26px 0 22px;}
+.divider-line{flex:1;height:1px;background:#e7e5e4;}
+.divider-text{font-size:0.74rem;font-weight:500;color:#737373;}
+
+.cta-block{background:#ffffff;border:1px solid #e7e5e4;border-radius:12px;padding:18px;text-align:center;}
+.cta-title{font-size:0.92rem;font-weight:600;color:#0a0a0a;margin-bottom:5px;}
+.cta-sub{font-size:0.8rem;font-weight:400;color:#525252;line-height:1.5;margin-bottom:14px;}
+.btn-secondary{background:#ffffff;color:#0e3a1a;border:1px solid #d6d3d1;}
+.btn-secondary:hover{background:#f5f5f4;}
 </style>
-
 </head>
-<body style="background:#0e1a12;color:#ffffff;">
-<div class="page" style="background:#0e1a12;color:#ffffff;">
-  <div class="header">
-    <a class="brand" href="/index.html">
-      <div class="brand-mark">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0e1a12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="7" r="3"/><path d="M12 10v11M9 17l3 3 3-3M7 13s1.5-2 5-2 5 2 5 2"/>
-        </svg>
-      </div>
-      <span class="brand-text" style="color:#ffffff;">Cadi</span>
-    </a>
-    <a style="font-size:0.72rem;font-weight:700;color:#7a9a84;background:#162a1e;border:1.5px solid #2a4a32;border-radius:7px;padding:6px 12px;text-decoration:none;" href="/index.html">← Back</a>
-  </div>
+<body>
 
-  <div style="font-size:0.62rem;font-weight:700;color:#c9a55a;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:10px;">Instructor Portal</div>
-  <div class="title" style="color:#ffffff;">Welcome<br>back.</div>
-  <div class="subtitle" style="color:#7a9a84;">Sign in to manage your schedule, view bookings, and grow your teaching business.</div>
-
-  <div style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:10px;padding:13px 14px;margin-bottom:24px;display:flex;align-items:center;gap:10px;">
-    <span style="font-size:1.1rem;">🎉</span>
-    <div style="font-size:0.75rem;font-weight:600;color:#7a9a84;line-height:1.5;">Cadi is in <strong>beta</strong> — free for all instructors. Use code <strong>CADI2026</strong> to sign up.</div>
-  </div>
-
-  <div style="background:#162a1e;border:1.5px solid #2a4a32;border-radius:16px;padding:22px;">
-    <div class="error-box" id="err">Incorrect email or password. Please try again.</div>
-
-```
-<div style="font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Email</div>
-<input class="finput" id="f-email" type="email" placeholder="your@email.com" autocomplete="email" oninput="chk()"/>
-
-<div style="font-size:0.65rem;font-weight:800;color:#7a9a84;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Password</div>
-<div class="pw-wrap">
-  <input class="finput" id="f-pw" type="password" placeholder="••••••••" autocomplete="current-password" oninput="chk()"/>
-  <button class="pw-toggle" type="button" onclick="togglePw()">Show</button>
+<div class="topbar">
+  <a class="brand" href="/"><span class="brand-dot"></span>Cadi</a>
+  <a class="back-link" href="/">← Home</a>
 </div>
 
-<div class="remember-row">
-  <label class="remember-check">
-    <input type="checkbox" id="remember" checked/>
-    <span style="font-size:0.78rem;font-weight:600;color:#7a9a84;">Remember me</span>
-  </label>
-  <a class="forgot" href="#" onclick="event.preventDefault();alert('Email hello@cadi.golf from your signup email and we\\'ll reset your password within 24 hours.');">Forgot password?</a>
-</div>
-
-<button class="login-btn" id="login-btn" onclick="doLogin()" disabled>Sign In →</button>
-```
-
+<div class="content">
+  <div class="title-wrap">
+    <div class="eyebrow">Instructor sign in</div>
+    <div class="page-title">Welcome back.</div>
+    <div class="page-sub">Sign in to your Cadi instructor dashboard.</div>
   </div>
 
-  <div style="display:flex;align-items:center;gap:12px;margin:24px 0;">
-    <div style="flex:1;height:1px;background:#2a4a32;"></div>
-    <div style="font-size:0.68rem;font-weight:700;color:#3a5a42;">NEW TO CADI?</div>
-    <div style="flex:1;height:1px;background:#2a4a32;"></div>
+  <div class="form-card">
+    <div class="flbl">Email</div>
+    <input class="finput" id="login-email" type="email" placeholder="you@example.com" autocomplete="username"/>
+
+    <div class="flbl">Password</div>
+    <input class="finput" id="login-password" type="password" placeholder="••••••••" autocomplete="current-password"/>
+
+    <div class="error" id="login-error"></div>
+
+    <button class="btn btn-primary" onclick="doLogin()">Sign in →</button>
+
+    <div class="forgot-row">
+      <a class="forgot" href="#" onclick="event.preventDefault();alert('Email hello@cadi.golf from your signup email and we will reset your password within 24 hours.');">Forgot password?</a>
+    </div>
   </div>
 
-  <div style="text-align:center;">
-    <span style="font-size:0.82rem;font-weight:500;color:#7a9a84;">Don't have an account? </span>
-    <a style="font-size:0.82rem;font-weight:800;color:#c9a55a;text-decoration:none;" href="/instructor-signup.html">Join free →</a>
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-text">New to Cadi?</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-title">Create your instructor profile</div>
+    <div class="cta-sub">Free during beta. Live in 10 minutes. Use code CADI2026.</div>
+    <a class="btn btn-secondary" href="/instructor-signup.html">Create my profile →</a>
   </div>
 </div>
 
 <script>
-var INSTRUCTORS = {
-  'carson@cadi.com': { password:'carson123', name:'Carson Lundell', id:'carson-lundell' }
-};
-
-(function(){
-  var s = localStorage.getItem('cadi_instructor');
-  if (s) { try { var i=JSON.parse(s); if(i&&i.id) window.location.href='/instructor-dashboard.html'; } catch(e){} }
-  var em = localStorage.getItem('cadi_remember_email');
-  if (em) { document.getElementById('f-email').value=em; chk(); }
-})();
-
-function chk(){
-  var e=document.getElementById('f-email').value.trim();
-  var p=document.getElementById('f-pw').value;
-  document.getElementById('login-btn').disabled=!(e.indexOf('@')>0&&p.length>0);
-}
-
-function togglePw(){
-  var i=document.getElementById('f-pw');
-  var b=document.querySelector('.pw-toggle');
-  i.type=i.type==='password'?'text':'password';
-  b.textContent=i.type==='password'?'Show':'Hide';
-}
-
 function doLogin(){
-  var email=document.getElementById('f-email').value.trim().toLowerCase();
-  var pw=document.getElementById('f-pw').value;
-  var btn=document.getElementById('login-btn');
-  var err=document.getElementById('err');
-  btn.disabled=true; btn.textContent='Signing in…'; err.style.display='none';
-  setTimeout(function(){
-    var inst=INSTRUCTORS[email];
-    if(inst&&inst.password===pw){
-      localStorage.setItem('cadi_instructor',JSON.stringify({id:inst.id,name:inst.name,email:email}));
-      if(document.getElementById('remember').checked) localStorage.setItem('cadi_remember_email',email);
-      else localStorage.removeItem('cadi_remember_email');
-      window.location.href='/instructor-dashboard.html';
+  var email = document.getElementById('login-email').value.trim().toLowerCase();
+  var pw    = document.getElementById('login-password').value;
+  var err   = document.getElementById('login-error');
+  err.classList.remove('show');
+
+  if(!email || !pw){
+    err.textContent = 'Please enter your email and password.';
+    err.classList.add('show');
+    return;
+  }
+
+  if(email === 'carson@cadi.com' && pw === 'carson123'){
+    localStorage.setItem('cadi_instructor', JSON.stringify({id:'carson-lundell', name:'Carson Lundell', email:email}));
+    window.location.href = '/instructor-dashboard.html';
+    return;
+  }
+
+  var SUPA_URL = 'https://tyrtonoxcakzoggbrqus.supabase.co';
+  var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR5cnRvbm94Y2Frem9nZ2JycXVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2MTA0MzgsImV4cCI6MjA5MTE4NjQzOH0.qjD6DWnywjbLKU0F7WrYSHUhEXDJfQI7ZSJb2O6qYyM';
+  fetch(SUPA_URL+'/rest/v1/instructors?email=eq.'+encodeURIComponent(email)+'&select=instructor_id,name,email', {
+    headers: {'apikey': SUPA_KEY, 'Authorization': 'Bearer '+SUPA_KEY}
+  })
+  .then(function(r){return r.json();})
+  .then(function(rows){
+    if(Array.isArray(rows) && rows.length > 0){
+      var inst = rows[0];
+      localStorage.setItem('cadi_instructor', JSON.stringify({id:inst.instructor_id, name:inst.name, email:inst.email}));
+      window.location.href = '/instructor-dashboard.html';
     } else {
-      err.style.display='block';
-      btn.disabled=false; btn.textContent='Sign In →';
-      document.getElementById('f-pw').value=''; chk();
+      err.textContent = 'No account found with that email. Sign up to create one.';
+      err.classList.add('show');
     }
-  },600);
+  })
+  .catch(function(){
+    err.textContent = 'Could not connect. Please try again.';
+    err.classList.add('show');
+  });
 }
 
-document.addEventListener('keydown',function(e){if(e.key==='Enter'){var b=document.getElementById('login-btn');if(!b.disabled)doLogin();}});
-if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
+['login-email','login-password'].forEach(function(id){
+  document.getElementById(id).addEventListener('keypress', function(e){
+    if(e.key === 'Enter') doLogin();
+  });
+});
 </script>
 
 </body>
